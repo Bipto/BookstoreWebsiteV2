@@ -1,6 +1,6 @@
 @use "variables";
 
-.book-modal {
+.modal {
     position: fixed;
     inset: 0;
     z-index: 1000;
@@ -14,18 +14,18 @@
     background: rgba(15, 23, 42, 0.65);
 }
 
-.book-modal[hidden] {
+.modal[hidden] {
     display: none;
 }
 
-.book-modal-overlay {
+.modal-overlay {
     position: absolute;
     inset: 0;
 
     background: transparent;
 }
 
-.book-modal-content {
+.modal-content {
     position: relative;
     z-index: 1;
 
@@ -52,7 +52,7 @@
    Header
 ------------------------- */
 
-.book-modal-header {
+.modal-header {
     flex: 0 0 auto;
 
     display: flex;
@@ -67,7 +67,7 @@
     border-bottom: 1px solid rgba(variables.$primary-color, 0.12);
 }
 
-.book-modal-header h2 {
+.modal-header h2 {
     margin: 0;
 
     color: variables.$primary-color;
@@ -81,7 +81,7 @@
    Scrollable content
 ------------------------- */
 
-.book-modal-body {
+.modal-body {
     flex: 1 1 auto;
 
     min-height: 0;
@@ -97,15 +97,15 @@
         rgba(variables.$primary-color, 0.25) transparent;
 }
 
-.book-modal-body::-webkit-scrollbar {
+.modal-body::-webkit-scrollbar {
     width: 8px;
 }
 
-.book-modal-body::-webkit-scrollbar-track {
+.modal-body::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.book-modal-body::-webkit-scrollbar-thumb {
+.modal-body::-webkit-scrollbar-thumb {
     background: rgba(variables.$primary-color, 0.25);
     border-radius: 10px;
 }
@@ -114,7 +114,7 @@
    Footer
 ------------------------- */
 
-.book-modal-footer {
+.modal-footer {
     flex: 0 0 auto;
 
     display: flex;
@@ -218,8 +218,8 @@
     line-height: 1.7;
 }
 
-.book-modal-footer button,
-.book-modal-footer a {
+.modal-footer button,
+.modal-footer a {
     min-height: 44px;
 
     display: inline-flex;
@@ -245,20 +245,20 @@
         box-shadow 0.15s ease;
 }
 
-.book-modal-footer button:hover,
-.book-modal-footer a:hover {
+.modal-footer button:hover,
+.modal-footer a:hover {
     transform: translateY(-1px);
 }
 
-.book-modal-footer button:focus-visible,
-.book-modal-footer a:focus-visible {
+.modal-footer button:focus-visible,
+.modal-footer a:focus-visible {
     outline: 2px solid variables.$primary-color;
     outline-offset: 2px;
 }
 
 /* Secondary button */
 
-.book-modal-footer a {
+.modal-footer a {
     background: transparent;
     color: variables.$primary-color;
 
@@ -272,7 +272,7 @@
 
 /* Add to cart */
 
-.book-modal-footer .add-to-cart {
+.modal-footer .add-to-cart {
     background-color: variables.$primary-color;
     color: variables.$secondary-color;
 
