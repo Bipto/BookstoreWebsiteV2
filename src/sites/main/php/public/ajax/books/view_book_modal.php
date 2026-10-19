@@ -1,19 +1,7 @@
 <?php
 
 require_once '/var/www/shared/api.php';
-
-function truncate(string $text, int $maxLength): string
-{
-    if (strlen($text) <= $maxLength) {
-        return $text;
-    }
-
-    $text = substr($text, 0, $maxLength - 3);
-    $text = substr($text, 0, strrpos($text, ' '));
-
-    return $text . '...';
-}
-
+require_once '/var/www/shared/utils/text_utils.php';
 
 $id = $_GET['id'] ?? 1;
 

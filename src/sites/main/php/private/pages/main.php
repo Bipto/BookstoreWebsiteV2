@@ -75,3 +75,5 @@ $genreCount = count($genres);
 </div>
 
 <?= ModalBuilder::build('book-modal'); ?>
+
+<script type="module" src="/js/view_book_modal.js"></script>

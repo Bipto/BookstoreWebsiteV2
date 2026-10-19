@@ -7,12 +7,11 @@ $url = $queryString != '' ? "/books?{$queryString}" : "/books";
 
 $response = API::get($url);
 $results = json_decode($response, true);
-
-if ($results['success']) {
-
-    $decodedData = json_decode($results['data'], true);
+$decodedData = json_decode($results['data'], true) ?? [];
 
 ?>
+
+<?php if ($results['success']): ?>
 
     <div class="book-grid">
 
@@ -63,12 +62,6 @@ if ($results['success']) {
 
         <?php endforeach; ?>
     </div>
-<?php
-
-
-} else {
-
-    echo '<h1>Failed to connect to database and retrieve books</h1>';
-}
-
-?>
+<?php else: ?>
+    <h1>Failed to connect to database and retrieve books</h1>
+<?php endif; ?>

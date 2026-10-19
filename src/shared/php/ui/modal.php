@@ -40,7 +40,6 @@ class ModalBuilder
 
         </div>
 
-        <script src='/js/modal.js'></script>
         <script src='/js/filters.js'></script>
         HTML;
     }
