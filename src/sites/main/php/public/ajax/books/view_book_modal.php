@@ -28,7 +28,7 @@ if ($results['success']) {
 
     foreach ($genres as $index => $genre) {
         $genreHTML .= sprintf(
-            "<a class='genre-link' href='/genres/{$genre['genre_id']}'>%s</a>",
+            "<a class='genre-link' href='/view_genre/{$genre['genre_id']}'>%s</a>",
             htmlspecialchars($genre['name'], ENT_QUOTES, 'UTF-8')
         );
     }

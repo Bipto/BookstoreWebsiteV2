@@ -54,6 +54,10 @@ $router->get(
     '/genres',
     [$genreController, 'getGenres']
 );
+$router->get(
+    '/genres/{id}',
+    fn($id) => $genreController->getGenreById($id)
+);
 $router->post(
     '/users',
     [$userController, 'addUser']

@@ -68,6 +68,10 @@ session_start();
         echo AJAX::call("/ajax/books/view_book.php?id={$id}", 'page-content');
     });
 
+    $router->get('/view_genre/{genre_id}', function ($id) {
+        echo AJAX::call("/ajax/genres/view_genre.php?id={$id}", 'page-content');
+    });
+
     $router->get('/login', '/var/www/sites/main/private/pages/login.php');
     $router->get('/create_account', '/var/www/sites/main/private/pages/create_account.php');
     $router->get('/logout', '/var/www/sites/main/private/utils/handle_logout.php');

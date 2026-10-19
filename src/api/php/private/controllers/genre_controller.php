@@ -31,4 +31,24 @@ class GenreController
 
         echo json_encode($data);
     }
+
+    public function getGenreById(int $id): void
+    {
+        $queryBuilder = QueryBuilder::table('bookstore.genres', 'g')
+            ->select([
+                'genre_id',
+                'name',
+                'description'
+            ])
+            ->where([
+                'genre_id' => $id
+            ]);
+
+        $results = $this->db->executeAndReturnOne($queryBuilder);
+        if ($results === false) {
+            REST::response(404, ['error' => 'An invalid genre ID was entered']);
+        } else {
+            REST::response(200, $results);
+        }
+    }
 }
