@@ -7,10 +7,10 @@ $email = urlencode($email);
 
 $url = "/cart?email={$email}";
 
-$response = json_decode(API::get($url), TRUE);
+$response = API::get($url);
 
-if ($response['success'] == true) {
-    $data = json_decode($response['data'], TRUE) ?? [];
+if (!$response->hasError()) {
+    $data = $response->getData();
     $cartData = $data['cart'] ?? [];
 }
 

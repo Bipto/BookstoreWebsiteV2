@@ -6,16 +6,14 @@ $queryString = $_SERVER['QUERY_STRING'];
 $url = $queryString != '' ? "/books?{$queryString}" : "/books";
 
 $response = API::get($url);
-$results = json_decode($response, true);
-$decodedData = json_decode($results['data'], true) ?? [];
 
 ?>
 
-<?php if ($results['success']): ?>
+<?php if (!$response->hasError()): ?>
 
     <div class="book-grid">
 
-        <?php foreach ($decodedData as $result): ?>
+        <?php foreach ($response->getData() as $result): ?>
 
             <?php
             $bookId = htmlspecialchars(

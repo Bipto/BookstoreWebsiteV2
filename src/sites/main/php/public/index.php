@@ -48,9 +48,9 @@ session_start();
     $cartCount = 0;
 
     $url = "/cart?email={$email}";
-    $response = json_decode(API::get($url), TRUE);
-    if ($response['success'] === true) {
-        $data = json_decode($response['data'], TRUE);
+    $response = API::get($url);
+    if (!$response->hasError()) {
+        $data = $response->getData();
         $cartCount = count($data['cart']);
     }
 

@@ -13,8 +13,8 @@ $data = [
     'password' => $password
 ];
 
-$response = json_decode(API::post('/auth/login', $data), TRUE);
-if ($response['success'] === true) {
+$response = API::post('/auth/login', $data);
+if (!$response->hasError()) {
     $_SESSION['email'] = $email;
     echo '<script>window.location.href="/"</script>';
     exit;

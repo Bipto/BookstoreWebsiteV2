@@ -6,14 +6,13 @@ require_once '/var/www/shared/utils/text_utils.php';
 $id = $_GET['id'] ?? 1;
 
 $response = API::get("/books/{$id}");
-$results = json_decode($response, true);
 
 $output = [
     'success' => false
 ];
 
-if ($results['success']) {
-    $data = json_decode($results['data'], true);
+if (!$response->hasError()) {
+    $data = $response->getData();
 
     $imagePath = "/img/" . rawurlencode($data['image_path']);
     $price = (float) ($data['price'] ?? 0);

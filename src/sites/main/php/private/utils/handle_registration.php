@@ -25,9 +25,8 @@ if (!is_null($email) && !is_null($firstName) && !is_null($lastName) && !is_null(
         'password' => $password
     ];
 
-    $response = json_decode(API::post('/users', $data), TRUE);
-    $data = json_decode($response['data'], TRUE);
-    if ($data['success'] === true) {
+    $response = API::post('/users', $data);
+    if (!$response->hasError()) {
         $_SESSION['email'] = $email;
         echo '<script>window.location.href="/"</script>';
         exit;

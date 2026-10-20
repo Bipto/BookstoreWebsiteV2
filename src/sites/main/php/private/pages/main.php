@@ -4,9 +4,9 @@ require_once '/var/www/shared/api.php';
 require_once '/var/www/shared/ajax.php';
 require_once '/var/www/shared/ui/modal.php';
 
-$data = json_decode(API::get('/genres?active=true'), TRUE);
-$genres = json_decode($data['data'], TRUE);
-$genreCount = count($genres);
+$response = API::get('/genres?active=true');
+$data = $response->getData();
+$genreCount = count($data);
 
 ?>
 
@@ -49,7 +49,7 @@ $genreCount = count($genres);
                 <fieldset>
                     <legend>Genres</legend>
 
-                    <?php foreach ($genres as $genre): ?>
+                    <?php foreach ($data as $genre): ?>
 
                         <label>
                             <input

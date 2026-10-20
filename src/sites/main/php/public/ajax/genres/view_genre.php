@@ -5,10 +5,9 @@ require_once '/var/www/shared/api.php';
 $id = $_GET['id'] ?? 1;
 
 $response = API::get("/genres/{$id}");
-$results = json_decode($response, true);
 
-if ($results['success']) {
-    $data = json_decode($results['data'], true);
+if (!$response->hasError()) {
+    $data = $response->getData();
 
     $name = $data['name'] ?? '';
     $imagePath = isset($data['image_path']) ? "/img/{$data['image_path']}" : '';

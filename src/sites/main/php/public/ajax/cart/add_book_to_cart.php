@@ -12,4 +12,4 @@ $response = API::post('/cart', [
     'bookId' => $bookId
 ]);
 
-echo json_encode($response);
+echo json_encode($response->getData());
