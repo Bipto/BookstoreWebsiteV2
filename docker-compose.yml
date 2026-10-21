@@ -1,35 +1,6 @@
 services:
 
   # ==========================================================
-  # SFTP
-  # ==========================================================
-
-  sftp:
-    image: atmoz/sftp:latest
-    container_name: multidomain-sftp
-
-    ports:
-      - "2222:22"
-
-    volumes:
-      # Main site
-      - ./src/sites/main:/home/dev/main
-
-      # Admin site
-      - ./src/sites/admin:/home/dev/admin
-
-      # API files
-      - ./src/api:/home/dev/api
-
-      # Shared files
-      - ./src/shared:/home/dev/shared
-
-    command: dev:devpass:1001
-
-    networks:
-      - web
-
-  # ==========================================================
   # Apache
   # ==========================================================
 
@@ -44,6 +15,7 @@ services:
     volumes:
       - ./src/sites/main/php:/var/www/sites/main:ro
       - ./src/sites/admin/php:/var/www/sites/admin:ro
+      - ./src/sites/assets/php:/var/www/sites/assets:ro
       - ./src/api/php:/var/www/api:ro
       - ./src/shared/php:/var/www/shared:ro
 
@@ -51,6 +23,7 @@ services:
       - php-main
       - php-admin
       - php-api
+      - php-assets
 
     networks:
       - web
@@ -126,6 +99,33 @@ services:
       - ./src/shared/php:/var/www/shared:ro
       - ./composer.json:/var/www/composer.json:ro
       - ./src/api/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    cpus: "0.50"
+    mem_limit: 512m
+
+    networks:
+      - web
+
+  # ==========================================================
+  # assets.localhost
+  # ==========================================================
+
+  php-assets:
+    build:
+      context: ./php
+    container_name: multidomain-php-assets
+
+    env_file:
+      - ./.env
+
+    volumes:
+      - ./src/sites/assets/php:/var/www/sites/assets:ro
+      - ./src/shared/php:/var/www/shared:ro
+      - ./composer.json:/var/www/composer.json:ro
+      - ./src/sites/assets/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
