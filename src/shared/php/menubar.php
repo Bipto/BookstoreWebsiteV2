@@ -44,25 +44,62 @@ class Menubar
 
         $styleText = $this->cartCount === 0 ? 'style="display: none"' : '';
 
-        $html .= "
-    <div class='right-hand-menu'>
-    <div class='cart'>
-        <div class='cart-circle' id='cart-circle'>
-            <i class='fa-solid fa-cart-shopping'></i>
-            <span class='cart-count' id='cart-count' {$styleText}>{$this->cartCount}</span>
-            <span class='dropdown-arrow-cart'></span>
-        </div>
 
-        <div class='menu-dropdown' id='cart-dropdown' style='width: 20em;'>
-            <div id='cart-content'>
+
+        $html .= "
+            <div class='right-hand-menu'>
+            <div
+            class='cart'
+            x-data='cartMenu()'
+            :class=\"{ 'open': cartOpen }\"
+            @click.outside='cartOpen = false'
+            @keydown.escape.window='cartOpen = false'
+        >
+            <div
+                class='cart-circle'
+                id='cart-circle'
+                @click.stop='toggle()'
+                role='button'
+                tabindex='0'
+                @keydown.enter.prevent='toggle()'
+                @keydown.space.prevent='toggle()'
+                :aria-expanded='cartOpen.toString()'
+                aria-controls='cart-dropdown'
+            >
+                <i class='fa-solid fa-cart-shopping'></i>
+    
+                <span class='cart-count' id='cart-count' {$styleText}>{$this->cartCount}</span>
+    
+                <span class='dropdown-arrow-cart'></span>
             </div>
-            <div class='spinner-container' id='cart-spinner'>
-                <div class='spinner'>
+    
+            <div
+                class='menu-dropdown'
+                id='cart-dropdown'
+                style='width: 20em;'
+                :class=\"{ 'show': cartOpen }\"
+                x-show='cartOpen'
+                x-cloak
+            >
+            <div
+                id='cart-content'
+                hx-get='/ajax/cart/get_cart.php'
+                hx-trigger='cart-refresh'
+                hx-target='this'
+                hx-swap='innerHTML'
+                hx-indicator='#cart-spinner'
+                class='cart-content'
+            >
+            </div>
+
+                <div
+                    class='spinner-container htmx-indicator'
+                    id='cart-spinner'
+                >
+                    <div class='spinner'></div>
                 </div>
             </div>
-        </div>
-    </div>
-    ";
+        </div>";
 
         $html .= '<div class="profile">';
 
@@ -96,6 +133,25 @@ class Menubar
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
+
+        $html .= "<script>        
+            function cartMenu() {
+                return {
+                    cartOpen: false,
+            
+                    toggle() {
+                        this.cartOpen = !this.cartOpen;
+            
+                        if (this.cartOpen) {
+                            htmx.trigger(
+                                document.getElementById('cart-content'),
+                                'cart-refresh'
+                            );
+                        }
+                    }
+                };
+            }        
+        </script>";
 
         return $html;
     }

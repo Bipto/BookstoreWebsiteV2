@@ -25,13 +25,28 @@ $genreCount = count($data);
             <span class="filter-arrow" aria-hidden="true"></span>
         </button>
 
-        <div class="book-filter-content" id="book-filter-content">
+
+        <div
+            class="book-filter-content"
+            id="book-filter-content"
+
+            hx-get="/ajax/books/view_book_grid.php"
+            hx-trigger="
+                input changed delay:50ms from:#book-search,
+                input changed delay:50ms from:#author-search,
+                change from:input[name='genre[]']
+            "
+            hx-include="#book-search, #author-search, input[name='genre[]']:checked"
+            hx-target="#page-content"
+            hx-swap="innerHTML"
+            hx-sync="this:replace">
 
             <label for="book-search">Search books</label>
 
             <input
                 type="search"
                 id="book-search"
+                name="title"
                 placeholder="Search by title..."
                 autocomplete="off">
 
@@ -40,12 +55,14 @@ $genreCount = count($data);
             <input
                 type="search"
                 id="author-search"
+                name="author"
                 placeholder="Search by author..."
                 autocomplete="off">
 
             <?php if ($genreCount > 0): ?>
 
                 <hr>
+
                 <fieldset>
                     <legend>Genres</legend>
 
@@ -54,7 +71,7 @@ $genreCount = count($data);
                         <label>
                             <input
                                 type="checkbox"
-                                name="genre"
+                                name="genre[]"
                                 value="<?= htmlspecialchars($genre['genre_id']) ?>">
 
                             <?= htmlspecialchars($genre['name']) ?>
@@ -68,6 +85,7 @@ $genreCount = count($data);
             <?php endif; ?>
 
         </div>
+
     </aside>
 
     <?= AJAX::call('/ajax/books/view_book_grid.php', 'page-content'); ?>
