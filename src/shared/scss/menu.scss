@@ -1,17 +1,24 @@
 @use "variables";
 
 // ==============================
+// Navigation bar container
+// ==============================
+
+.menubar-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+}
+
+// ==============================
 // Navigation bar
 // ==============================
 
 .menubar {
     flex-shrink: 0;
-
     width: 100%;
-
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 
     display: flex;
     align-items: center;
@@ -232,6 +239,8 @@
 
 .dropdown-arrow-cart,
 .dropdown-arrow-profile {
+    flex-shrink: 0;
+
     width: 7px;
     height: 7px;
 
@@ -239,21 +248,30 @@
     border-bottom: 2px solid white;
 
     transform: rotate(45deg);
-
-    transform-origin: center;
+    transform-origin: center center;
 
     transition: transform 0.2s ease;
 }
 
-.profile.open {
-    .dropdown-arrow-profile {
-        transform: rotate(225deg);
-    }
+// Profile arrow — Alpine.js controls the rotation
+
+.dropdown-arrow-profile.rotated {
+    transform: rotate(225deg);
 }
+
+// Cart arrow — retain the existing open class behavior
 
 .cart.open {
     .dropdown-arrow-cart {
         transform: rotate(225deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dropdown-arrow-cart,
+    .dropdown-arrow-profile {
+        transition: none;
     }
 }
 
@@ -325,7 +343,6 @@
 // ==============================
 
 @media (max-width: 920px) {
-
     .menubar {
         padding: 0.5rem 5%;
     }
@@ -333,6 +350,8 @@
     // Logo
 
     .company-logo {
+        margin-right: auto;
+
         .company-logo-img {
             height: 3rem;
         }
@@ -411,6 +430,7 @@
     // Cart / Profile
 
     .right-hand-menu {
+        flex-shrink: 0;
         gap: 0.5rem;
     }
 
@@ -431,7 +451,6 @@
 // ==============================
 
 @media (max-width: 480px) {
-
     .menubar {
         padding-left: 1rem;
         padding-right: 1rem;
@@ -581,26 +600,9 @@
     }
 }
 
-@media (max-width: 920px) {
-    .company-logo {
-        margin-right: auto;
-
-        .company-logo-img {
-            height: 3rem;
-        }
-    }
-
-    .hamburger {
-        display: block;
-        flex-shrink: 0;
-        margin-right: 0.5rem;
-    }
-
-    .right-hand-menu {
-        flex-shrink: 0;
-        gap: 0.5rem;
-    }
-}
+// ==============================
+// Cart item count
+// ==============================
 
 .cart-circle {
     position: relative;
@@ -646,6 +648,10 @@
     }
 }
 
+// ==============================
+// Profile button link styling
+// ==============================
+
 .profile-button,
 .profile-button:visited,
 .profile-button:hover,
@@ -653,6 +659,10 @@
     color: inherit;
     text-decoration: none;
 }
+
+// ==============================
+// HTMX cart loading indicator
+// ==============================
 
 #cart-content.htmx-request {
     display: none;
@@ -665,6 +675,10 @@
 #cart-content.htmx-request~#cart-spinner.htmx-indicator {
     display: block;
 }
+
+// ==============================
+// Alpine.js cloak
+// ==============================
 
 [x-cloak] {
     display: none !important;

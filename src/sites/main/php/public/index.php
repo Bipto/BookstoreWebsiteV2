@@ -85,8 +85,6 @@ session_start();
     $router->dispatch();
 
     ?>
-
-    <script src="/js/menubar.js"></script>
 </body>
 
 </html>
