@@ -12,23 +12,27 @@ $genreCount = count($data);
 
 <div class="book-catalogue">
 
-    <aside class="book-filters">
+    <aside class="book-filters" x-data="{ open: false }">
 
         <button
             type="button"
             class="book-filters-toggle"
-            aria-expanded="false"
+            @click="open = !open"
+            :aria-expanded="open.toString()"
             aria-controls="book-filter-content">
 
             <span>Filters</span>
 
-            <span class="filter-arrow" aria-hidden="true"></span>
+            <span
+                class="filter-arrow"
+                aria-hidden="true">
+            </span>
         </button>
-
 
         <div
             class="book-filter-content"
             id="book-filter-content"
+            x-show="open"
 
             hx-get="/ajax/books/view_book_grid.php"
             hx-trigger="

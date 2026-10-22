@@ -157,3 +157,14 @@ input {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Desktop: always show filters */
+@media (min-width: 768px) {
+    .book-filters-toggle {
+        display: none;
+    }
+
+    .book-filter-content {
+        display: block !important;
+    }
+}

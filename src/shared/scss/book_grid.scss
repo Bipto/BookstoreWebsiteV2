@@ -1,135 +1,8 @@
 @use "variables";
 
-.book-filters-toggle {
-    display: none;
-}
-
-@media (max-width: 760px) {
-
-    .book-catalogue {
-        display: block;
-
-        width: 100%;
-
-        padding: 1rem;
-    }
-
-    .book-filters {
-        position: sticky;
-        top: 5rem;
-
-        width: 100%;
-        padding: 1rem;
-
-        margin: 0 0 1rem;
-
-        background-color: lighten(variables.$secondary-color, 3%);
-
-        border: 1px solid rgba(variables.$primary-color, 0.1);
-        border-radius: 12px;
-
-        box-shadow:
-            0 3px 10px rgba(0, 0, 0, 0.05);
-
-        backdrop-filter: none;
-    }
-
-    // Mobile filter button
-
-    .book-filters-toggle {
-        width: 100%;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding: 0.75rem 0.9rem;
-
-        border: none;
-        border-radius: 10px;
-
-        background: transparent;
-        color: variables.$primary-color;
-
-        font: inherit;
-        font-size: 0.9rem;
-        font-weight: 700;
-
-        cursor: pointer;
-
-        text-align: left;
-
-        &:hover {
-            background-color: rgba(variables.$primary-color, 0.05);
-        }
-
-        &:focus-visible {
-            outline: 2px solid variables.$primary-color;
-            outline-offset: -2px;
-        }
-    }
-
-    // Arrow
-
-    .filter-arrow {
-        width: 8px;
-        height: 8px;
-
-        border-right: 2px solid variables.$primary-color;
-        border-bottom: 2px solid variables.$primary-color;
-
-        transform: rotate(45deg);
-
-        transition: transform 0.2s ease;
-    }
-
-    .book-filters-toggle[aria-expanded="true"] {
-        .filter-arrow {
-            transform: rotate(225deg);
-        }
-    }
-
-    // Filter content
-
-    .book-filter-content {
-        display: none;
-
-        padding: 0 0.9rem 0.9rem;
-    }
-
-    .book-filters.is-open {
-        .book-filter-content {
-            display: block;
-        }
-    }
-
-    // Search inputs
-
-    .book-filters>.book-filter-content>input[type="search"] {
-        margin-bottom: 0.8rem;
-    }
-
-    // Books
-
-    .book-grid {
-        grid-template-columns: repeat(auto-fill,
-                minmax(180px, 1fr));
-
-        gap: 1rem;
-    }
-}
-
-@media (min-width: 921px) {
-    .book-catalogue {
-        padding-top: 1.75rem;
-        padding-bottom: 2rem;
-    }
-
-    .book-grid {
-        row-gap: 1.75rem;
-        column-gap: 1.5rem;
-    }
-}
+// ==============================
+// Book catalogue layout
+// ==============================
 
 .book-catalogue {
     display: grid;
@@ -145,6 +18,14 @@
     align-items: start;
 }
 
+// ==============================
+// Book filters
+// ==============================
+
+.book-filters-toggle {
+    display: none;
+}
+
 .book-filters {
     position: sticky;
     top: 5rem;
@@ -152,6 +33,7 @@
     align-self: start;
 
     width: 220px;
+    box-sizing: border-box;
 
     padding: 1rem;
 
@@ -160,8 +42,7 @@
     border: 1px solid rgba(variables.$primary-color, 0.1);
     border-radius: 12px;
 
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 
     >label {
         display: block;
@@ -172,44 +53,6 @@
 
         font-size: 0.75rem;
         font-weight: 700;
-    }
-
-    >input[type="search"] {
-        display: block;
-
-        width: 100%;
-
-        padding: 0.6rem 0.7rem;
-        margin: 0 0 0.9rem;
-
-        background-color: variables.$secondary-color;
-        color: variables.$primary-color;
-
-        border: 1px solid rgba(variables.$primary-color, 0.15);
-        border-radius: 8px;
-
-        font: inherit;
-        font-size: 0.85rem;
-
-        outline: none;
-
-        transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease,
-            background-color 0.2s ease;
-
-        &::placeholder {
-            color: rgba(variables.$primary-color, 0.45);
-        }
-
-        &:focus {
-            background-color: lighten(variables.$secondary-color, 2%);
-
-            border-color: variables.$primary-color;
-
-            box-shadow:
-                0 0 0 2px rgba(variables.$primary-color, 0.1);
-        }
     }
 
     fieldset {
@@ -277,9 +120,6 @@
             place-items: center;
 
             cursor: pointer;
-
-            // Prevent the checkbox from being affected
-            // by the global input styles.
             box-sizing: border-box;
 
             &::after {
@@ -313,6 +153,169 @@
     }
 }
 
+// Search inputs, now inside .book-filter-content
+
+.book-filter-content {
+    >label {
+        display: block;
+
+        margin: 0 0 0.3rem;
+
+        color: variables.$primary-color;
+
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    >input[type="search"] {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 0.6rem 0.7rem;
+        margin: 0 0 0.9rem;
+
+        background-color: variables.$secondary-color;
+        color: variables.$primary-color;
+
+        border: 1px solid rgba(variables.$primary-color, 0.15);
+        border-radius: 8px;
+
+        font: inherit;
+        font-size: 0.85rem;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+
+        &::placeholder {
+            color: rgba(variables.$primary-color, 0.45);
+        }
+
+        &:focus {
+            background-color: lighten(variables.$secondary-color, 2%);
+
+            border-color: variables.$primary-color;
+
+            box-shadow: 0 0 0 2px rgba(variables.$primary-color, 0.1);
+        }
+    }
+}
+
+// ==============================
+// Mobile filter menu
+// ==============================
+
+@media (max-width: 760px) {
+    .book-catalogue {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 1rem;
+    }
+
+    .book-filters {
+        position: sticky;
+        top: 5rem;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 1rem;
+        margin: 0 0 0.75rem;
+
+        background-color: lighten(variables.$secondary-color, 3%);
+
+        border: 1px solid rgba(variables.$primary-color, 0.1);
+        border-radius: 16px;
+
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+        backdrop-filter: none;
+    }
+
+    .book-filters-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
+        padding: 0.75rem 0.9rem;
+
+        border: none;
+        border-radius: 10px;
+
+        background: transparent;
+        color: variables.$primary-color;
+
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 700;
+
+        cursor: pointer;
+        text-align: left;
+
+        &:hover {
+            background-color: rgba(variables.$primary-color, 0.05);
+        }
+
+        &:focus-visible {
+            outline: 2px solid variables.$primary-color;
+            outline-offset: -2px;
+        }
+    }
+
+    .filter-arrow {
+        width: 8px;
+        height: 8px;
+
+        border-right: 2px solid variables.$primary-color;
+        border-bottom: 2px solid variables.$primary-color;
+
+        transform: rotate(45deg);
+
+        transition: transform 0.2s ease;
+    }
+
+    .book-filters-toggle[aria-expanded="true"] .filter-arrow {
+        transform: rotate(225deg);
+    }
+
+    // Alpine.js controls visibility using x-show.
+    // Do not set display: none here.
+
+    .book-filter-content {
+        padding: 0 0.9rem 0.9rem;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+}
+
+// ==============================
+// Desktop filter visibility
+// ==============================
+
+@media (min-width: 761px) {
+    .book-filters-toggle {
+        display: none;
+    }
+
+    // Override Alpine's inline display:none on desktop.
+    .book-filter-content {
+        display: block !important;
+    }
+}
+
 // ==============================
 // Book grid
 // ==============================
@@ -320,8 +323,7 @@
 .book-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(auto-fill, minmax(170px, 200px));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 200px));
 
     justify-content: center;
 
@@ -331,6 +333,22 @@
 
     padding: 2rem 5%;
 }
+
+@media (min-width: 921px) {
+    .book-catalogue {
+        padding-top: 1.75rem;
+        padding-bottom: 2rem;
+    }
+
+    .book-grid {
+        row-gap: 1.75rem;
+        column-gap: 1.5rem;
+    }
+}
+
+// ==============================
+// View book genres
+// ==============================
 
 .view-book-genres {
     display: flex;
@@ -398,7 +416,6 @@
     font: inherit;
 
     cursor: pointer;
-
     text-align: inherit;
 
     &:focus-visible {
@@ -449,8 +466,7 @@
 
     background-color: rgba(0, 0, 0, 0.05);
 
-    box-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 
     transition:
         transform 0.2s ease,
@@ -470,13 +486,10 @@
     font-weight: 600;
 
     line-height: 1.35;
-
     text-align: center;
 
     overflow: hidden;
-
     text-overflow: ellipsis;
-
     white-space: nowrap;
 }
 
@@ -489,8 +502,7 @@
 
     transform: translateY(-4px);
 
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 
     color: white;
 }
@@ -498,8 +510,7 @@
 .book-link:hover .book-image {
     transform: scale(1.02);
 
-    box-shadow:
-        0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 // ==============================
@@ -511,10 +522,10 @@
     opacity: 0;
 
     position: absolute;
-
     z-index: 100;
 
     width: 180px;
+    box-sizing: border-box;
 
     padding: 8px 10px;
 
@@ -522,8 +533,6 @@
     left: 50%;
 
     transform: translateX(-50%);
-
-    box-sizing: border-box;
 
     background: #222;
     color: white;
@@ -621,8 +630,7 @@
 
     border-radius: 10px;
 
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .view-book-details {
@@ -648,32 +656,4 @@
     line-height: 1.7;
 
     text-align: left;
-}
-
-@media (max-width: 760px) {
-    .book-catalogue {
-        display: block;
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .book-filters {
-        position: sticky;
-        top: 5rem;
-
-        width: 100%;
-        box-sizing: border-box;
-
-        padding: 1rem;
-        margin: 0 0 0.75rem;
-
-        background-color: lighten(variables.$secondary-color, 3%);
-
-        border: 1px solid rgba(variables.$primary-color, 0.1);
-        border-radius: 16px;
-
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-
-        backdrop-filter: none;
-    }
 }

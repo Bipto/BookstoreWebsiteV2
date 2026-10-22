@@ -39,8 +39,7 @@ class ModalBuilder
             </div>
 
         </div>
-
-        <script src='/js/filters.js'></script>
+        
         HTML;
     }
 }
