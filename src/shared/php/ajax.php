@@ -14,7 +14,7 @@ class AJAX
 
         return <<<HTML
         <div class="page" id="$id">
-            <div class="spinner-container">
+            <div class="spinner-overlay">
                 <div class="spinner"></div>
             </div>
         </div>

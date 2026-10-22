@@ -661,25 +661,28 @@
 }
 
 // ==============================
-// HTMX cart loading indicator
-// ==============================
-
-#cart-content.htmx-request {
-    display: none;
-}
-
-#cart-spinner.htmx-indicator {
-    display: none;
-}
-
-#cart-content.htmx-request~#cart-spinner.htmx-indicator {
-    display: block;
-}
-
-// ==============================
 // Alpine.js cloak
 // ==============================
 
 [x-cloak] {
     display: none !important;
+}
+
+// ==============================
+// HTMX cart loading indicator
+// ==============================
+
+// Hide the spinner by default
+#cart-dropdown #cart-spinner {
+    display: none;
+}
+
+// Hide cart content while loading
+#cart-dropdown #cart-content.htmx-request {
+    display: none;
+}
+
+// Show the spinner while HTMX is loading
+#cart-dropdown #cart-spinner.htmx-request {
+    display: flex;
 }

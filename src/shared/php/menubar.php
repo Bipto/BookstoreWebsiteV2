@@ -169,15 +169,16 @@ class Menubar
                     x-show='cartOpen'
                     x-cloak
                 >
-                    <div
-                        id='cart-content'
-                        hx-get='/ajax/cart/get_cart.php'
-                        hx-trigger='cart-refresh'
-                        hx-target='this'
-                        hx-swap='innerHTML'
-                        hx-indicator='#cart-spinner'
-                        class='cart-content'
-                    ></div>
+                <div
+                    id='cart-content'
+                    x-show='cartOpen'
+                    hx-get='/ajax/cart/get_cart.php'
+                    hx-trigger='cart-refresh'
+                    hx-target='this'
+                    hx-swap='innerHTML'
+                    hx-indicator='#cart-spinner'
+                    class='cart-content'
+                ></div>
 
                     <div
                         class='spinner-container htmx-indicator'
@@ -271,7 +272,19 @@ class Menubar
         return {
             hamburgerOpen: false,
             cartOpen: false,
-            profileOpen: false
+            profileOpen: false,
+
+            init() {
+                this.$watch('cartOpen', (open) => {
+                    if (!open) {
+                        const content = document.getElementById('cart-content');
+
+                        if (content) {
+                            content.innerHTML = '';
+                        }
+                    }
+                });
+            }
         };
     }
 </script>

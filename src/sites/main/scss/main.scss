@@ -113,30 +113,51 @@ input {
 }
 
 // ==============================
+// HTMX cart loading indicator
+// ==============================
+
+/* Hide cart content while the request is active */
+#cart-dropdown #cart-content.htmx-request {
+    display: none;
+}
+
+/* Hide spinner by default */
+#cart-dropdown #cart-spinner {
+    display: none;
+}
+
+/* Show spinner while cart content is loading */
+#cart-dropdown:has(#cart-content.htmx-request) #cart-spinner {
+    display: flex;
+}
+
+// ==============================
 // Spinner
 // ==============================
 
 .spinner-container {
-    flex: 1;
-
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
     min-height: 0;
+    flex: 1;
+    padding-top: 1.5em;
+    padding-bottom: 2.5em;
 }
 
 .spinner {
     width: 60px;
     height: 60px;
-
     border: 6px solid #e5e5e5;
     border-top: 6px solid #4f46e5;
-
     border-radius: 50%;
-
     animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
@@ -167,4 +188,21 @@ input {
     .book-filter-content {
         display: block !important;
     }
+}
+
+/* Full-screen loading overlay */
+.spinner-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Reuse your existing spinner */
+.spinner-overlay .spinner {
+    width: 60px;
+    height: 60px;
 }
