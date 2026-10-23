@@ -190,19 +190,31 @@ input {
     }
 }
 
-/* Full-screen loading overlay */
-.spinner-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.book-grid-container {
+    position: relative;
+    min-height: 200px;
 }
 
-/* Reuse your existing spinner */
-.spinner-overlay .spinner {
-    width: 60px;
-    height: 60px;
+.spinner-overlay {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.spinner-overlay.htmx-indicator {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner-overlay.htmx-indicator.htmx-request {
+    opacity: 1;
+    visibility: visible;
+}
+
+.book-grid-container:has(.spinner-overlay.htmx-request) #page-content {
+    visibility: hidden;
 }

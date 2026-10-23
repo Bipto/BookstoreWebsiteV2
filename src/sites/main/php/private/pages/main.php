@@ -36,14 +36,15 @@ $genreCount = count($data);
 
             hx-get="/ajax/books/view_book_grid.php"
             hx-trigger="
-                input changed delay:50ms from:#book-search,
-                input changed delay:50ms from:#author-search,
+                input changed delay:300ms from:#book-search,
+                input changed delay:300ms from:#author-search,
                 change from:input[name='genre[]']
             "
             hx-include="#book-search, #author-search, input[name='genre[]']:checked"
             hx-target="#page-content"
             hx-swap="innerHTML"
-            hx-sync="this:replace">
+            hx-sync="this:replace"
+            hx-indicator="#spinner-page-content">
 
             <label for="book-search">Search books</label>
 
@@ -94,6 +95,10 @@ $genreCount = count($data);
 
     <?= AJAX::call('/ajax/books/view_book_grid.php', 'page-content'); ?>
 
+</div>
+
+<div class="spinner-overlay htmx-indicator" id="spinner-page-content">
+    <div class="spinner"></div>
 </div>
 
 <?= ModalBuilder::build('book-modal'); ?>
