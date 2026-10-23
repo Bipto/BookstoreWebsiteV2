@@ -13,23 +13,38 @@ async function AddToCart(id) {
   }
 }
 
-function RemoveFromCart(id, event) {
+async function RemoveFromCart(id, event) {
   event.stopPropagation();
 
-  fetch('/ajax/cart/remove_item_from_cart.php?id=' + id)
-      .then(() => fetch('/ajax/cart/get_cart.php'))
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('cart-content').innerHTML = html;
+  try {
+    // Remove the item from the cart
+    const removeResponse = await fetch(
+        `/ajax/cart/remove_item_from_cart.php?id=${encodeURIComponent(id)}`);
 
-        const cartCount = document.getElementById('cart-count');
-        const count = parseInt(cartCount.textContent, 10);
-        const newCount = count - 1;
+    if (!removeResponse.ok) {
+      throw new Error(`Failed to remove item: ${removeResponse.status}`);
+    }
 
-        cartCount.textContent = newCount;
+    // Fetch the updated cart HTML
+    const cartResponse = await fetch('/ajax/cart/get_cart.php');
 
-        if (newCount === 0) {
-          cartCount.style.display = 'none';
-        }
-      });
+    if (!cartResponse.ok) {
+      throw new Error(`Failed to refresh cart: ${cartResponse.status}`);
+    }
+
+    const html = await cartResponse.text();
+
+    // Update the cart content
+    document.getElementById('cart-content').innerHTML = html;
+
+    // Update the cart count
+    const cartCount = document.getElementById('cart-count');
+    const count = Math.max(0, parseInt(cartCount.textContent, 10) - 1);
+
+    cartCount.textContent = count;
+    cartCount.style.display = count === 0 ? 'none' : '';
+
+  } catch (error) {
+    console.error('Error updating cart:', error);
+  }
 }
