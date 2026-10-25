@@ -44,7 +44,9 @@ $genreCount = count($data);
             hx-target="#page-content"
             hx-swap="innerHTML"
             hx-sync="this:replace"
-            hx-indicator="#spinner-page-content">
+            hx-indicator="#spinner-page-content"
+            hx-on::response-error="this.innerHTML = '<p>Something went wrong.</p>'"
+            hx-on::send-error="this.innerHTML = '<p>Something went wrong.</p>'">
 
             <label for="book-search">Search books</label>
 
