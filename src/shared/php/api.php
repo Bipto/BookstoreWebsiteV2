@@ -46,23 +46,27 @@ class API
 
         curl_setopt_array($ch, $options);
 
-        $response = curl_exec($ch);
+        try {
+            $response = curl_exec($ch);
 
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if ($response === false) {
-            //$json['error'] = curl_error($ch);
-            //$json['success'] = false;
+            if ($response === false) {
+                //$json['error'] = curl_error($ch);
+                //$json['success'] = false;
 
-            return API_Response::error(curl_error($ch), 0);
-        } else {
-            //$json['success'] = ($httpCode >= 200 && $httpCode < 300);
-            //$json['status_code'] = $httpCode;
-            //$json['data'] = $response;
+                return API_Response::error(curl_error($ch), 0);
+            } else {
+                //$json['success'] = ($httpCode >= 200 && $httpCode < 300);
+                //$json['status_code'] = $httpCode;
+                //$json['data'] = $response;
 
-            return $httpCode >= 200 && $httpCode < 300 ?
-                API_Response::success(json_decode($response, true), $httpCode) :
-                API_Response::error(curl_error($ch), $httpCode);
+                return $httpCode >= 200 && $httpCode < 300 ?
+                    API_Response::success(json_decode($response, true), $httpCode) :
+                    API_Response::error(curl_error($ch), $httpCode);
+            }
+        } catch (Exception $e) {
+            return API_Response::error($e->getMessage(), 0);
         }
     }
 

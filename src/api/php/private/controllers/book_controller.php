@@ -1,5 +1,6 @@
 <?php
 
+require_once '/var/www/shared/rest_builder.php';
 require_once '/var/www/shared/db.php';
 
 class BookController
@@ -81,11 +82,15 @@ class BookController
             b.image_path
     ";
 
-        $stmt = $pdo->prepare($sql);
 
-        $stmt->execute($params);
-        $data = $stmt->fetchAll();
-        echo json_encode($data);
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $data = $stmt->fetchAll();
+            REST::response(200, $data);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
+        }
     }
 
     public function getBookById(int $id): void
@@ -129,9 +134,12 @@ class BookController
             b.image_path
     ");
 
-        $stmt->execute(['book_id' => $id]);
-        $result = $stmt->fetch();
-
-        echo json_encode($result);
+        try {
+            $stmt->execute(['book_id' => $id]);
+            $result = $stmt->fetch();
+            REST::response(200, $result);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
+        }
     }
 }

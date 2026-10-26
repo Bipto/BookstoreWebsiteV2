@@ -61,5 +61,5 @@ $response = API::get($url);
         <?php endforeach; ?>
     </div>
 <?php else: ?>
-    <h1>Failed to connect to database and retrieve books</h1>
+    <h3>Failed to connect to database and retrieve books</h3>
 <?php endif; ?>

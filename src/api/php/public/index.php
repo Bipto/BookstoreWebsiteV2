@@ -34,48 +34,52 @@ function openDB(): RelationalDatabase
     );
 }
 
-$db = openDB();
-$router = new Router();
-$authController = new AuthController($db);
-$bookController = new BookController($db);
-$cartController = new CartController($db);
-$genreController = new GenreController($db);
-$userController = new UserController($db);
+try {
+    $db = openDB();
+    $router = new Router();
+    $authController = new AuthController($db);
+    $bookController = new BookController($db);
+    $cartController = new CartController($db);
+    $genreController = new GenreController($db);
+    $userController = new UserController($db);
 
-$router->get(
-    '/books',
-    [$bookController, 'getBooks']
-);
-$router->get(
-    '/books/{id}',
-    fn($id) => $bookController->getBookById($id)
-);
-$router->get(
-    '/genres',
-    [$genreController, 'getGenres']
-);
-$router->get(
-    '/genres/{id}',
-    fn($id) => $genreController->getGenreById($id)
-);
-$router->post(
-    '/users',
-    [$userController, 'addUser']
-);
-$router->post(
-    '/cart',
-    [$cartController, 'addBook']
-);
-$router->get(
-    '/cart',
-    [$cartController, 'getCart']
-);
-$router->delete(
-    '/cart',
-    [$cartController, 'removeItem']
-);
-$router->post(
-    '/auth/login',
-    [$authController, 'handleLogin']
-);
-$router->dispatch();
+    $router->get(
+        '/books',
+        [$bookController, 'getBooks']
+    );
+    $router->get(
+        '/books/{id}',
+        fn($id) => $bookController->getBookById($id)
+    );
+    $router->get(
+        '/genres',
+        [$genreController, 'getGenres']
+    );
+    $router->get(
+        '/genres/{id}',
+        fn($id) => $genreController->getGenreById($id)
+    );
+    $router->post(
+        '/users',
+        [$userController, 'addUser']
+    );
+    $router->post(
+        '/cart',
+        [$cartController, 'addBook']
+    );
+    $router->get(
+        '/cart',
+        [$cartController, 'getCart']
+    );
+    $router->delete(
+        '/cart',
+        [$cartController, 'removeItem']
+    );
+    $router->post(
+        '/auth/login',
+        [$authController, 'handleLogin']
+    );
+    $router->dispatch();
+} catch (Exception $e) {
+    REST::response(500, ['error' => 'Failed to connect to database']);
+}

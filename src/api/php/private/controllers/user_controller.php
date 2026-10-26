@@ -1,5 +1,8 @@
 <?php
 
+require_once '/var/www/shared/rest_builder.php';
+require_once '/var/www/shared/db.php';
+
 class UserController
 {
     public function __construct(private RelationalDatabase $db) {}
@@ -18,8 +21,14 @@ class UserController
                 'password' => $password
             ]);
 
-        $json = [];
-        $json['success'] = $this->db->execute($queryBuilder);
-        echo json_encode($json);
+        try {
+            $json = [];
+            $json['success'] = $this->db->execute($queryBuilder);
+            echo json_encode($json);
+
+            REST::response(201, []);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
+        }
     }
 }

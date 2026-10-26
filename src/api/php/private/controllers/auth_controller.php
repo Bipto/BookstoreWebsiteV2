@@ -1,6 +1,7 @@
 <?php
 
 require_once '/var/www/shared/rest_builder.php';
+require_once '/var/www/shared/db.php';
 
 class AuthController
 {
