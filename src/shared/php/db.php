@@ -7,9 +7,24 @@ enum QueryType
     case DELETE;
 }
 
+class CompiledQuery
+{
+    public function __construct(private string $sql, private array $bindings) {}
+
+    public function getSQL(): string
+    {
+        return $this->sql;
+    }
+
+    public function getBindings(): array
+    {
+        return $this->bindings;
+    }
+}
+
 class QueryBuilder
 {
-    private ?QueryType $queryType;
+    private ?QueryType $queryType = null;
     private string $operationString = '';
 
     private $bindingValues = [];
@@ -18,6 +33,11 @@ class QueryBuilder
     private string $joinString = '';
     private string $groupByString = '';
 
+    private int $parameterCounter = 0;
+
+    private array $selects = [];
+    private array $wheres = [];
+
     private function __construct(private string $table, private ?string $alias) {}
 
     public static function table(string $table, ?string $alias = null): QueryBuilder
@@ -25,33 +45,34 @@ class QueryBuilder
         return new QueryBuilder($table, $alias);
     }
 
-    private static function createBindingParameterName(string $name): string
+    private function createBindingParameterName(): string
     {
-        $randomNumber = rand();
-        return ":{$name}{$randomNumber}";
+        return ':p' . $this->parameterCounter++;
     }
 
     public function select(array $columns = ['*']): self
     {
-        $this->queryType = QueryType::SELECT;
-
-        $this->operationString = 'SELECT ';
-
-        $count = count($columns);
-
-        for ($i = 0; $i < $count; $i++) {
-            $column = $columns[$i];
-            $this->operationString .=  $column;
-
-            if ($i !== $count - 1) {
-                $this->operationString .= ', ';
-            }
+        if ($columns === []) {
+            throw new InvalidArgumentException(
+                'At least one column must be selected.'
+            );
         }
 
-        $this->operationString .= " FROM {$this->table}";
+        $this->queryType = QueryType::SELECT;
+
+        $this->operationString = 'SELECT '
+            . implode(', ', $columns)
+            . " FROM {$this->table}";
 
         if ($this->alias !== null) {
             $this->operationString .= " AS {$this->alias}";
+        }
+
+        foreach ($columns as $column) {
+            $this->selects[] = [
+                'type' => 'column',
+                'columnName' => $column
+            ];
         }
 
         return $this;
@@ -69,7 +90,7 @@ class QueryBuilder
         $values = array_values($values);
 
         for ($i = 0; $i < $count; $i++) {
-            $paramName = QueryBuilder::createBindingParameterName($keys[$i]);
+            $paramName = $this->createBindingParameterName();
 
             $keysSQL .= $keys[$i];
             $valuesSQL .= $paramName;
@@ -107,7 +128,7 @@ class QueryBuilder
         $values = array_values($where);
 
         for ($i = 0; $i < $count; $i++) {
-            $paramName = QueryBuilder::createBindingParameterName($keys[$i]);
+            $paramName = $this->createBindingParameterName();
             $this->whereString .= "{$keys[$i]} = {$paramName}";
 
             $this->bindingValues[$paramName] = $values[$i];
@@ -115,6 +136,14 @@ class QueryBuilder
             if ($i !== $count - 1) {
                 $this->whereString .= ' AND ';
             }
+
+            $this->wheres[] = [
+                'type' => 'column',
+                'key' => $keys[$i],
+                'value' => $values[$i],
+                'join' => 'AND',
+                'operator' => '='
+            ];
         }
 
         return $this;
@@ -122,18 +151,14 @@ class QueryBuilder
 
     public function groupBy(array $columns): self
     {
-        $this->groupByString = ' GROUP BY ';
-
-        $count = count($columns);
-
-        for ($i = 0; $i < $count; $i++) {
-            $column = $columns[$i];
-            $this->groupByString .=  $column;
-
-            if ($i !== $count - 1) {
-                $this->groupByString .= ', ';
-            }
+        if ($columns === []) {
+            throw new InvalidArgumentException(
+                'At least one GROUP BY column is required.'
+            );
         }
+
+        $this->groupByString = ' GROUP BY '
+            . implode(', ', $columns);
 
         return $this;
     }
@@ -179,11 +204,90 @@ class QueryBuilder
 
         return "{$this->operationString}{$this->joinString}{$this->whereString}{$this->groupByString}";
     }
+
+    private function buildOperationString(): string
+    {
+        $sqlOutput = '';
+
+        switch ($this->queryType) {
+            case QueryType::SELECT: {
+                    $sqlOutput = 'SELECT ';
+
+                    foreach ($this->selects as $select) {
+                        if ($select['type'] === 'column') {
+                            $sqlOutput .= $select['columnName'];
+                        }
+                    }
+
+                    $sqlOutput .= " FROM {$this->table}";
+
+                    if ($this->alias !== null) {
+                        $sqlOutput .= " AS {$this->alias}";
+                    }
+
+                    break;
+                }
+            case QueryType::DELETE: {
+                    $sqlOutput = "DELETE FROM {$this->table}";
+                    break;
+                }
+            default:
+                throw new Exception("Invalid query type");
+        }
+
+        return $sqlOutput;
+    }
+
+    private function buildWhereString(array &$params): string
+    {
+        $sqlOutput = '';
+
+        $whereCount = count($this->wheres);
+        if ($whereCount > 0) {
+            $sqlOutput .= ' WHERE ';
+            $whereIndex = 0;
+
+            foreach ($this->wheres as $where) {
+                switch ($where['type']) {
+                    case 'column': {
+                            $generatedParamName = $this->createBindingParameterName();
+                            $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
+                            $params[$generatedParamName] = $where['value'];
+
+                            if ($whereIndex++ !== $whereCount - 1) {
+                                $sqlOutput .= ' AND ';
+                            }
+
+                            break;
+                        }
+                    default:
+                        throw new Exception('Invalid where clause');
+                }
+            }
+        }
+
+        return $sqlOutput;
+    }
+
+    public function compileQuery(): CompiledQuery
+    {
+        if ($this->queryType === null) {
+            throw new Exception('Attempting to compile query with no valid type');
+        }
+
+        $sqlOutput = '';
+        $paramBindings = [];
+
+        $sqlOutput .= $this->buildOperationString();
+        $sqlOutput .= $this->buildWhereString($paramBindings);
+
+        return new CompiledQuery($sqlOutput, $paramBindings);
+    }
 }
 
 class RelationalDatabase
 {
-    private ?PDO $pdo = null;
+    private PDO $pdo;
 
     public function __construct(
         string $driver,

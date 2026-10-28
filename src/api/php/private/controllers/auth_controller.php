@@ -18,7 +18,14 @@ class AuthController
                     'email' => $data['email']
                 ]);
 
-            $results = $this->db->executeAndReturnOne($queryBuilder);
+            $compiledQuery = $queryBuilder->compileQuery();
+
+            $pdo = $this->db->getPDO();
+            $stmt = $pdo->prepare($compiledQuery->getSQL());
+            $stmt->execute($compiledQuery->getBindings());
+            $results = $stmt->fetch();
+
+            //$results = $this->db->executeAndReturnOne($queryBuilder);
             $password = $data['password'];
 
             if ($password && password_verify($password, $results['password'])) {
