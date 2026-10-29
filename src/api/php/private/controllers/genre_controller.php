@@ -40,9 +40,7 @@ class GenreController
                 'name',
                 'description'
             ])
-            ->where([
-                'genre_id' => $id
-            ]);
+            ->whereEqual('genre_id', $id);
 
         $results = $this->db->executeAndReturnOne($queryBuilder);
         if ($results === false) {

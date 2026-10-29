@@ -25,13 +25,6 @@ class CompiledQuery
 class QueryBuilder
 {
     private ?QueryType $queryType = null;
-    private string $operationString = '';
-
-    private $bindingValues = [];
-    private string $whereString = '';
-
-    private string $joinString = '';
-    private string $groupByString = '';
 
     private int $parameterCounter = 0;
 
@@ -63,14 +56,6 @@ class QueryBuilder
 
         $this->queryType = QueryType::SELECT;
 
-        $this->operationString = 'SELECT '
-            . implode(', ', $columns)
-            . " FROM {$this->table}";
-
-        if ($this->alias !== null) {
-            $this->operationString .= " AS {$this->alias}";
-        }
-
         foreach ($columns as $column) {
             $this->selects[] = [
                 'type' => 'column',
@@ -84,33 +69,6 @@ class QueryBuilder
     public function insert(array $values): self
     {
         $this->queryType = QueryType::INSERT;
-
-        $keysSQL = '(';
-        $valuesSQL = '(';
-
-        $count = count($values);
-        $keys = array_keys($values);
-        $values = array_values($values);
-
-        for ($i = 0; $i < $count; $i++) {
-            $paramName = $this->createBindingParameterName();
-
-            $keysSQL .= $keys[$i];
-            $valuesSQL .= $paramName;
-
-            $this->bindingValues[$paramName] = $values[$i];
-
-            if ($i !== $count - 1) {
-                $keysSQL .= ', ';
-                $valuesSQL .= ', ';
-            }
-        }
-
-        $keysSQL .= ')';
-        $valuesSQL .= ')';
-
-        $this->operationString =
-            "INSERT INTO {$this->table} {$keysSQL} VALUES {$valuesSQL}";
 
         $count = count($values);
         $keys = array_keys($values);
@@ -129,36 +87,43 @@ class QueryBuilder
     public function delete(): self
     {
         $this->queryType = QueryType::DELETE;
-        $this->operationString = "DELETE FROM {$this->table}";
         return $this;
     }
 
-    public function where(array $where): self
+    public function whereEqual(string $column, string $value): self
     {
-        $this->whereString = ' WHERE ';
+        $this->wheres[] = [
+            'type' => 'column',
+            'key' => $column,
+            'value' => $value,
+            'join' => 'AND',
+            'operator' => '='
+        ];
 
-        $count = count($where);
-        $keys = array_keys($where);
-        $values = array_values($where);
+        return $this;
+    }
 
-        for ($i = 0; $i < $count; $i++) {
-            $paramName = $this->createBindingParameterName();
-            $this->whereString .= "{$keys[$i]} = {$paramName}";
+    public function whereILike(string $column, string $value): self
+    {
+        $this->wheres[] = [
+            'type' => 'column',
+            'key' => $column,
+            'value' => $value,
+            'join' => 'AND',
+            'operator' => 'ILIKE'
+        ];
 
-            $this->bindingValues[$paramName] = $values[$i];
+        return $this;
+    }
 
-            if ($i !== $count - 1) {
-                $this->whereString .= ' AND ';
-            }
-
-            $this->wheres[] = [
-                'type' => 'column',
-                'key' => $keys[$i],
-                'value' => $values[$i],
-                'join' => 'AND',
-                'operator' => '='
-            ];
-        }
+    public function whereIn(string $column, array $values): self
+    {
+        $this->wheres[] = [
+            'type' => 'in',
+            'key' => $column,
+            'values' => $values,
+            'join' => 'AND',
+        ];
 
         return $this;
     }
@@ -171,9 +136,6 @@ class QueryBuilder
             );
         }
 
-        $this->groupByString = ' GROUP BY '
-            . implode(', ', $columns);
-
         foreach ($columns as $column) {
             $this->groupBys[] = $column;
         }
@@ -181,20 +143,7 @@ class QueryBuilder
         return $this;
     }
 
-    private function join(string $joinType, string $table, string $column1, string $column2, ?string $alias): self
-    {
-        $this->joinString .= " {$joinType} JOIN {$table}";
-
-        if ($alias !== null) {
-            $this->joinString .= " AS {$alias}";
-        }
-
-        $this->joinString .= " ON {$column1} = {$column2}";
-
-        return $this;
-    }
-
-    private function recordJoin(string $joinType, string $table, string $column1, string $column2, ?string $alias)
+    private function recordJoin(string $joinType, string $table, string $column1, string $column2, ?string $alias): self
     {
         $join = [
             'type' => $joinType,
@@ -208,41 +157,26 @@ class QueryBuilder
         }
 
         $this->joins[] = $join;
+
+        return $this;
     }
 
     public function leftJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
-        $this->recordJoin('LEFT', $table, $column1, $column2, $alias);
-        return $this->join('LEFT', $table, $column1, $column2, $alias);
+        return $this->recordJoin('LEFT', $table, $column1, $column2, $alias);
     }
 
     public function rightJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
-        $this->recordJoin('RIGHT', $table, $column1, $column2, $alias);
-        return $this->join('RIGHT', $table, $column1, $column2, $alias);
+        return $this->recordJoin('RIGHT', $table, $column1, $column2, $alias);
     }
 
     public function innerJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
-        $this->recordJoin('INNER', $table, $column1, $column2, $alias);
-        return $this->join('INNER', $table, $column1, $column2, $alias);
+        return $this->recordJoin('INNER', $table, $column1, $column2, $alias);
     }
 
-    public function getBindingParameters(): array
-    {
-        return $this->bindingValues;
-    }
-
-    public function queryString(): string
-    {
-        if (is_null($this->queryType)) {
-            throw new Exception("No query type has been specified");
-        }
-
-        return "{$this->operationString}{$this->joinString}{$this->whereString}{$this->groupByString}";
-    }
-
-    private function buildOperationString(): string
+    private function buildOperationString(array &$params): string
     {
         $sqlOutput = '';
 
@@ -282,7 +216,7 @@ class QueryBuilder
 
                         $keysSQL .= $insert['key'];
                         $valuesSQL .= $bindingName;
-                        $this->bindingValues[$bindingName] = $insert['value'];
+                        $params[$bindingName] = $insert['value'];
 
                         if ($valueCount > 1 && $index < $valueCount - 1) {
                             $keysSQL .= ", ";
@@ -324,6 +258,19 @@ class QueryBuilder
                                 $sqlOutput .= ' AND ';
                             }
 
+                            break;
+                        }
+                    case 'in': {
+                            $placeholders = [];
+
+                            foreach ($where['values'] as $value) {
+                                $generatedParamName = $this->createBindingParameterName();
+                                $params[$generatedParamName] = $value;
+                                $placeholders[] = $generatedParamName;
+                            }
+
+                            $paramsArray = implode(', ', $placeholders);
+                            $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
                             break;
                         }
                     default:
@@ -374,7 +321,7 @@ class QueryBuilder
         $sqlOutput = '';
         $paramBindings = [];
 
-        $sqlOutput .= $this->buildOperationString();
+        $sqlOutput .= $this->buildOperationString($paramBindings);
         $sqlOutput .= $this->buildJoinString();
         $sqlOutput .= $this->buildWhereString($paramBindings);
         $sqlOutput .= $this->buildGroupByString();
@@ -421,9 +368,6 @@ class RelationalDatabase
 
     private function executeImpl(QueryBuilder $query): PDOStatement
     {
-        //$queryString = $query->queryString();
-        //$bindingParameters = $query->getBindingParameters();
-
         $compiledQuery = $query->compileQuery();
 
         $stmt = $this->pdo->prepare($compiledQuery->getSQL());
