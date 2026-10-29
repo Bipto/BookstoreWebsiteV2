@@ -36,7 +36,10 @@ class QueryBuilder
     private int $parameterCounter = 0;
 
     private array $selects = [];
+    private array $inserts = [];
     private array $wheres = [];
+    private array $groupBys = [];
+    private array $joins = [];
 
     private function __construct(private string $table, private ?string $alias) {}
 
@@ -109,6 +112,17 @@ class QueryBuilder
         $this->operationString =
             "INSERT INTO {$this->table} {$keysSQL} VALUES {$valuesSQL}";
 
+        $count = count($values);
+        $keys = array_keys($values);
+        $values = array_values($values);
+
+        for ($i = 0; $i < $count; $i++) {
+            $this->inserts[] = [
+                'key' => $keys[$i],
+                'value' => $values[$i]
+            ];
+        }
+
         return $this;
     }
 
@@ -160,6 +174,10 @@ class QueryBuilder
         $this->groupByString = ' GROUP BY '
             . implode(', ', $columns);
 
+        foreach ($columns as $column) {
+            $this->groupBys[] = $column;
+        }
+
         return $this;
     }
 
@@ -176,18 +194,37 @@ class QueryBuilder
         return $this;
     }
 
+    private function recordJoin(string $joinType, string $table, string $column1, string $column2, ?string $alias)
+    {
+        $join = [
+            'type' => $joinType,
+            'table' => $table,
+            'column1' => $column1,
+            'column2' => $column2,
+        ];
+
+        if (isset($alias)) {
+            $join['alias'] = $alias;
+        }
+
+        $this->joins[] = $join;
+    }
+
     public function leftJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
+        $this->recordJoin('LEFT', $table, $column1, $column2, $alias);
         return $this->join('LEFT', $table, $column1, $column2, $alias);
     }
 
     public function rightJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
+        $this->recordJoin('RIGHT', $table, $column1, $column2, $alias);
         return $this->join('RIGHT', $table, $column1, $column2, $alias);
     }
 
     public function innerJoin(string $table, string $column1, string $column2, ?string $alias): self
     {
+        $this->recordJoin('INNER', $table, $column1, $column2, $alias);
         return $this->join('INNER', $table, $column1, $column2, $alias);
     }
 
@@ -213,9 +250,15 @@ class QueryBuilder
             case QueryType::SELECT: {
                     $sqlOutput = 'SELECT ';
 
-                    foreach ($this->selects as $select) {
+                    $selectCount = count($this->selects);
+                    for ($index = 0; $index < $selectCount; $index++) {
+                        $select = $this->selects[$index];
                         if ($select['type'] === 'column') {
                             $sqlOutput .= $select['columnName'];
+                        }
+
+                        if ($selectCount > 1 && $index < $selectCount - 1) {
+                            $sqlOutput .= ', ';
                         }
                     }
 
@@ -225,6 +268,29 @@ class QueryBuilder
                         $sqlOutput .= " AS {$this->alias}";
                     }
 
+                    break;
+                }
+            case QueryType::INSERT: {
+                    $keysSQL = '';
+                    $valuesSQL = '';
+
+                    $valueCount = count($this->inserts);
+
+                    for ($index = 0; $index < $valueCount; $index++) {
+                        $insert = $this->inserts[$index];
+                        $bindingName = $this->createBindingParameterName();
+
+                        $keysSQL .= $insert['key'];
+                        $valuesSQL .= $bindingName;
+                        $this->bindingValues[$bindingName] = $insert['value'];
+
+                        if ($valueCount > 1 && $index < $valueCount - 1) {
+                            $keysSQL .= ", ";
+                            $valuesSQL .= ", ";
+                        }
+                    }
+
+                    $sqlOutput = "INSERT INTO {$this->table} ({$keysSQL}) VALUES ({$valuesSQL})";
                     break;
                 }
             case QueryType::DELETE: {
@@ -269,6 +335,36 @@ class QueryBuilder
         return $sqlOutput;
     }
 
+    private function buildJoinString(): string
+    {
+        if (count($this->joins) === 0)
+            return '';
+
+        $sql = '';
+        foreach ($this->joins as $join) {
+            $sql .= " {$join['type']} JOIN {$join['table']}";
+
+            if ($join['alias'] !== null) {
+                $sql .= " AS {$join['alias']}";
+            }
+
+            $sql .= " ON {$join['column1']} = {$join['column2']}";
+        }
+
+        return $sql;
+    }
+
+
+    private function buildGroupByString(): string
+    {
+        if (count($this->groupBys) === 0) {
+            return '';
+        }
+
+        return ' GROUP BY '
+            . implode(', ', $this->groupBys);
+    }
+
     public function compileQuery(): CompiledQuery
     {
         if ($this->queryType === null) {
@@ -279,7 +375,9 @@ class QueryBuilder
         $paramBindings = [];
 
         $sqlOutput .= $this->buildOperationString();
+        $sqlOutput .= $this->buildJoinString();
         $sqlOutput .= $this->buildWhereString($paramBindings);
+        $sqlOutput .= $this->buildGroupByString();
 
         return new CompiledQuery($sqlOutput, $paramBindings);
     }
@@ -323,11 +421,13 @@ class RelationalDatabase
 
     private function executeImpl(QueryBuilder $query): PDOStatement
     {
-        $queryString = $query->queryString();
-        $bindingParameters = $query->getBindingParameters();
+        //$queryString = $query->queryString();
+        //$bindingParameters = $query->getBindingParameters();
 
-        $stmt = $this->pdo->prepare($queryString);
-        $stmt->execute($bindingParameters);
+        $compiledQuery = $query->compileQuery();
+
+        $stmt = $this->pdo->prepare($compiledQuery->getSQL());
+        $stmt->execute($compiledQuery->getBindings());
         return $stmt;
     }
 
