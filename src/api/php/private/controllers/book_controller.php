@@ -82,7 +82,6 @@ class BookController
             b.image_path
     ";
 
-
         try {
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
@@ -95,48 +94,42 @@ class BookController
 
     public function getBookById(int $id): void
     {
-        $pdo = $this->db->getPDO();
-
-        $stmt = $pdo->prepare("
-        SELECT
-            b.book_id,
-            b.title,
-            a.name AS author,
-            b.book_description,
-            b.price,
-            b.stock_count,
-            b.image_path,
-            COALESCE(
-                json_agg(
-                        json_build_object(
-                            'genre_id', g.genre_id,
-                            'name', g.name
-                        )
-                        ORDER BY g.name
-                    ) FILTER (WHERE g.name IS NOT NULL),
-                    '[]'::json
-                ) AS genres
-        FROM bookstore.books AS b
-        INNER JOIN bookstore.authors AS a
-            ON b.author_id = a.author_id
-        LEFT JOIN bookstore.book_genres AS bg
-            ON b.book_id = bg.book_id
-        LEFT JOIN bookstore.genres AS g
-            ON bg.genre_id = g.genre_id
-        WHERE b.book_id = :book_id
-        GROUP BY
-            b.book_id,
-            b.title,
-            a.name,
-            b.book_description,
-            b.price,
-            b.stock_count,
-            b.image_path
-    ");
+        $query = QueryBuilder::table('bookstore.books', 'b')
+            ->select([
+                'b.book_id',
+                'b.title',
+                'a.name AS author',
+                'b.book_description',
+                'b.price',
+                'b.stock_count',
+                'b.image_path',
+                "COALESCE(
+                        json_agg(
+                                json_build_object(
+                                    'genre_id', g.genre_id,
+                                    'name', g.name
+                                )
+                                ORDER BY g.name
+                            ) FILTER (WHERE g.name IS NOT NULL),
+                            '[]'::json
+                        ) AS genres"
+            ])
+            ->innerJoin('bookstore.authors', 'b.author_id', 'a.author_id', 'a')
+            ->leftJoin('bookstore.book_genres', 'b.book_id ', 'bg.book_id', 'bg')
+            ->leftJoin('bookstore.genres', 'bg.genre_id ', 'g.genre_id', 'g')
+            ->whereEqual('b.book_id', $id)
+            ->groupBy([
+                'b.book_id',
+                'b.title',
+                'a.name',
+                'b.book_description',
+                'b.price',
+                'b.stock_count',
+                'b.image_path'
+            ]);
 
         try {
-            $stmt->execute(['book_id' => $id]);
-            $result = $stmt->fetch();
+            $result = $this->db->executeAndReturnOne($query);
             REST::response(200, $result);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);
