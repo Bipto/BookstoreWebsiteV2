@@ -128,6 +128,17 @@ class QueryBuilder
         return $this;
     }
 
+    public function whereExists(QueryBuilder $query): self
+    {
+        $this->wheres[] = [
+            'type' => 'exists',
+            'query' => $query,
+            'join' => 'AND'
+        ];
+
+        return $this;
+    }
+
     public function groupBy(array $columns): self
     {
         if ($columns === []) {
@@ -255,7 +266,7 @@ class QueryBuilder
                             $params[$generatedParamName] = $where['value'];
 
                             if ($whereIndex++ !== $whereCount - 1) {
-                                $sqlOutput .= ' AND ';
+                                $sqlOutput .= " {$where['join']} ";
                             }
 
                             break;
@@ -271,6 +282,21 @@ class QueryBuilder
 
                             $paramsArray = implode(', ', $placeholders);
                             $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
+                            break;
+                        }
+                    case 'exists': {
+                            $query = $where['query'];
+                            $compiledQuery = QueryBuilder::compileImpl($query);
+
+                            $sqlOutput = "EXISTS ({$compiledQuery->getSQL()})";
+
+                            foreach ($compiledQuery->getBindings() as [$key, $value]) {
+                                $params[$key] = $value;
+                            }
+
+                            if ($whereIndex++ !== $whereCount - 1) {
+                                $sqlOutput .= " {$where['join']} ";
+                            }
                             break;
                         }
                     default:
@@ -312,21 +338,26 @@ class QueryBuilder
             . implode(', ', $this->groupBys);
     }
 
-    public function compileQuery(): CompiledQuery
+    private static function compileImpl(QueryBuilder $queryBuilder): CompiledQuery
     {
-        if ($this->queryType === null) {
+        if ($queryBuilder->queryType === null) {
             throw new Exception('Attempting to compile query with no valid type');
         }
 
         $sqlOutput = '';
         $paramBindings = [];
 
-        $sqlOutput .= $this->buildOperationString($paramBindings);
-        $sqlOutput .= $this->buildJoinString();
-        $sqlOutput .= $this->buildWhereString($paramBindings);
-        $sqlOutput .= $this->buildGroupByString();
+        $sqlOutput .= $queryBuilder->buildOperationString($paramBindings);
+        $sqlOutput .= $queryBuilder->buildJoinString();
+        $sqlOutput .= $queryBuilder->buildWhereString($paramBindings);
+        $sqlOutput .= $queryBuilder->buildGroupByString();
 
         return new CompiledQuery($sqlOutput, $paramBindings);
+    }
+
+    public function compileQuery(): CompiledQuery
+    {
+        return QueryBuilder::compileImpl($this);
     }
 }
 
