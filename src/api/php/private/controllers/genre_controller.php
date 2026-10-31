@@ -40,7 +40,7 @@ class GenreController
                 new ColumnName('name'),
                 new ColumnName('description')
             )
-            ->whereEqual('genre_id', $id);
+            ->whereEqual('genre_id', new Constant($id));
 
         $results = $this->db->executeAndReturnOne($queryBuilder);
         if ($results === false) {

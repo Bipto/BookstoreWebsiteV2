@@ -14,7 +14,7 @@ class AuthController
         try {
             $queryBuilder = QueryBuilder::table('bookstore.users')
                 ->select()
-                ->whereEqual('email', $data['email']);
+                ->whereEqual('email', new Constant($data['email']));
 
             $results = $this->db->executeAndReturnOne($queryBuilder);
             $password = $data['password'];

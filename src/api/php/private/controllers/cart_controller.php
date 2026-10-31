@@ -24,7 +24,7 @@ class CartController
             ->innerJoin('bookstore.carts', 'c.cart_id', 'ci.cart_id', 'c')
             ->innerJoin('bookstore.users', 'u.user_id', 'c.user_id', 'u')
             ->innerJoin('bookstore.authors', 'a.author_id', 'b.author_id', 'a')
-            ->whereEqual('email', $email);
+            ->whereEqual('email', new Constant($email));
 
         try {
             $data = $this->db->executeAndReturnAll($query);

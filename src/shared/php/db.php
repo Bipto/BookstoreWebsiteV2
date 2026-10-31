@@ -94,7 +94,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function whereEqual(string $column, string $value): self
+    public function whereEqual(string $column, ColumnName|Constant $value): self
     {
         $this->wheres[] = [
             'type' => 'column',
@@ -107,7 +107,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function whereILike(string $column, string $value): self
+    public function whereILike(string $column, ColumnName|Constant $value): self
     {
         $this->wheres[] = [
             'type' => 'column',
@@ -120,7 +120,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function whereIn(string $column, array $values): self
+    public function whereIn(string $column, ColumnName|array $values): self
     {
         $this->wheres[] = [
             'type' => 'in',
@@ -288,9 +288,16 @@ class QueryBuilder
             foreach ($this->wheres as $where) {
                 switch ($where['type']) {
                     case 'column': {
-                            $generatedParamName = $this->createBindingParameterName($parameterCounter);
-                            $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
-                            $params[$generatedParamName] = $where['value'];
+                            $value = $where['value'];
+                            if ($value instanceof Constant) {
+                                $generatedParamName = $this->createBindingParameterName($parameterCounter);
+                                $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
+                                $params[$generatedParamName] = $value->value;
+                            } else if ($value instanceof ColumnName) {
+                                $sqlOutput .= "{$where['key']} {$where['operator']} {$value->columnName}";
+                            } else {
+                                throw new Exception("Invalid where clause");
+                            }
 
                             if ($whereIndex++ !== $whereCount - 1) {
                                 $sqlOutput .= " {$where['join']} ";
@@ -299,16 +306,22 @@ class QueryBuilder
                             break;
                         }
                     case 'in': {
-                            $placeholders = [];
-
-                            foreach ($where['values'] as $value) {
-                                $generatedParamName = $this->createBindingParameterName($parameterCounter);
-                                $params[$generatedParamName] = $value;
-                                $placeholders[] = $generatedParamName;
+                            $data = $where['values'];
+                            if (is_array($data)) {
+                                $placeholders = [];
+                                foreach ($data as $value) {
+                                    $generatedParamName = $this->createBindingParameterName($parameterCounter);
+                                    $params[$generatedParamName] = $value;
+                                    $placeholders[] = $generatedParamName;
+                                }
+                                $paramsArray = implode(', ', $placeholders);
+                                $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
+                            } else if ($data instanceof ColumnName) {
+                                $sqlOutput .= "{$where['key']} IN {$value->columnName}";
+                            } else {
+                                throw new Exception("Invalid IN clause");
                             }
 
-                            $paramsArray = implode(', ', $placeholders);
-                            $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
                             break;
                         }
                     case 'exists': {
@@ -317,7 +330,7 @@ class QueryBuilder
 
                             $sqlOutput .= "EXISTS ({$compiledQuery->getSQL()})";
 
-                            foreach ($compiledQuery->getBindings() as [$key, $value]) {
+                            foreach ($compiledQuery->getBindings() as $key => $value) {
                                 $params[$key] = $value;
                             }
 

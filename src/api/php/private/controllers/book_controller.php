@@ -17,82 +17,6 @@ class BookController
         $author = $parameters['author'] ?? '';
         $genres = $parameters['genre'] ?? [];
 
-        /* $pdo = $this->db->getPDO();
-
-        $sql = "
-        SELECT
-            b.book_id,
-            b.title,
-            a.name AS author,
-            b.book_description,
-            b.price,
-            b.stock_count,
-            b.image_path,
-            COALESCE(
-                json_agg(
-                    json_build_object(
-                        'genre_id', g.genre_id,
-                        'name', g.name
-                    )
-                    ORDER BY g.name
-                ) FILTER (WHERE g.name IS NOT NULL),
-                '[]'::json
-            ) AS genres
-        FROM bookstore.books AS b
-        INNER JOIN bookstore.authors AS a
-            ON b.author_id = a.author_id
-        LEFT JOIN bookstore.book_genres AS bg
-            ON b.book_id = bg.book_id
-        LEFT JOIN bookstore.genres AS g
-            ON bg.genre_id = g.genre_id
-        WHERE b.title ILIKE :title
-        AND a.name ILIKE :author
-    ";
-
-        $params = [
-            'title' => '%' . ($parameters['title'] ?? '') . '%',
-            'author' => '%' . ($parameters['author'] ?? '') . '%',
-        ];
-
-        if (!empty($genres)) {
-            $placeholders = [];
-
-            foreach (array_values($genres) as $i => $genreId) {
-                $key = "genre_$i";
-                $placeholders[] = ":$key";
-                $params[$key] = (int) $genreId;
-            }
-
-            $sql .= "
-        AND EXISTS (
-            SELECT 1
-            FROM bookstore.book_genres AS bg2
-            WHERE bg2.book_id = b.book_id
-              AND bg2.genre_id IN (" . implode(', ', $placeholders) . ")
-        )
-    ";
-        }
-
-        $sql .= "
-        GROUP BY
-            b.book_id,
-            b.title,
-            a.name,
-            b.book_description,
-            b.price,
-            b.stock_count,
-            b.image_path
-    ";
-
-        try {
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($params);
-            $data = $stmt->fetchAll();
-            REST::response(200, $data);
-        } catch (Exception $e) {
-            REST::response(500, ['error' => $e->getMessage()]);
-        } */
-
         $query = QueryBuilder::table('bookstore.books', 'b')
             ->select(
                 new ColumnName("b.book_id"),
@@ -116,8 +40,8 @@ class BookController
             ->innerJoin('bookstore.authors', 'b.author_id', 'a.author_id', 'a')
             ->leftJoin('bookstore.book_genres', 'b.book_id ', 'bg.book_id', 'bg')
             ->leftJoin('bookstore.genres', 'bg.genre_id', 'g.genre_id', 'g')
-            ->whereILike('b.title', "%{$title}%")
-            ->whereILike('a.name', "%{$author}%")
+            ->whereILike('b.title', new Constant("%{$title}%"))
+            ->whereILike('a.name', new Constant("%{$author}%"))
             ->groupBy([
                 'b.book_id',
                 'b.title',
@@ -132,7 +56,7 @@ class BookController
             $query->whereExists(
                 QueryBuilder::table('bookstore.book_genres', 'bg2')
                     ->select(new Constant(1))
-                    ->whereEqual('bg2.book_id', 'b.book_id')
+                    ->whereEqual('bg2.book_id', new ColumnName('b.book_id'))
                     ->whereIn('bg2.genre_id', $genres)
             );
         }
@@ -170,7 +94,7 @@ class BookController
             ->innerJoin('bookstore.authors', 'b.author_id', 'a.author_id', 'a')
             ->leftJoin('bookstore.book_genres', 'b.book_id ', 'bg.book_id', 'bg')
             ->leftJoin('bookstore.genres', 'bg.genre_id ', 'g.genre_id', 'g')
-            ->whereEqual('b.book_id', $id)
+            ->whereEqual('b.book_id', new Constant($id))
             ->groupBy([
                 'b.book_id',
                 'b.title',
