@@ -22,10 +22,7 @@ class UserController
             ]);
 
         try {
-            $json = [];
-            $json['success'] = $this->db->execute($queryBuilder);
-            echo json_encode($json);
-
+            $this->db->execute($queryBuilder);
             REST::response(201, []);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);

@@ -22,11 +22,24 @@ class CompiledQuery
     }
 }
 
+class ColumnName
+{
+    public function __construct(public readonly string $columnName, public readonly ?string $alias = null) {}
+}
+
+class ColumnCount
+{
+    public function __construct(public readonly string $columnName, public readonly ?string $alias = null) {}
+}
+
+class Constant
+{
+    public function __construct(public readonly string $value) {}
+}
+
 class QueryBuilder
 {
     private ?QueryType $queryType = null;
-
-    private int $parameterCounter = 0;
 
     private array $selects = [];
     private array $inserts = [];
@@ -41,26 +54,17 @@ class QueryBuilder
         return new QueryBuilder($table, $alias);
     }
 
-    private function createBindingParameterName(): string
+    private function createBindingParameterName(int &$parameterCounter): string
     {
-        return ':p' . $this->parameterCounter++;
+        return ':p' . $parameterCounter++;
     }
 
-    public function select(array $columns = ['*']): self
+    public function select(ColumnName|ColumnCount|Constant ...$columns): self
     {
-        if ($columns === []) {
-            throw new InvalidArgumentException(
-                'At least one column must be selected.'
-            );
-        }
-
         $this->queryType = QueryType::SELECT;
 
         foreach ($columns as $column) {
-            $this->selects[] = [
-                'type' => 'column',
-                'columnName' => $column
-            ];
+            $this->selects[] = $column;
         }
 
         return $this;
@@ -187,7 +191,7 @@ class QueryBuilder
         return $this->recordJoin('INNER', $table, $column1, $column2, $alias);
     }
 
-    private function buildOperationString(array &$params): string
+    private function buildOperationString(array &$params, int &$parameterCounter): string
     {
         $sqlOutput = '';
 
@@ -196,14 +200,37 @@ class QueryBuilder
                     $sqlOutput = 'SELECT ';
 
                     $selectCount = count($this->selects);
-                    for ($index = 0; $index < $selectCount; $index++) {
-                        $select = $this->selects[$index];
-                        if ($select['type'] === 'column') {
-                            $sqlOutput .= $select['columnName'];
-                        }
 
-                        if ($selectCount > 1 && $index < $selectCount - 1) {
-                            $sqlOutput .= ', ';
+                    if ($selectCount === 0) {
+                        $sqlOutput .= " *";
+                    } else {
+                        for ($index = 0; $index < $selectCount; $index++) {
+                            $select = $this->selects[$index];
+                            if ($select instanceof ColumnName) {
+                                $sqlOutput .= $select->columnName;
+
+                                if ($select->alias) {
+                                    $sqlOutput .= " AS {$select->alias}";
+                                }
+
+                                if ($selectCount > 1 && $index < $selectCount - 1) {
+                                    $sqlOutput .= ', ';
+                                }
+                            } else if ($select instanceof ColumnCount) {
+                                $sqlOutput .= "COUNT({$select->columnName})";
+
+                                if ($select->alias) {
+                                    $sqlOutput .= " AS {$select->alias}";
+                                }
+
+                                if ($selectCount > 1 && $index < $selectCount - 1) {
+                                    $sqlOutput .= ', ';
+                                }
+                            } else if ($select instanceof Constant) {
+                                $sqlOutput .= " {$select->value}";
+                            } else {
+                                throw new Exception("Failed to find a valid select type");
+                            }
                         }
                     }
 
@@ -223,7 +250,7 @@ class QueryBuilder
 
                     for ($index = 0; $index < $valueCount; $index++) {
                         $insert = $this->inserts[$index];
-                        $bindingName = $this->createBindingParameterName();
+                        $bindingName = $this->createBindingParameterName($parameterCounter);
 
                         $keysSQL .= $insert['key'];
                         $valuesSQL .= $bindingName;
@@ -249,7 +276,7 @@ class QueryBuilder
         return $sqlOutput;
     }
 
-    private function buildWhereString(array &$params): string
+    private function buildWhereString(array &$params, int &$parameterCounter): string
     {
         $sqlOutput = '';
 
@@ -261,7 +288,7 @@ class QueryBuilder
             foreach ($this->wheres as $where) {
                 switch ($where['type']) {
                     case 'column': {
-                            $generatedParamName = $this->createBindingParameterName();
+                            $generatedParamName = $this->createBindingParameterName($parameterCounter);
                             $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
                             $params[$generatedParamName] = $where['value'];
 
@@ -275,7 +302,7 @@ class QueryBuilder
                             $placeholders = [];
 
                             foreach ($where['values'] as $value) {
-                                $generatedParamName = $this->createBindingParameterName();
+                                $generatedParamName = $this->createBindingParameterName($parameterCounter);
                                 $params[$generatedParamName] = $value;
                                 $placeholders[] = $generatedParamName;
                             }
@@ -286,9 +313,9 @@ class QueryBuilder
                         }
                     case 'exists': {
                             $query = $where['query'];
-                            $compiledQuery = QueryBuilder::compileImpl($query);
+                            $compiledQuery = QueryBuilder::compileImpl($query, $parameterCounter);
 
-                            $sqlOutput = "EXISTS ({$compiledQuery->getSQL()})";
+                            $sqlOutput .= "EXISTS ({$compiledQuery->getSQL()})";
 
                             foreach ($compiledQuery->getBindings() as [$key, $value]) {
                                 $params[$key] = $value;
@@ -338,7 +365,7 @@ class QueryBuilder
             . implode(', ', $this->groupBys);
     }
 
-    private static function compileImpl(QueryBuilder $queryBuilder): CompiledQuery
+    private static function compileImpl(QueryBuilder $queryBuilder, int &$parameterCounter): CompiledQuery
     {
         if ($queryBuilder->queryType === null) {
             throw new Exception('Attempting to compile query with no valid type');
@@ -347,9 +374,9 @@ class QueryBuilder
         $sqlOutput = '';
         $paramBindings = [];
 
-        $sqlOutput .= $queryBuilder->buildOperationString($paramBindings);
+        $sqlOutput .= $queryBuilder->buildOperationString($paramBindings, $parameterCounter);
         $sqlOutput .= $queryBuilder->buildJoinString();
-        $sqlOutput .= $queryBuilder->buildWhereString($paramBindings);
+        $sqlOutput .= $queryBuilder->buildWhereString($paramBindings, $parameterCounter);
         $sqlOutput .= $queryBuilder->buildGroupByString();
 
         return new CompiledQuery($sqlOutput, $paramBindings);
@@ -357,7 +384,8 @@ class QueryBuilder
 
     public function compileQuery(): CompiledQuery
     {
-        return QueryBuilder::compileImpl($this);
+        $parameterCounter = 0;
+        return QueryBuilder::compileImpl($this, $parameterCounter);
     }
 }
 

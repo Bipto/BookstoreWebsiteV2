@@ -52,7 +52,7 @@ session_start();
     $response = API::get($url);
     if (!$response->hasError()) {
         $data = $response->getData();
-        $cartCount = count($data['cart']);
+        $cartCount = count($data);
     }
 
     $menubar = new Menubar($links, $cartCount);

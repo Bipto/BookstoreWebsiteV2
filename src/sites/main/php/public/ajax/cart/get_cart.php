@@ -13,14 +13,13 @@ $response = API::get($url);
 
 if (!$response->hasError()) {
     $data = $response->getData() ?? [];
-    $cartData = $data['cart'] ?? [];
 
-    if (count($cartData) == 0) {
+    if (count($data) == 0) {
         echo '<p>The cart is currently empty</p>';
     } else {
         $total = 0;
 
-        foreach ($cartData as $item) {
+        foreach ($data as $item) {
 
             $cartItemId = (int) ($item['cart_item_id'] ?? -1);
             $quantity = (int) ($item['quantity'] ?? 0);

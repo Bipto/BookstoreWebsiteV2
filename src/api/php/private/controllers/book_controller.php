@@ -13,9 +13,11 @@ class BookController
         $parameters = [];
         parse_str($queryString, $parameters);
 
+        $title = $parameters['title'] ?? '';
+        $author = $parameters['author'] ?? '';
         $genres = $parameters['genre'] ?? [];
 
-        $pdo = $this->db->getPDO();
+        /* $pdo = $this->db->getPDO();
 
         $sql = "
         SELECT
@@ -89,21 +91,72 @@ class BookController
             REST::response(200, $data);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);
+        } */
+
+        $query = QueryBuilder::table('bookstore.books', 'b')
+            ->select(
+                new ColumnName("b.book_id"),
+                new ColumnName("b.title"),
+                new ColumnName("a.name AS author"),
+                new ColumnName("b.book_description"),
+                new ColumnName("b.price"),
+                new ColumnName("b.stock_count"),
+                new ColumnName("b.image_path"),
+                new ColumnName("COALESCE(
+                    json_agg(
+                        json_build_object(
+                            'genre_id', g.genre_id,
+                            'name', g.name
+                        )
+                        ORDER BY g.name
+                    ) FILTER (WHERE g.name IS NOT NULL),
+                    '[]'::json
+                ) AS genres")
+            )
+            ->innerJoin('bookstore.authors', 'b.author_id', 'a.author_id', 'a')
+            ->leftJoin('bookstore.book_genres', 'b.book_id ', 'bg.book_id', 'bg')
+            ->leftJoin('bookstore.genres', 'bg.genre_id', 'g.genre_id', 'g')
+            ->whereILike('b.title', "%{$title}%")
+            ->whereILike('a.name', "%{$author}%")
+            ->groupBy([
+                'b.book_id',
+                'b.title',
+                'a.name',
+                'b.book_description',
+                'b.price',
+                'b.stock_count',
+                'b.image_path'
+            ]);
+
+        if (count($genres) > 0) {
+            $query->whereExists(
+                QueryBuilder::table('bookstore.book_genres', 'bg2')
+                    ->select(new Constant(1))
+                    ->whereEqual('bg2.book_id', 'b.book_id')
+                    ->whereIn('bg2.genre_id', $genres)
+            );
+        }
+
+        try {
+            $data = $this->db->executeAndReturnAll($query);
+            REST::response(200, $data);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
         }
     }
 
     public function getBookById(int $id): void
     {
         $query = QueryBuilder::table('bookstore.books', 'b')
-            ->select([
-                'b.book_id',
-                'b.title',
-                'a.name AS author',
-                'b.book_description',
-                'b.price',
-                'b.stock_count',
-                'b.image_path',
-                "COALESCE(
+            ->select(
+                new ColumnName('b.book_id'),
+                new ColumnName('b.title'),
+                new ColumnName('a.name', 'author'),
+                new ColumnName('b.book_description'),
+                new ColumnName('b.price'),
+                new ColumnName('b.stock_count'),
+                new ColumnName('b.image_path'),
+                new ColumnName("COALESCE(
                         json_agg(
                                 json_build_object(
                                     'genre_id', g.genre_id,
@@ -112,8 +165,8 @@ class BookController
                                 ORDER BY g.name
                             ) FILTER (WHERE g.name IS NOT NULL),
                             '[]'::json
-                        ) AS genres"
-            ])
+                        ) AS genres")
+            )
             ->innerJoin('bookstore.authors', 'b.author_id', 'a.author_id', 'a')
             ->leftJoin('bookstore.book_genres', 'b.book_id ', 'bg.book_id', 'bg')
             ->leftJoin('bookstore.genres', 'bg.genre_id ', 'g.genre_id', 'g')

@@ -1,6 +1,7 @@
 <?php
 
 require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/rest_builder.php';
 
 class CartController
 {
@@ -12,14 +13,12 @@ class CartController
 
         $query = QueryBuilder::table('bookstore.books', 'b')
             ->select(
-                [
-                    'cart_item_id',
-                    'title',
-                    'a.name AS author',
-                    'price',
-                    'b.image_path',
-                    'quantity'
-                ]
+                new ColumnName('cart_item_id'),
+                new ColumnName('title'),
+                new ColumnName('a.name AS author'),
+                new ColumnName('price'),
+                new ColumnName('b.image_path'),
+                new ColumnName('quantity')
             )
             ->innerJoin('bookstore.cart_items', 'ci.book_id', 'b.book_id', 'ci')
             ->innerJoin('bookstore.carts', 'c.cart_id', 'ci.cart_id', 'c')
@@ -27,12 +26,12 @@ class CartController
             ->innerJoin('bookstore.authors', 'a.author_id', 'b.author_id', 'a')
             ->whereEqual('email', $email);
 
-        $data = $this->db->executeAndReturnAll($query);
-        $json = [];
-        $json['success'] = true;
-        $json['cart'] = $data;
-
-        echo json_encode($json);
+        try {
+            $data = $this->db->executeAndReturnAll($query);
+            REST::response(200, $data);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => 'An error occurred accessing te database']);
+        }
     }
 
     public function removeItem(): void
@@ -43,10 +42,12 @@ class CartController
             ->delete()
             ->whereEqual('cart_item_id', $id);
 
-        $json = [];
-        $json['success'] = $this->db->execute($query);
-
-        echo json_encode($json);
+        try {
+            $this->db->execute($query);
+            REST::response(200, []);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => 'An error occurred processing the request']);
+        }
     }
 
     public function addBook(): void

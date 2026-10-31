@@ -13,11 +13,11 @@ class GenreController
         $active = $parameters['active'] ?? false;
 
         $query = QueryBuilder::table('bookstore.genres', 'g')
-            ->select([
-                'g.genre_id',
-                'g.name',
-                'COUNT(bg.book_id) AS book_count'
-            ])
+            ->select(
+                new ColumnName('g.genre_id'),
+                new ColumnName('g.name'),
+                new ColumnCount('bg.book_id', 'book_count')
+            )
             ->groupBy([
                 'g.genre_id',
                 'g.name'
@@ -35,11 +35,11 @@ class GenreController
     public function getGenreById(int $id): void
     {
         $queryBuilder = QueryBuilder::table('bookstore.genres', 'g')
-            ->select([
-                'genre_id',
-                'name',
-                'description'
-            ])
+            ->select(
+                new ColumnName('genre_id'),
+                new ColumnName('name'),
+                new ColumnName('description')
+            )
             ->whereEqual('genre_id', $id);
 
         $results = $this->db->executeAndReturnOne($queryBuilder);
