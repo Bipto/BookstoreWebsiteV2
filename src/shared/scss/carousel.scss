@@ -1,0 +1,214 @@
+@use "variables";
+
+// ==============================
+// Carousel
+// ==============================
+
+.carousel-section {
+    width: 100%;
+    margin: 2em auto;
+
+    padding: 0 1.5em;
+
+    h2 {
+        margin-bottom: 1em;
+        color: variables.$primary-color;
+    }
+}
+
+// ==============================
+// Carousel container
+// ==============================
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    position: relative;
+    min-width: 0;
+}
+
+// ==============================
+// Carousel track
+// ==============================
+
+.carousel {
+    display: flex;
+    flex: 1;
+
+    gap: 20px;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+
+    min-width: 0;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    // Prevent cards from shrinking
+    .carousel-card {
+        flex: 0 0 180px;
+    }
+}
+
+// ==============================
+// Carousel heading
+// ==============================
+.carousel-heading {
+    margin-left: 4.5em;
+}
+
+// ==============================
+// Carousel card
+// ==============================
+
+.carousel-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px;
+
+    background-color: lighten(variables.$secondary-color, 3%);
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+
+    img {
+        width: 100%;
+        height: 240px;
+
+        object-fit: cover;
+
+        border-radius: 5px;
+    }
+
+    h3 {
+        font-size: 0.95em;
+        margin: 12px 0 5px;
+
+        color: variables.$primary-color;
+    }
+
+    p {
+        margin: 4px 0;
+        font-size: 0.85em;
+    }
+
+    .price {
+        margin-top: auto;
+        padding-top: 10px;
+
+        font-weight: bold;
+    }
+
+    a {
+        display: block;
+
+        margin-top: 12px;
+        padding: 9px;
+
+        text-align: center;
+        text-decoration: none;
+
+        color: white;
+        background-color: variables.$primary-color;
+
+        border-radius: 5px;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+}
+
+// ==============================
+// Navigation arrows
+// ==============================
+
+.carousel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    color: white;
+    background-color: variables.$primary-color;
+
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+}
+
+// ==============================
+// Responsive
+// ==============================
+
+@media (max-width: 767px) {
+
+    .carousel-section {
+        padding: 0 1em;
+    }
+
+    .carousel-container {
+        gap: 8px;
+    }
+
+    .carousel {
+        gap: 12px;
+
+        .carousel-card {
+            flex: 0 0 150px;
+        }
+    }
+
+    .carousel-card img {
+        height: 200px;
+    }
+
+    .carousel-arrow {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+// ==============================
+// Accessibility
+// ==============================
+
+@media (prefers-reduced-motion: reduce) {
+
+    .carousel,
+    .carousel-card,
+    .carousel-arrow {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}

@@ -23,6 +23,7 @@ session_start();
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="/js/cart.js"></script>
+    <script src="/js/carousel.js"></script>
 </head>
 
 <body>
@@ -32,11 +33,12 @@ session_start();
     require_once '/var/www/shared/router.php';
     require_once '/var/www/shared/ajax.php';
     require_once '/var/www/shared/api.php';
+    require_once '/var/www/shared/ui/carousel.php';
 
     $links = [
         [
             'Home' => '/',
-            'Books' => '/books',
+            'Explore' => '/explore',
             'Categories' => '/categories',
             'About' => '/about',
             'Contact' => '/contact'
@@ -60,7 +62,7 @@ session_start();
 
     $router = new Router();
     $router->get('/', '/var/www/sites/main/private/pages/main.php');
-    $router->get('/books', '/var/www/sites/main/private/pages/books.php');
+    $router->get('/explore', '/var/www/sites/main/private/pages/explore.php');
     $router->get('/categories', '/var/www/sites/main/private/pages/categories.php');
     $router->get('/about', '/var/www/sites/main/private/pages/about.php');
     $router->get('/contact', '/var/www/sites/main/private/pages/contact.php');

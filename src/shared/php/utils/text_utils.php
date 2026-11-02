@@ -43,3 +43,8 @@ function decodeJsonObject(mixed $data, ?bool $associative = null): mixed
 
     return $data;
 }
+
+function generateRandomString($length = 16)
+{
+    return substr(bin2hex(random_bytes($length)), 0, $length);
+}
