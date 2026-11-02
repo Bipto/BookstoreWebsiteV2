@@ -15,7 +15,7 @@ foreach ($response->getData() as $book) {
         'subtitle' => $book['author'],
         'image' => "/img/{$book['image_path']}",
         'url' => '#',
-        'price' => $book['price']
+        'price' => "£{$book['price']}"
     ];
 }
 
