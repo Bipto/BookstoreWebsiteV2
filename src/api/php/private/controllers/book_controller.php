@@ -16,6 +16,8 @@ class BookController
         $title = $parameters['title'] ?? '';
         $author = $parameters['author'] ?? '';
         $genres = $parameters['genre'] ?? [];
+        $limit = $parameters['limit'] ?? null;
+        $offset = $parameters['offset'] ?? null;
 
         $query = QueryBuilder::table('bookstore.books', 'b')
             ->select(
@@ -59,6 +61,14 @@ class BookController
                     ->whereEqual('bg2.book_id', new ColumnName('b.book_id'))
                     ->whereIn('bg2.genre_id', $genres)
             );
+        }
+
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+
+        if ($offset !== null) {
+            $query->offset($offset);
         }
 
         try {

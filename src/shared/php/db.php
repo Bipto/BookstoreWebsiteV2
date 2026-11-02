@@ -46,6 +46,8 @@ class QueryBuilder
     private array $wheres = [];
     private array $groupBys = [];
     private array $joins = [];
+    private ?int $offset = null;
+    private ?int $limit = null;
 
     private function __construct(private string $table, private ?string $alias) {}
 
@@ -85,6 +87,18 @@ class QueryBuilder
             ];
         }
 
+        return $this;
+    }
+
+    public function offset(int $offset): self
+    {
+        $this->offset = $offset;
+        return $this;
+    }
+
+    public function limit(int $limit): self
+    {
+        $this->limit = $limit;
         return $this;
     }
 
@@ -367,6 +381,21 @@ class QueryBuilder
         return $sql;
     }
 
+    private function buildOffsetLimitString(): string
+    {
+        $sql = '';
+
+        if ($this->limit != null) {
+            $sql .= " LIMIT {$this->limit}";
+        }
+
+        if ($this->offset != null) {
+            $sql .= " OFFSET {$this->offset}";
+        }
+
+        return $sql;
+    }
+
 
     private function buildGroupByString(): string
     {
@@ -391,6 +420,7 @@ class QueryBuilder
         $sqlOutput .= $queryBuilder->buildJoinString();
         $sqlOutput .= $queryBuilder->buildWhereString($paramBindings, $parameterCounter);
         $sqlOutput .= $queryBuilder->buildGroupByString();
+        $sqlOutput .= $queryBuilder->buildOffsetLimitString();
 
         return new CompiledQuery($sqlOutput, $paramBindings);
     }
