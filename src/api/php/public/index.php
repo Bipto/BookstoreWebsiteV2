@@ -5,6 +5,7 @@ require_once '/var/www/shared/router.php';
 
 require_once '/var/www/api/private/url_validator.php';
 require_once '/var/www/api/private/controllers/auth_controller.php';
+require_once '/var/www/api/private/controllers/author_controller.php';
 require_once '/var/www/api/private/controllers/book_controller.php';
 require_once '/var/www/api/private/controllers/cart_controller.php';
 require_once '/var/www/api/private/controllers/genre_controller.php';
@@ -38,6 +39,7 @@ try {
     $db = openDB();
     $router = new Router();
     $authController = new AuthController($db);
+    $authorController = new AuthorController($db);
     $bookController = new BookController($db);
     $cartController = new CartController($db);
     $genreController = new GenreController($db);
@@ -50,6 +52,10 @@ try {
     $router->get(
         '/books/{id}',
         fn($id) => $bookController->getBookById($id)
+    );
+    $router->get(
+        '/authors',
+        [$authorController, 'getAuthors']
     );
     $router->get(
         '/genres',
