@@ -1,5 +1,7 @@
 <?php
 
+require_once '/var/www/shared/ui/carousel.php';
+
 class BookCard implements Control
 {
     public function __construct(private string $title, private string $author, private string $imagePath, private string $url, private float $price) {}

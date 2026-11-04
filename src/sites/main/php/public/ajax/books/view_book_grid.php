@@ -1,11 +1,26 @@
 <?php
 
 require_once '/var/www/shared/api.php';
+require_once '/var/www/shared/ui/book_card.php';
 
 $queryString = $_SERVER['QUERY_STRING'];
 $url = $queryString != '' ? "/books?{$queryString}" : "/books";
 
 $response = API::get($url);
+
+$bookCards = [];
+
+if (!$response->hasError()) {
+    foreach ($response->getData() as $book) {
+        $bookCards[] = new BookCard(
+            $book['title'],
+            $book['author'],
+            "img/{$book['image_path']}",
+            "/view_book/{$book['book_id']}",
+            $book['price']
+        );
+    }
+}
 
 ?>
 
@@ -13,52 +28,14 @@ $response = API::get($url);
 
     <div class="book-grid">
 
-        <?php foreach ($response->getData() as $result): ?>
+        <?php
 
-            <?php
-            $bookId = htmlspecialchars(
-                $result['book_id'],
-                ENT_QUOTES,
-                'UTF-8'
-            );
+        foreach ($bookCards as $bookCard) {
+            echo $bookCard->render();
+        }
 
-            $title = htmlspecialchars(
-                $result['title'],
-                ENT_QUOTES,
-                'UTF-8'
-            );
+        ?>
 
-            $imagePath = htmlspecialchars(
-                "/img/{$result['image_path']}",
-                ENT_QUOTES,
-                'UTF-8'
-            );
-
-            ?>
-
-            <button
-                class="book-link"
-                type="button"
-                data-book-id="<?= htmlspecialchars($result['book_id'], ENT_QUOTES, 'UTF-8') ?>">
-                <div class="book">
-                    <img
-                        src="<?= htmlspecialchars("/img/{$result['image_path']}", ENT_QUOTES, 'UTF-8') ?>"
-                        class="book-image"
-                        loading="lazy"
-                        alt="<?= htmlspecialchars($result['title'], ENT_QUOTES, 'UTF-8') ?>">
-
-                    <h3 class="book-title">
-                        <?= htmlspecialchars($result['title'], ENT_QUOTES, 'UTF-8') ?>
-                    </h3>
-
-                    <span class="tooltiptext">
-                        <?= htmlspecialchars($result['title'], ENT_QUOTES, 'UTF-8') ?>
-                    </span>
-                </div>
-            </button>
-
-
-        <?php endforeach; ?>
     </div>
 <?php else: ?>
     <h3>Failed to connect to database and retrieve books</h3>
