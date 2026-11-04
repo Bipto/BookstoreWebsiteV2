@@ -2,21 +2,18 @@
 
 require_once '/var/www/shared/utils/text_utils.php';
 
+interface Control
+{
+    public function render(): string;
+}
+
 class Carousel
 {
-    private string $title;
-    private array $items;
-    private string $id;
-
     public function __construct(
-        string $title,
-        array $items,
-        string $id = 'carousel'
-    ) {
-        $this->title = $title;
-        $this->items = $items;
-        $this->id = $id;
-    }
+        private string $title,
+        private array $controls,
+        private string $id = 'carousel'
+    ) {}
 
     public function render(): string
     {
@@ -43,37 +40,13 @@ class Carousel
                     class="carousel"
                     id="<?= htmlspecialchars($this->id, ENT_QUOTES) ?>">
 
-                    <?php foreach ($this->items as $item): ?>
+                    <?php
 
-                        <div class="carousel-card">
+                    foreach ($this->controls as $control) {
+                        echo $control->render();
+                    }
 
-                            <img
-                                src="<?= htmlspecialchars($item['image']) ?>"
-                                alt="<?= htmlspecialchars($item['title']) ?>">
-
-                            <h3>
-                                <?= htmlspecialchars($item['title']) ?>
-                            </h3>
-
-                            <?php if (!empty($item['subtitle'])): ?>
-                                <p>
-                                    <?= htmlspecialchars($item['subtitle']) ?>
-                                </p>
-                            <?php endif; ?>
-
-                            <?php if (!empty($item['price'])): ?>
-                                <p class="price">
-                                    <?= htmlspecialchars($item['price']) ?>
-                                </p>
-                            <?php endif; ?>
-
-                            <a href="<?= htmlspecialchars($item['url']) ?>">
-                                View more
-                            </a>
-
-                        </div>
-
-                    <?php endforeach; ?>
+                    ?>
 
                 </div>
 

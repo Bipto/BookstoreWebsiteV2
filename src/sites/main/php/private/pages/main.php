@@ -1,36 +1,38 @@
 <?php
 
+require_once '/var/www/shared/ui/book_card.php';
 require_once '/var/www/shared/ui/carousel.php';
 require_once '/var/www/shared/api.php';
 
-$queryString = $_SERVER['QUERY_STRING'];
-$url = "/books?limit=15";
+//best-sellers
+$response = API::get("/books?limit=15");
 
-$response = API::get($url);
-
-$parsedBooks = [];
+$bookCards = [];
 foreach ($response->getData() as $book) {
-    $parsedBooks[] = [
-        'title' => $book['title'],
-        'subtitle' => $book['author'],
-        'image' => "/img/{$book['image_path']}",
-        'url' => '#',
-        'price' => "£{$book['price']}"
-    ];
+    $bookCards[] = new BookCard(
+        $book['title'],
+        $book['author'],
+        "img/{$book['image_path']}",
+        "/view_book/{$book['book_id']}",
+        $book['price']
+    );
 }
 
 $bestSellersCarousel = new Carousel(
     'Bestselling Books',
-    $parsedBooks,
-    'carousel'
+    $bookCards,
+    'bestSellersCarousel'
 );
 
 echo $bestSellersCarousel->render();
 
+$authors = API::get('/authors?limit=15');
+
+//authors
 $bestSellersCarousel2 = new Carousel(
-    'Bestselling Books 2',
-    $parsedBooks,
-    'carousel2'
+    'Authors',
+    $bookCards,
+    'authorsCarousel'
 );
 
 echo $bestSellersCarousel2->render();

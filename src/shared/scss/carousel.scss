@@ -51,23 +51,16 @@
     }
 
     // Prevent cards from shrinking
-    .carousel-card {
+    .card {
         flex: 0 0 180px;
     }
-}
-
-// ==============================
-// Carousel heading
-// ==============================
-.carousel-heading {
-    margin-left: 4.5em;
 }
 
 // ==============================
 // Carousel card
 // ==============================
 
-.carousel-card {
+.card {
     display: flex;
     flex-direction: column;
 
@@ -184,12 +177,12 @@
     .carousel {
         gap: 12px;
 
-        .carousel-card {
+        .card {
             flex: 0 0 150px;
         }
     }
 
-    .carousel-card img {
+    .card img {
         height: 200px;
     }
 
@@ -206,7 +199,7 @@
 @media (prefers-reduced-motion: reduce) {
 
     .carousel,
-    .carousel-card,
+    .card,
     .carousel-arrow {
         scroll-behavior: auto;
         transition: none;
