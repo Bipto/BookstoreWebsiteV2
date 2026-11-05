@@ -1,0 +1,236 @@
+@use "variables";
+
+// ==============================
+// Table container
+// ==============================
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.5em 0;
+    border-radius: 12px;
+    background-color: mix(#000, variables.$secondary-color, 15%);
+    border: 1px solid rgba(variables.$secondary-color, 0.25);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(variables.$secondary-color, 0.5) transparent;
+}
+
+// ==============================
+// Main table
+// ==============================
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    // Light text against dark backgrounds
+    color: #fff;
+    background-color: mix(#000, variables.$secondary-color, 15%);
+
+    th,
+    td {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(variables.$secondary-color, 0.25);
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    // ==========================
+    // Table headings
+    // ==========================
+
+    thead {
+        background-color: variables.$secondary-color;
+        color: #fff;
+
+        th {
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.055em;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+    }
+
+    // ==========================
+    // Table body
+    // ==========================
+
+    tbody {
+        tr {
+            background-color: mix(#000, variables.$secondary-color, 15%);
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: mix(variables.$primary-color,
+                        variables.$secondary-color,
+                        15%);
+            }
+
+            &:last-child td {
+                border-bottom: none;
+            }
+        }
+
+        td {
+            color: rgba(#fff, 0.85);
+            font-weight: 400;
+        }
+    }
+}
+
+// ==============================
+// Striped table
+// ==============================
+
+.table-striped {
+    tbody tr:nth-child(even) {
+        background-color: mix(#000, variables.$secondary-color, 8%);
+    }
+
+    tbody tr:hover {
+        background-color: mix(variables.$primary-color,
+                variables.$secondary-color,
+                15%);
+    }
+}
+
+// ==============================
+// Compact table
+// ==============================
+
+.table-compact {
+
+    th,
+    td {
+        padding: 9px 14px;
+    }
+
+    thead th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+// ==============================
+// Bordered table
+// ==============================
+
+.table-bordered {
+
+    th,
+    td {
+        border: 1px solid rgba(variables.$secondary-color, 0.3);
+    }
+}
+
+// ==============================
+// Alignment helpers
+// ==============================
+
+.table {
+    .text-right {
+        text-align: right;
+    }
+
+    .text-centre {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .text-wrap {
+        white-space: normal;
+        min-width: 200px;
+    }
+}
+
+// ==============================
+// Table actions
+// ==============================
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+// ==============================
+// Empty table
+// ==============================
+
+.table-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: rgba(#fff, 0.65);
+    font-size: 0.9rem;
+    background-color: mix(#000, variables.$secondary-color, 15%);
+}
+
+// ==============================
+// Sticky header
+// ==============================
+
+.table-sticky {
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+}
+
+// ==============================
+// Responsive
+// ==============================
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.85rem;
+
+        th,
+        td {
+            padding: 12px 14px;
+        }
+
+        thead th {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .table {
+        font-size: 0.8rem;
+
+        th,
+        td {
+            padding: 10px 12px;
+        }
+    }
+
+    .table-container {
+        border-radius: 9px;
+    }
+}
+
+// ==============================
+// Accessibility
+// ==============================
+
+@media (prefers-reduced-motion: reduce) {
+    .table tbody tr {
+        transition: none;
+    }
+}

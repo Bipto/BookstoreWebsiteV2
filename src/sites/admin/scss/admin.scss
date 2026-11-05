@@ -1,0 +1,238 @@
+@use "variables";
+
+@use "modal.scss";
+@use "menu.scss";
+@use "book_grid.scss";
+@use "carousel.scss";
+@use "table.scss";
+@use "sidebar.scss";
+
+* {
+    font-family: "Manrope", sans-serif;
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+// ==============================
+// Base
+// ==============================
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    color: variables.$primary-color;
+    background-color: variables.$secondary-color;
+}
+
+// ==============================
+// Page
+// ==============================
+
+.page {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+// ==============================
+// Forms
+// ==============================
+
+.form-container {
+    display: flex;
+    justify-content: center;
+
+    margin: 1.5em auto;
+}
+
+.form-entries {
+    display: grid;
+
+    grid-template-columns: 50% 50%;
+
+    gap: 10px;
+
+    padding-bottom: 1.2em;
+}
+
+form {
+    max-width: 500px;
+
+    margin: 0 auto;
+}
+
+.form-button {
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+
+.step {
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+
+    padding: 8px;
+
+    box-sizing: border-box;
+}
+
+// ==============================
+// Alignment helpers
+// ==============================
+
+.centre-align {
+    display: flex;
+    justify-content: center;
+}
+
+.left-align {
+    display: flex;
+    justify-content: left;
+}
+
+.right-align {
+    display: flex;
+    justify-content: right;
+}
+
+// ==============================
+// HTMX cart loading indicator
+// ==============================
+
+/* Hide cart content while the request is active */
+#cart-dropdown #cart-content.htmx-request {
+    display: none;
+}
+
+/* Hide spinner by default */
+#cart-dropdown #cart-spinner {
+    display: none;
+}
+
+/* Show spinner while cart content is loading */
+#cart-dropdown:has(#cart-content.htmx-request) #cart-spinner {
+    display: flex;
+}
+
+// ==============================
+// Spinner
+// ==============================
+
+.spinner-container {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e5e5;
+    border-top: 6px solid #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .spinner {
+        animation-duration: 3s;
+    }
+
+    .menubar *,
+    .links,
+    .menu-dropdown {
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Desktop: always show filters */
+@media (min-width: 768px) {
+    .book-filters-toggle {
+        display: none;
+    }
+
+    .book-filter-content {
+        display: block !important;
+    }
+}
+
+.book-grid-container {
+    position: relative;
+    min-height: 200px;
+}
+
+.spinner-overlay {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.spinner-overlay.htmx-indicator {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner-overlay.htmx-indicator.htmx-request {
+    opacity: 1;
+    visibility: visible;
+}
+
+.book-grid-container:has(.spinner-overlay.htmx-request) #page-content {
+    visibility: hidden;
+}
+
+// Main content
+.content {
+    margin-left: 250px;
+    padding: 30px;
+    transition: margin-left 0.3s ease;
+
+    &.expanded {
+        margin-left: 70px;
+    }
+}

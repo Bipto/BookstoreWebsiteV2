@@ -1,5 +1,7 @@
 <?php
 
+require_once '/var/www/shared/utils/file_utils.php';
+
 class Menubar
 {
     public function __construct(
@@ -23,17 +25,20 @@ class Menubar
                 "
             >';
 
+
+        $logoPath = getImagePath('logo.png');
+
         // Company logo
-        $html .= '
-            <div class="company-logo">
-                <a href="/" aria-label="Home">
+        $html .= "
+            <div class='company-logo'>
+                <a href='/' aria-label='Home'>
                     <img
-                        class="company-logo-img"
-                        src="/img/logo.png"
-                        alt="Company logo"
+                        class='company-logo-img'
+                        src='{$logoPath}'
+                        alt='Company logo'
                     >
                 </a>
-            </div>';
+            </div>";
 
         // Hamburger button
         $html .= '
@@ -252,6 +257,7 @@ class Menubar
                 >
                     <a href="/profile">Profile</a>
                     <a href="/settings">Settings</a>
+                    <a href="http://admin.localhost">Admin Site</a>
                     <a href="/logout">Log out</a>
                 </div>';
         }

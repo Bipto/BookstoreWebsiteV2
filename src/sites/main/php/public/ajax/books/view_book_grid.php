@@ -2,6 +2,7 @@
 
 require_once '/var/www/shared/api.php';
 require_once '/var/www/shared/ui/book_card.php';
+require_once '/var/www/shared/utils/file_utils.php';
 
 $queryString = $_SERVER['QUERY_STRING'];
 $url = $queryString != '' ? "/books?{$queryString}" : "/books";
@@ -15,7 +16,7 @@ if (!$response->hasError()) {
         $bookCards[] = new BookCard(
             $book['title'],
             $book['author'],
-            "img/{$book['image_path']}",
+            getImagePath($book['image_path']),
             "/view_book/{$book['book_id']}",
             $book['price']
         );
