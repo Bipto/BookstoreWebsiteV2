@@ -40,7 +40,7 @@ class CartController
 
         $query = QueryBuilder::table('bookstore.cart_items')
             ->delete()
-            ->whereEqual('cart_item_id', $id);
+            ->whereEqual('cart_item_id', new Constant($id));
 
         try {
             $this->db->execute($query);
