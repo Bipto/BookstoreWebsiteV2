@@ -36,20 +36,8 @@ session_start();
     $sidebar = new BookstoreSidebar();
     $sidebar->render();
 
-    $headers = ['ID', 'Name', 'Email', 'Age'];
+    echo AJAX::call('/ajax/book_table.php', 'page-content');
 
-    $data = [
-        [1, 'John Smith', 'john@example.com', 32],
-        [2, 'Jane Jones', 'jane@example.com', 28],
-        [3, 'Peter Brown', 'peter@example.com', 45]
-    ];
-
-    echo '<h2>Users</h2>';
-    $table = new Table($headers, $data);
-
-    $table->setClass('table table-striped table-bordered');
-
-    echo $table->render();
     $sidebar->close();
     ?>
 

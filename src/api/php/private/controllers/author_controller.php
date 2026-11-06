@@ -21,7 +21,9 @@ class AuthorController
 
         $query = QueryBuilder::table('bookstore.authors', 'a')
             ->select(
+                new ColumnName("a.author_id"),
                 new ColumnName("a.name"),
+                new ColumnName("a.description"),
                 new ColumnName("a.image_path")
             );
 

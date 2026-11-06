@@ -6,11 +6,7 @@ class AJAX
     {
         $generatedId = uniqid();
         $id = $elementId;
-
-        $jsUrl = json_encode($url);
-        $jsId = json_encode($id);
         $jsScriptId = "script_{$generatedId}";
-        $jsScriptIdJson = json_encode($jsScriptId);
 
         return <<<HTML
         <div
