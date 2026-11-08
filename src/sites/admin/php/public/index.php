@@ -20,6 +20,8 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="/js/modal.js"></script>
+    <script defer src="/js/edit_author_modal.js"></script>
 </head>
 
 <body>
@@ -32,6 +34,7 @@ session_start();
     require_once '/var/www/shared/api.php';
     require_once '/var/www/shared/ui/carousel.php';
     require_once '/var/www/shared/ui/table.php';
+    require_once '/var/www/shared/ui/modal.php';
 
     $sidebar = new BookstoreSidebar();
     $sidebar->render();
@@ -39,6 +42,8 @@ session_start();
     echo AJAX::call('/ajax/book_table.php', 'page-content');
 
     $sidebar->close();
+
+    echo ModalBuilder::build('author-modal');
     ?>
 
 </body>

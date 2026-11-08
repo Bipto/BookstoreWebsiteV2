@@ -10,28 +10,27 @@ require_once '/var/www/shared/utils/text_utils.php';
 
 $response = API::get('/authors');
 
-/* $headers = ['ID', 'Name', 'Email', 'Age'];
-
-$data = [
-    [1, 'John Smith', 'john@example.com', 32],
-    [2, 'Jane Jones', 'jane@example.com', 28],
-    [3, 'Peter Brown', 'peter@example.com', 45]
-]; */
-
 $headers = ['ID', 'Name', 'Description', 'Image Path'];
-$data = [];
+$rows = [];
 
 foreach ($response->getData() as $item) {
-    $data[] = [
-        'id' => $item['author_id'],
-        'name' => $item['name'],
-        'description' => truncate($item['description'], 150),
-        'image_path' => $item['image_path']
+    $data[] = [];
+
+    $authorId = $item['author_id'];
+
+    $rows[] = [
+        'data' => [
+            'id' => $item['author_id'],
+            'name' => $item['name'],
+            'description' => truncate($item['description'], 150),
+            'image_path' => $item['image_path']
+        ],
+        'action' => "openAuthorModal({$authorId});"
     ];
 }
 
 echo '<h2>Users</h2>';
-$table = new Table($headers, $data);
+$table = new Table($headers, $rows);
 
 $table->setClass('table table-striped table-bordered');
 

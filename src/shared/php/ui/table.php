@@ -1,6 +1,11 @@
 
 <?php
 
+readonly class TableRow
+{
+    public function __construct(public array $data, public ?string $action = null) {}
+}
+
 class Table
 {
     private array $headers = [];
@@ -58,9 +63,16 @@ class Table
         $html .= '<tbody>';
 
         foreach ($this->rows as $row) {
-            $html .= '<tr>';
+            $action = $row['action'] ?? null;
 
-            foreach ($row as $cell) {
+            if ($action) {
+                $html .= "<tr onclick='{$row['action']}'>";
+            } else {
+                $html .= "<tr>";
+            }
+
+
+            foreach ($row['data'] as $cell) {
                 $html .= '<td>' .
                     htmlspecialchars((string)($cell ?? ''), ENT_QUOTES, 'UTF-8') .
                     '</td>';
