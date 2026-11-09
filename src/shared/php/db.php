@@ -34,7 +34,7 @@ class ColumnCount
 
 class Constant
 {
-    public function __construct(public readonly string $value) {}
+    public function __construct(public readonly mixed $value) {}
 }
 
 class QueryBuilder
@@ -477,33 +477,20 @@ class RelationalDatabase
         return $stmt;
     }
 
-    public function execute(QueryBuilder $query): bool
+    public function execute(QueryBuilder $query): void
     {
-        try {
-            $this->executeImpl($query);
-            return true;
-        } catch (PDOException $e) {
-            return false;
-        }
+        $this->executeImpl($query);
     }
 
     public function executeAndReturnAll(QueryBuilder $query)
     {
-        try {
-            $stmt = $this->executeImpl($query);
-            return $stmt->fetchAll();
-        } catch (PDOException $e) {
-            return [];
-        }
+        $stmt = $this->executeImpl($query);
+        return $stmt->fetchAll();
     }
 
     public function executeAndReturnOne(QueryBuilder $query)
     {
-        try {
-            $stmt = $this->executeImpl($query);
-            return $stmt->fetch();
-        } catch (PDOException $e) {
-            return [];
-        }
+        $stmt = $this->executeImpl($query);
+        return $stmt->fetch();
     }
 }

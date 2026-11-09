@@ -30,7 +30,7 @@ class BookCard implements Control
             </p>
 
             <p class='price'>
-                {$displayPrice}
+                £{$displayPrice}
             </p>
 
             <a href='{$displayUrl}'>

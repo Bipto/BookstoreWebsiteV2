@@ -58,6 +58,10 @@ try {
         [$authorController, 'getAuthors']
     );
     $router->get(
+        '/authors/{id}',
+        fn($id) => $authorController->getAuthorById($id)
+    );
+    $router->get(
         '/genres',
         [$genreController, 'getGenres']
     );

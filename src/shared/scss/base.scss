@@ -1,0 +1,343 @@
+@use "variables";
+
+// ==============================
+// Global base styles
+// ==============================
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    background-color: variables.$secondary-color;
+    color: variables.$primary-color;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ==============================
+// Headings
+// ==============================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1rem;
+
+    color: variables.$primary-color;
+
+    font-weight: 700;
+    line-height: 1.2;
+
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    font-size: 1.15rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 0.9rem;
+}
+
+input {
+    background-color: lighten(variables.$secondary-color, 6%);
+    border-radius: 5px;
+    border-color: lighten(variables.$secondary-color, 9%);
+}
+
+textarea {
+    background-color: lighten(variables.$secondary-color, 6%);
+    border-radius: 5px;
+    border-color: lighten(variables.$secondary-color, 9%);
+}
+
+// ==============================
+// Text elements
+// ==============================
+
+p {
+    margin: 0 0 1rem;
+
+    line-height: 1.7;
+}
+
+small {
+    font-size: 0.85rem;
+}
+
+strong,
+b {
+    font-weight: 700;
+}
+
+em,
+i {
+    font-style: italic;
+}
+
+mark {
+    padding: 0.1rem 0.3rem;
+
+    background-color: rgba(variables.$primary-color, 0.12);
+    color: variables.$primary-color;
+
+    border-radius: 3px;
+}
+
+// ==============================
+// Links
+// ==============================
+
+a {
+    color: variables.$primary-color;
+
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+
+    transition:
+        color 0.2s ease,
+        text-decoration-color 0.2s ease;
+
+    &:hover {
+        text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+        outline: 2px solid variables.$primary-color;
+        outline-offset: 3px;
+
+        border-radius: 3px;
+    }
+}
+
+// ==============================
+// Lists
+// ==============================
+
+ul,
+ol {
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    padding-left: 0.2rem;
+    margin-bottom: 0.35rem;
+}
+
+li::marker {
+    color: variables.$primary-color;
+}
+
+// ==============================
+// Horizontal rules
+// ==============================
+
+hr {
+    height: 1px;
+
+    margin: 2rem 0;
+
+    border: 0;
+
+    background-color: rgba(variables.$primary-color, 0.15);
+}
+
+// ==============================
+// Images and media
+// ==============================
+
+img,
+picture,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+    vertical-align: middle;
+}
+
+figure {
+    margin: 0 0 1.5rem;
+}
+
+figcaption {
+    margin-top: 0.5rem;
+
+    color: rgba(variables.$primary-color, 0.65);
+
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+// ==============================
+// Forms and inputs
+// ==============================
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    color: variables.$primary-color;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(variables.$primary-color, 0.45);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button,
+select {
+    cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+    outline: 2px solid variables.$primary-color;
+    outline-offset: 2px;
+}
+
+// ==============================
+// Tables
+// ==============================
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.75rem 1rem;
+
+    border-bottom: 1px solid rgba(variables.$primary-color, 0.12);
+}
+
+th {
+    color: variables.$primary-color;
+
+    font-weight: 700;
+}
+
+// ==============================
+// Code
+// ==============================
+
+code,
+pre,
+kbd,
+samp {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono",
+        monospace;
+}
+
+code {
+    padding: 0.15rem 0.35rem;
+
+    background-color: rgba(variables.$primary-color, 0.07);
+
+    border-radius: 4px;
+
+    font-size: 0.875em;
+}
+
+pre {
+    overflow-x: auto;
+
+    padding: 1rem;
+
+    background-color: rgba(variables.$primary-color, 0.06);
+
+    border-radius: 10px;
+
+    line-height: 1.5;
+
+    code {
+        padding: 0;
+        background: none;
+    }
+}
+
+// ==============================
+// Selection
+// ==============================
+
+::selection {
+    background-color: variables.$primary-color;
+    color: variables.$secondary-color;
+}
+
+// ==============================
+// Reduced motion accessibility
+// ==============================
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

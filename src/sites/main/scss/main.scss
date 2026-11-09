@@ -1,35 +1,11 @@
 @use "variables";
 
+@use "base.scss";
 @use "modal.scss";
 @use "menu.scss";
 @use "book_grid.scss";
 @use "carousel.scss";
 @use "table.scss";
-
-* {
-    font-family: "Manrope", sans-serif;
-    box-sizing: border-box;
-}
-
-// ==============================
-// Base
-// ==============================
-
-html,
-body {
-    margin: 0;
-    min-height: 100%;
-}
-
-body {
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-
-    color: variables.$primary-color;
-    background-color: variables.$secondary-color;
-}
 
 // ==============================
 // Page

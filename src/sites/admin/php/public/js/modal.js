@@ -23,6 +23,39 @@ class Modal {
     });
   }
 
+  async loadContent(url) {
+    this.modalBody.innerHTML =
+        '<div class="spinner-overlay"><div class="spinner" ></div></div>';
+
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const html = await response.text();
+
+      this.modalBody.innerHTML = html;
+
+    } catch (error) {
+      console.error('Error loading modal content:', error);
+
+      this.modalBody.innerHTML =
+          '<p>Sorry, something went wrong loading the content.</p>';
+    }
+  }
+
+  async openModalWithFetch(header, url, footer = '') {
+    this.modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    this.modalHeader.innerHTML = header;
+    this.modalFooter.innerHTML = footer;
+
+    await this.loadContent(url);
+  }
+
   openModal(header, content, footer) {
     this.modal.hidden = false;
 

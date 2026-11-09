@@ -31,6 +31,8 @@ class ModalBuilder
                     <div id="$id-spinner" class="modal-spinner">
                         <div class="spinner"></div>
                     </div>
+                    <div id="$id=content">
+                    </div>
                 </main>
 
                 <footer class="modal-footer" id="$id-footer">
