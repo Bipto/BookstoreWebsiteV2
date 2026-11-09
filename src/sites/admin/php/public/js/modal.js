@@ -25,7 +25,7 @@ class Modal {
 
   async loadContent(url) {
     this.modalBody.innerHTML =
-        '<div class="spinner-overlay"><div class="spinner" ></div></div>';
+        '<div class="spinner-overlay-rel"><div class="spinner" ></div></div>';
 
     try {
       const response = await fetch(url);

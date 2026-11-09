@@ -195,7 +195,7 @@ function createAuthors(PDO $conn)
     After Tolkien's death, his son Christopher published a series of works based on his father's extensive notes and unpublished manuscripts, including The Silmarillion. These, together with The Hobbit and The Lord of the Rings, form a connected body of tales, poems, fictional histories, invented languages, and literary essays about a fantasy world called Arda and, within it, Middle-earth. Between 1951 and 1955 Tolkien applied the term legendarium to the larger part of these writings.
     
     While many other authors had published works of fantasy before Tolkien, the tremendous success of The Hobbit and The Lord of the Rings ignited a profound interest in the fantasy genre and ultimately precipitated an avalanche of new fantasy books and authors. This has led to his popular identification as the \"father\" of modern fantasy literature. He is widely regarded as one of the most influential authors of all time.";
-    $author1->ImagePath = "";
+    $author1->ImagePath = "J._R._R._Tolkien,_ca._1925.jpg";
     insertAuthor($author1, $conn);
 
     $author2 = new Author();
@@ -208,13 +208,13 @@ function createAuthors(PDO $conn)
     
     Rowling has attracted criticism for trans-exclusionary positions she has taken from 2019 onwards, including opposition to gender self-identification and to allowing transgender women into women's toilets and changing rooms. She has supported and donated to the campaign group For Women Scotland, the plaintiffs in For Women Scotland Ltd v The Scottish Ministers.";
 
-    $author2->ImagePath = "";
+    $author2->ImagePath = "J._K._Rowling_2010.jpg.webp";
     insertAuthor($author2, $conn);
 
     $author3 = new Author();
     $author3->Name = "Suzanne Collins";
     $author3->Description = "Suzanne Collins (born August 10, 1962)[2] is an American author and television writer who is best known as the author of the young adult dystopian fiction book series The Hunger Games. She is also the author of the children's fantasy series The Underland Chronicles.";
-    $author3->ImagePath = "";
+    $author3->ImagePath = "Suzanne_Collins_David_Shankbone_2010.jpg";
     insertAuthor($author3, $conn);
 
     $author4 = new Author();
@@ -222,7 +222,7 @@ function createAuthors(PDO $conn)
     $author4->Description = "George Raymond Richard Martin (born George Raymond Martin, September 20, 1948), also known by the initials GRRM, is an American author, screenwriter, and television producer. Martin is best known as the author of the epic fantasy novel series A Song of Ice and Fire, which was adapted by HBO into the Primetime Emmy Award–winning television series Game of Thrones (2011–2019) and its prequel series House of the Dragon (2022–present). Martin also wrote a related series of novellas, Tales of Dunk and Egg, which have been adapted by HBO as A Knight of the Seven Kingdoms (2026–present). Outside of A Song of Ice and Fire and its related media, Martin helped create the Wild Cards anthology series and contributed worldbuilding for the video game Elden Ring (2022).
 
     In 2005, Lev Grossman of Time called Martin \"the American Tolkien\", and in 2011, he was included on the annual Time 100 list of the most influential people in the world. He is a longtime resident of Santa Fe, New Mexico, where he helped fund Meow Wolf and owns the Jean Cocteau Cinema.";
-    $author4->ImagePath = "";
+    $author4->ImagePath = "George_R._R._Martin_(54743316729)_(cropped).jpg";
     insertAuthor($author4, $conn);
 
     $author5 = new Author();
@@ -232,7 +232,7 @@ function createAuthors(PDO $conn)
     Orwell is best known for his allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949), although his works also encompass literary criticism, poetry, fiction and polemical journalism. His non-fiction works, including The Road to Wigan Pier (1937), documenting his experience of working-class life in industrial Northern England, and Homage to Catalonia (1938), an account of his experiences soldiering for the Republican faction of the Spanish Civil War (1936–1939), are as critically respected as his essays on politics, literature, language and culture.
     
     Orwell's work remains influential in both popular and political culture, with the adjective \"Orwellian\"—describing totalitarian and authoritarian social practices—becoming part of the English language, as are many of his neologisms, such as \"Big Brother\", \"Thought Police\", \"Room 101\", \"Newspeak\", \"memory hole\", \"doublethink\", and \"thoughtcrime\". In 2008, The Times named Orwell the second-greatest British writer since 1945.";
-    $author5->ImagePath = "";
+    $author5->ImagePath = "George_Orwell_press_photo.jpg";
     insertAuthor($author5, $conn);
 }
 

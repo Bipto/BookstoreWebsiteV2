@@ -16,8 +16,8 @@ if (!$response->hasError()) {
         $bookCards[] = new BookCard(
             $book['title'],
             $book['author'],
-            getImagePath($book['image_path']),
-            "/view_book/{$book['book_id']}",
+            getBookImagePath($book['image_path']),
+            "/book/{$book['book_id']}",
             $book['price']
         );
     }

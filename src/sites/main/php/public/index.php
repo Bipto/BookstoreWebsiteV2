@@ -67,11 +67,15 @@ session_start();
     $router->get('/about', '/var/www/sites/main/private/pages/about.php');
     $router->get('/contact', '/var/www/sites/main/private/pages/contact.php');
 
-    $router->get('/view_book/{book_id}', function ($id) {
+    $router->get('/book/{book_id}', function ($id) {
         echo AJAX::call("/ajax/books/view_book.php?id={$id}", 'page-content');
     });
 
-    $router->get('/view_genre/{genre_id}', function ($id) {
+    $router->get('/author/{author_id}', function ($id) {
+        echo AJAX::call("/ajax/authors/view_author.php?id={$id}", 'page-content');
+    });
+
+    $router->get('/genre/{genre_id}', function ($id) {
         echo AJAX::call("/ajax/genres/view_genre.php?id={$id}", 'page-content');
     });
 

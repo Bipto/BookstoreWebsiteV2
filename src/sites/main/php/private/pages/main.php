@@ -1,20 +1,21 @@
 <?php
 
+require_once '/var/www/shared/ui/author_card.php';
 require_once '/var/www/shared/ui/book_card.php';
 require_once '/var/www/shared/ui/carousel.php';
 require_once '/var/www/shared/api.php';
 require_once '/var/www/shared/utils/file_utils.php';
 
 //best-sellers
-$response = API::get("/books?limit=15");
+$books = API::get("/books?limit=15");
 
 $bookCards = [];
-foreach ($response->getData() as $book) {
+foreach ($books->getData() as $book) {
     $bookCards[] = new BookCard(
         $book['title'],
         $book['author'],
-        getImagePath($book['image_path']),
-        "/view_book/{$book['book_id']}",
+        getBookImagePath($book['image_path']),
+        "/book/{$book['book_id']}",
         $book['price']
     );
 }
@@ -28,12 +29,20 @@ $bestSellersCarousel = new Carousel(
 echo $bestSellersCarousel->render();
 
 $authors = API::get('/authors?limit=15');
+$authorCards = [];
+foreach ($authors->getData() as $author) {
+    $authorCards[] = new AuthorCard(
+        $author['name'],
+        getAuthorImagePath($author['image_path']),
+        "/author/{$author['author_id']}",
+    );
+}
 
 //authors
-$bestSellersCarousel2 = new Carousel(
+$authorCarousel = new Carousel(
     'Authors',
-    $bookCards,
+    $authorCards,
     'authorsCarousel'
 );
 
-echo $bestSellersCarousel2->render();
+echo $authorCarousel->render();

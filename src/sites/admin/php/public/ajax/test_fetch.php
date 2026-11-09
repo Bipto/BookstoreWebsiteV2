@@ -10,10 +10,6 @@ require_once '/var/www/shared/api.php';
 
 $response = API::get("/authors/{$id}");
 
-for ($i = 0; $i < 100_000_000_000; $i++) {
-    $i = $i * $i;
-}
-
 ?>
 
 <?php if ($response->hasError()): ?>

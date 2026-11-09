@@ -1,6 +1,7 @@
 <?php
 
 require_once '/var/www/shared/api.php';
+require_once '/var/www/shared/utils/file_utils.php';
 
 $id = $_GET['id'] ?? 1;
 
@@ -9,7 +10,7 @@ $response = API::get("/books/{$id}");
 if (!$response->hasError()) {
     $data = $response->getData();
 
-    $imagePath = "/img/{$data['image_path']}";
+    $imagePath = getBookImagePath($data['image_path']);
     $price = ($data['price'] ?? 0);
     $formattedPrice = number_format($price, 2);
 

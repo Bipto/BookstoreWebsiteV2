@@ -27,7 +27,7 @@ if (!$response->hasError()) {
 
     foreach ($genres as $index => $genre) {
         $genreHTML .= sprintf(
-            "<a class='genre-link' href='/view_genre/{$genre['genre_id']}'>%s</a>",
+            "<a class='genre-link' href='/genre/{$genre['genre_id']}'>%s</a>",
             htmlspecialchars($genre['name'], ENT_QUOTES, 'UTF-8')
         );
     }
@@ -70,7 +70,7 @@ if (!$response->hasError()) {
 
     $footer = "
     <a
-        href='/view_book/{$encodedId}'
+        href='/book/{$encodedId}'
         class='modal-button modal-button-secondary'
     >
         View More
