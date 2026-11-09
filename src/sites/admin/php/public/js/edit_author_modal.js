@@ -1,10 +1,11 @@
 function openAuthorModal(id) {
   const modal = new Modal('author-modal');
-  /* modal.openModal(
-      '', '<div class="spinner-overlay-rel"><div class="spinner"></div></div>',
-      ''); */
-
   modal.openModalWithFetch(
-      '<h2>Edit Author</h2>', '/ajax/test_fetch.php?id=' + id,
-      '<button>Close</button>');
+      '<h2>Edit Author</h2>', '/ajax/edit_author.php?id=' + id,
+      '<button class="btn btn-primary" id="update-author-button">Save</button>');
+
+  document.getElementById('update-author-button')
+      .addEventListener('click', () => {
+        alert('Updating author');
+      })
 }
