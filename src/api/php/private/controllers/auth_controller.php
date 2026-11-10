@@ -17,6 +17,10 @@ class AuthController
                 ->whereEqual('email', new Constant($data['email']));
 
             $results = $this->db->executeAndReturnOne($queryBuilder);
+            if ($results === false) {
+                REST::response(401, ['error' => 'An account could not be found with the provided email']);
+            }
+
             $password = $data['password'];
 
             if ($password && password_verify($password, $results['password'])) {
