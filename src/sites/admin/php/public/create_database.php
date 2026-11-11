@@ -182,6 +182,74 @@ The expression fantastic literature is often used for this genre by Anglophone l
         The term speculative fiction has been used for works of literature, film, television, drama, video games, radio, and hybrid media."
     );
     insertGenre($genre6, $conn);
+
+    $genre7 = new Genre(
+        "Prose Fiction",
+        "Prose is language that is natural or normal in structure: following the spontaneous flow of conversational speech, without any perfectly regular rhythm; containing ordinary grammar patterns; or, in writing, aligning to typical conventions and formatting. It thus can range in its exact medium from informal everyday speaking to formal academic writing. Prose differs most notably from poetry, which follows some type of contrived intentional rhythm or other artistically crafted structure or pattern. Poetic structures vary dramatically by language; in English poetry, for instance, language is often organized by a rhythmic metre or rhyme scheme.
+
+        The day-to-day informal language of a region or community, and many other forms and styles of language usage, fall under prose, a label that can describe both speech and writing. In writing, poetry is traditionally written in a special format called verse: a series of lines stacked on top of one another on a page. This parallels how a person might read the poem aloud; for example, poetry may end with a rhyme at the end of each line, making the entire work more melodious or memorable. Prose uses writing conventions and formatting that may highlight meaning—for instance, the use of a new paragraph for a new speaker in a novel—but does not follow any special rhythmic or other artistic structure.
+        
+        The word \"prose\" first appeared in English in the 14th century. It is derived from the Old French prose, which in turn originates in the Latin expression prosa oratio (literally, straightforward or direct speech).[1] In highly-literate cultures where spoken rhetoric is considered relatively unimportant, definitions of prose may be narrower, including only written language (but including written speech or dialogue). In written languages, spoken and written prose usually differ sharply. Sometimes, these differences are transparent to those using the languages; linguists studying extremely literal transcripts for conversation analysis see them, but ordinary language-users are unaware of them.
+        
+        Academic writing (works of philosophy, history, economics, etc.), journalism, and fiction are usually written in prose (excepting verse novels etc.). Developments in 20th century literature, including free verse, concrete poetry, and prose poetry, have led to the idea of poetry and prose as two ends on a spectrum rather than firmly distinct from each other. The British poet T. S. Eliot noted, whereas \"the distinction between verse and prose is clear, the distinction between poetry and prose is obscure.\""
+    );
+    insertGenre($genre7, $conn);
+
+    $genre8 = new Genre(
+        "Romanticism",
+        "Romanticism (also known as the Romantic movement or Romantic era) was an artistic and intellectual movement that originated in Europe towards the end of the 18th century. The purpose of the movement was to advocate for the importance of subjectivity, imagination, and appreciation of nature in society and culture in response to the Age of Enlightenment and the Industrial Revolution.
+
+        Romanticists rejected the social conventions of the time in favour of a moral outlook known as individualism. They argued that passion and intuition were crucial to understanding the world, and that beauty is more than merely an affair of form, but rather something that evokes a strong emotional response. With this philosophical foundation, the Romanticists elevated several key themes to which they were deeply committed: a reverence for nature and the supernatural, an idealization of the past as a nobler era, a fascination with the exotic and the mysterious, and a celebration of the heroic and the sublime.
+        
+        The Romanticist movement had a particular fondness for the Middle Ages, which to them represented an era of chivalry, heroism, and a more organic relationship between humans and their environment. This idealization contrasted sharply with the values of their contemporary industrial society, which they considered alienating for its economic materialism and environmental degradation. The movement's illustration of the Middle Ages was a central theme in debates, with allegations that Romanticist portrayals often overlooked the downsides of medieval life.
+        
+        The consensus is that Romanticism peaked from 1800 until 1850. However, a \"Late Romantic\" period and \"Neoromantic\" revivals are also discussed. These extensions of the movement are characterized by a resistance to the increasingly experimental and abstract forms that culminated in modern art, and the deconstruction of traditional tonal harmony in music. They continued the Romantic ideal, stressing depth of emotion in art and music while showcasing technical mastery in a mature Romantic style. By the time of World War I, though, the cultural and artistic climate had changed to such a degree that Romanticism essentially dispersed into subsequent movements. Final Late Romanticist figures to maintain the Romantic ideals (i.e. Rachmaninoff) died in the 1940s. Though they were still widely respected, they were seen as anachronisms at that point.
+        
+        Romanticism was a complex movement with a variety of viewpoints that permeated Western civilization across the globe. The movement and its opposing ideologies mutually shaped each other over time. After its end, Romantic thought and art exerted a sweeping influence on art and music, speculative fiction, philosophy, politics, and environmentalism that has endured to the present day, although the modern notion of \"romanticization\" and the act of \"romanticizing\" something often has little to do with the historical movement."
+    );
+    insertGenre($genre8, $conn);
+
+    $genre9 = new Genre(
+        "Gothic fiction",
+        "Gothic fiction, often referred to as Gothic horror (primarily in the 20th century), is a literary aesthetic of fear and haunting. The name of the genre is derived from the Renaissance-era use of the word gothic, as a pejorative term meaning medieval and barbaric, which itself originated from Gothic architecture and in turn the Goths.[1]
+
+        The first work to be labelled as Gothic was Horace Walpole's 1764 novel The Castle of Otranto, later subtitled A Gothic Story. Subsequent 18th-century contributors included Clara Reeve, Ann Radcliffe, William Beckford, and Matthew Gregory Lewis. The Gothic influence continued into the early 19th century, with Romantic works by poets such as Samuel Taylor Coleridge and Lord Byron. Novelists such as Mary Shelley, Charles Maturin, Walter Scott, and E. T. A. Hoffmann frequently drew upon Gothic motifs in their works as well.
+        
+        Gothic aesthetics continued to be used in Victorian literature in novels by Charles Dickens and the Brontë sisters, as well as in works by the American writers Edgar Allan Poe and Nathaniel Hawthorne. Later, Gothic fiction evolved through well-known works like Carmilla (1872) by Sheridan Le Fanu, Strange Case of Dr Jekyll and Mr Hyde (1886) by Robert Louis Stevenson, The Picture of Dorian Gray (1890) by Oscar Wilde, Dracula (1897) by Bram Stoker, and The Beetle (1897) by Richard Marsh. In the 20th-century, Gothic fiction remained influential with contributors including Daphne du Maurier, Stephen King, V. C. Andrews, Shirley Jackson, Anne Rice, and Toni Morrison."
+    );
+    insertGenre($genre9, $conn);
+
+    $genre10 = new Genre(
+        "Horror fiction",
+        "Horror is a genre of speculative fiction that is intended to disturb, frighten, or scare an audience. Horror is often divided into the sub-genres of psychological horror and supernatural horror. Literary historian J. A. Cuddon, in 1984, defined the horror story as \"a piece of fiction in prose of variable length ... which shocks, or even frightens the reader, or perhaps induces a feeling of repulsion or loathing\". Horror intends to create an eerie and frightening atmosphere for the reader. The threats present in horror fiction often reflect broader cultural anxieties."
+    );
+    insertGenre($genre10, $conn);
+
+    $genre11 = new Genre(
+        "Children",
+        "Children's literature or juvenile literature includes stories, books, magazines, and poems that are created for children. In addition to conventional literary genres, modern children's literature is classified by the intended age of the reader, ranging from picture books for the very young to young adult fiction for those nearing maturity.
+
+        Children's literature can be traced to traditional stories like fairy tales, which have only been identified as children's literature since the seventeenth century, and songs, part of a wider oral tradition, which adults shared with children before publishing existed. The development of early children's literature, before printing was invented, is difficult to trace. Even after printing became widespread, many classic \"children's\" tales were originally created for adults and later adapted for a younger audience. Since the fifteenth century much literature has been aimed specifically at children, often with a moral or religious message. Children\'s literature has been shaped by religious sources, like Puritan traditions, or by more philosophical and scientific standpoints with the influences of Charles Darwin and John Locke.[2] The late nineteenth and early twentieth centuries are known as the \"Golden Age of Children's Literature\" because many classic children's books were published then."
+    );
+    insertGenre($genre11, $conn);
+
+    $genre12 = new Genre(
+        "Historical fiction",
+        "Historical fiction is a literary genre in which a fictitious plot takes place in the setting of particular real historical events. Although the term is commonly used as a synonym for historical fiction literature, it can also be applied to other types of narrative, including theatre, opera, cinema, and television, as well as video games and graphic novels.
+
+        An essential element of historical fiction is that it is set in the past and pays attention to the manners, social conditions and other details of the depicted period.[1] Authors also frequently choose to explore notable historical figures in these settings, allowing readers to better understand how these individuals might have responded to their environments. The historical romance usually seeks to romanticize eras of the past. Some subgenres such as alternate history and historical fantasy insert intentionally ahistorical or speculative elements into a novel.
+        
+        Works of historical fiction are sometimes criticized for lack of authenticity because of readerly criticism or genre expectations for accurate period details. This tension between historical authenticity and fiction frequently becomes a point of comment for readers and popular critics, while scholarly criticism frequently goes beyond this commentary, investigating the genre for its other thematic and critical interests.
+        
+        Historical fiction as a contemporary Western literary genre has its foundations in the early-19th-century works of Sir Walter Scott and his contemporaries in other national literatures such as the Frenchman Honoré de Balzac, the American James Fenimore Cooper, and later the Russian Leo Tolstoy. However, the melding of historical and fictional elements in individual works of literature has a long tradition in many cultures, including both Western traditions (as early as Ancient Greek and Latin literature) and Eastern, in the form of oral and folk traditions (see mythology and folklore), which produced epics, novels, plays, and other fictional works describing history for contemporary audiences"
+    );
+    insertGenre($genre12, $conn);
+
+    $genre12 = new Genre(
+        "Adventure Fiction",
+        "Adventure fiction is a type of fiction that usually presents danger, or gives the reader a sense of excitement. Some adventure fiction also satisfies the literary definition of romance fiction."
+    );
+    insertGenre($genre12, $conn);
 }
 
 function createAuthors(PDO $conn)
@@ -234,12 +302,93 @@ function createAuthors(PDO $conn)
     Orwell's work remains influential in both popular and political culture, with the adjective \"Orwellian\"—describing totalitarian and authoritarian social practices—becoming part of the English language, as are many of his neologisms, such as \"Big Brother\", \"Thought Police\", \"Room 101\", \"Newspeak\", \"memory hole\", \"doublethink\", and \"thoughtcrime\". In 2008, The Times named Orwell the second-greatest British writer since 1945.";
     $author5->ImagePath = "George_Orwell_press_photo.jpg";
     insertAuthor($author5, $conn);
+
+    $author6 = new Author();
+    $author6->Name = "Charlotte Brontë";
+    $author6->Description = "Charlotte Nicholls (21 April 1816 – 31 March 1855), commonly known by her maiden name Charlotte Brontë, was an English novelist and poet, and was the elder sister of Emily, Anne and Branwell Brontë. She is best known for her novel Jane Eyre, which was first published under the pseudonym Currer Bell. Jane Eyre was a great success on publication, and has since been acknowledged as a classic of English literature.
+
+    Charlotte was the third of six siblings born to Maria Branwell and Patrick Brontë. Maria died when Charlotte was only five years old, and three years later, Charlotte was sent to the Clergy Daughters' School at Cowan Bridge in Lancashire, along with her three sisters, Maria, Elizabeth and Emily. Conditions at the school were appalling, with frequent outbreaks of disease. Charlotte's two elder sisters fell ill there and died shortly afterwards; Charlotte attributed her own lifelong ill-health to her time at Cowan Bridge, and later used it as the model for Lowood School in Jane Eyre.
+    
+    In 1831, Charlotte became a pupil at Roe Head School in Mirfield, but left the following year to teach her sisters, Emily and Anne, at home. In 1835, Charlotte returned to Roe Head as a teacher. In 1839, she accepted a job as governess to a local family, but left after a few months. In 1842, Charlotte joined the Heger Pensionnat, a girls' boarding school in Brussels, as a student, then later as a teacher, in the hope of acquiring the skills required to open a school of her own. However, she was obliged to leave after falling in love with the school's director, Constantin Heger, a married man, who inspired both the character of Rochester in Jane Eyre, and Charlotte's first novel, The Professor.
+    
+    Charlotte, Emily and Anne attempted to open a school in Haworth, but failed to attract pupils. In 1846 the sisters published a collection of poems under the pseudonyms Currer, Ellis, and Acton Bell. Although Charlotte's first novel, The Professor, was rejected by publishers, her second novel, Jane Eyre, was published in 1847, attracting both praise and controversy. The sisters' true identities were revealed in 1848, and by the following year Charlotte was known in London literary circles. In 1854, Charlotte married Arthur Bell Nicholls, her father's curate. She became pregnant shortly after her wedding in June 1854, but died on 31 March 1855, possibly of tuberculosis, although there is evidence that she may have died from hyperemesis gravidarum, a complication of pregnancy.";
+    $author6->ImagePath = "Charlotte_Brontë_by_Patrick_Branwell_Brontë_restored.jpg";
+    insertAuthor($author6, $conn);
+
+    $author7 = new Author();
+    $author7->Name = "Emily Brontë";
+    $author7->Description = "Emily Jane Brontë (30 July 1818 – 19 December 1848) was an English writer best known for her 1847 novel Wuthering Heights. She also co-authored a book of poetry with her sisters Charlotte and Anne entitled Poems by Currer, Ellis, and Acton Bell.
+
+    Emily was the fifth of six Brontë siblings, four of whom survived into adulthood. Her mother, Maria Branwell, died when she was three, leaving the children in the care of their aunt, Elizabeth Branwell. Apart from brief intervals at school, Emily was mostly taught at home by her father, Patrick Brontë, who was the curate of Haworth. She was very close to her siblings, especially her younger sister Anne, and together they wrote books and journals depicting imaginary worlds named Glass Town, Angria and Gondal. She was described by her sister Charlotte as solitary, strong-willed and nonconforming, with a keen love of nature and animals.
+    
+    Apart from a brief period at school, and another as a student and teacher in Brussels with her sister Charlotte, Emily spent most of her life at home in Haworth, helping the family servant with chores, playing the piano and teaching herself from books.
+    
+    Her work was originally published under the pen name Ellis Bell. It was not generally admired at the time, and many critics felt that the characters in Wuthering Heights were coarse and immoral. In spite of this, the novel is considered a classic of English literature. Emily Brontë died in 1848, aged 30, a year after the novel's publication.";
+    $author7->ImagePath = "Emily_Brontë_by_Patrick_Branwell_Brontë_restored.jpg.webp";
+    insertAuthor($author7, $conn);
+
+    $author8 = new Author();
+    $author8->Name = "Bram Stoker";
+    $author8->Description = "Abraham Stoker (8 November 1847 – 20 April 1912) was an Irish writer, barrister, literary critic, and theatre manager. He was the author of the Gothic horror novel Dracula (1897) and the creator of the fictional character Count Dracula. The work and its antagonist are regarded as milestones in the fields of Gothic and vampire literature.
+
+    Stoker was the third of seven children and was bedridden for the first seven years of his life with an undiagnosed illness. He received his initial education at home, before enrolling at Trinity College Dublin in 1864. He excelled as a rugby athlete and was a prominent member of both the university's student union and its philosophical society. It was during this period that Stoker was initially introduced to literature, eventually becoming the auditor of the College Historical Society and writing his first paper.
+    
+    At the outset of his career, Stoker spent ten years in the civil service at Dublin Castle, during which time he was also a drama critic for the Dublin Evening Mail. Following this, he was employed as a theatre critic for several newspapers, including the Daily Telegraph, and occasionally wrote short stories and theatre commentaries. He also served as the personal assistant of the actor Sir Henry Irving and the business manager of the West End's Lyceum Theatre, which Irving owned. While a theatre critic, Stoker founded the \"Dublin Sketching Club\" in 1879, which dealt mostly with art collections. He regularly travelled during his free time, particularly to Cruden Bay in Scotland, which was the setting for two of his novels and also served as the inspiration for writing Dracula. He was a close friend of Hall Caine and an acquaintance of Arthur Conan Doyle, Oscar Wilde and many others prominent cultural figures. He collaborated with other authors for experimental novels such as The Fate of Fenella (1892).
+    
+    Stoker wrote numerous works of fiction and non-fiction across several genres, but his literary reputation rests solely with Dracula. Since the early 20th century, the novel has become one of the best-selling works of vampire fiction, with Count Dracula entering the public imagination as one of the best-known fictional figures of the Victorian era. The work also shaped future representations of vampiric characters and themes, making Stoker \"the father of vampire fiction.\"";
+    $author8->ImagePath = "Bram_Stoker_1906.jpg";
+    insertAuthor($author8, $conn);
+
+    $author9 = new Author();
+    $author9->Name = "Mary Shelley";
+    $author9->Description = "Mary Wollstonecraft Shelley (née Godwin; 30 August 1797 – 1 February 1851) was an English novelist who wrote the Gothic novel Frankenstein; or, The Modern Prometheus (1818), which is considered an early example of science fiction. She also edited and promoted the works of her husband, the Romantic poet and philosopher Percy Bysshe Shelley. Her father was the political philosopher William Godwin and her mother was the philosopher and women's rights advocate Mary Wollstonecraft.
+
+    Mary's mother died 11 days after giving birth to her. She was raised by her father, who provided her with a rich informal education, encouraging her to adhere to his own anarchist political theories. When she was four, her father married a neighbour, Mary Jane Clairmont, with whom Mary had a troubled relationship.
+    
+    In 1814, Mary began a romance with one of her father's political followers, Percy Bysshe Shelley, who was already married. Together with her stepsister, Claire Clairmont, she and Percy left for France and travelled through Europe. Upon their return to England, Mary was pregnant with Percy's child. Over the next two years, she and Percy faced ostracism, constant debt and the death of their daughter. They married in late 1816, after the suicide of Percy's wife, Harriet.
+    
+    In 1816, the couple and Mary's stepsister famously spent a summer with Lord Byron and John William Polidori near Geneva, Switzerland, where Mary conceived the idea for her novel Frankenstein. The Shelleys left Britain in 1818 for Italy, where their second and third children died before Mary gave birth to her last and only surviving child, Percy Florence Shelley. In 1822, her husband drowned when his sailing boat sank during a storm near Viareggio. A year later, Mary returned to England and from then on devoted herself to raising her son and to her career as a professional author. The last decade of her life was dogged by illness, most likely caused by the brain tumour which killed her at the age of 53.
+    
+    Until the 1970s, Mary Shelley was known mainly for her efforts to publish her husband's works and for her novel Frankenstein, which remains widely read and has inspired many theatrical and film adaptations. Recent scholarship has yielded a more comprehensive view of her achievements. Scholars have shown increasing interest in her literary output, particularly in her novels, which include the historical novels Valperga (1823) and Perkin Warbeck (1830), the apocalyptic novel The Last Man (1826) and her final two novels, Lodore (1835) and Falkner (1837). Studies of her lesser-known works, such as the travel book Rambles in Germany and Italy (1844) and the biographical articles for Dionysius Lardner's Cabinet Cyclopaedia (1829–1846), support the growing view that Mary Shelley remained a political radical throughout her life. Mary Shelley's works often argue that cooperation and sympathy, particularly as practised by women in the family, were the ways to reform civil society. This view was a direct challenge to the individualistic Romantic ethos promoted by Percy Shelley and the Enlightenment political theories articulated by Mary's father, William Godwin.";
+    $author9->ImagePath = "Mary_Wollstonecraft_Shelley_Rothwell.tif.jpg";
+    insertAuthor($author9, $conn);
+
+    $author10 = new Author();
+    $author10->Name = "Lewis Carroll";
+    $author10->Description = "Charles Lutwidge Dodgson (27 January 1832 – 14 January 1898), better known by his pen name Lewis Carroll, was an English author, poet, mathematician, photographer, and Anglican deacon. His most notable works are Alice's Adventures in Wonderland (1865) and its sequel Through the Looking-Glass (1871), some of the most important examples of Victorian literature. He was noted for his facility with word play, logic, and fantasy. His poems Jabberwocky (1871) and The Hunting of the Snark (1876) are classified in the genre of literary nonsense. Some of Alice's nonsensical wonderland logic reflects his published work on mathematical logic.
+
+    Carroll came from a family of high-church Anglicans and pursued his clerical training at Christ Church, Oxford, where he lived for most of his life as a scholar, teacher and Anglican deacon (required for his academic fellowship at the time). Alice Liddell – a daughter of Henry Liddell, the Dean of Christ Church – is widely identified as the original inspiration for Alice in Wonderland, although Carroll always denied this.
+    
+    An avid puzzler, Carroll created the word ladder puzzle, which he called \"Doublets\", which was published in Vanity Fair magazine between 1879 and 1881. In 1982 a memorial stone to Carroll was unveiled at Poets' Corner in Westminster Abbey. There are societies in many parts of the world dedicated to the enjoyment and promotion of his works.";
+    $author10->ImagePath = "LewisCarrollSelfPhoto.jpg";
+    insertAuthor($author10, $conn);
+
+    $author11 = new Author();
+    $author11->Name = "Frances Hodgson Burnett";
+    $author11->Description = "Frances Eliza Hodgson Burnett (24 November 1849 – 29 October 1924) was an English-American[1] novelist and playwright. She is best known for the three children's novels Little Lord Fauntleroy (1886), A Little Princess (1905), and The Secret Garden (1911).
+
+    Hodgson was born in Cheetham, Manchester, England. After her father died in 1853, when Frances was only four years old, the family fell on strained circumstances and emigrated to the United States 12 years later, settling in New Market, Tennessee. Frances began her writing career there at age 19 to help earn money for the family, publishing stories in magazines. In 1870, her mother died. Three years later, Hodgson married Swan Burnett in Knoxville, Tennessee, who became a medical doctor. Their first son, Lionel, was born a year later. The Burnetts lived for two years in Paris, where their second son, Vivian, was born, before returning to the United States to live in Washington, D.C. Burnett then began to write novels, the first of which (That Lass o' Lowrie's), was published to good reviews. Little Lord Fauntleroy was published in 1886 and made her a popular writer of children's fiction, although her romantic adult novels written in the 1890s were also popular. She wrote and helped to produce stage versions of Little Lord Fauntleroy and A Little Princess.
+    
+    Beginning in the 1880s, Burnett began to travel to England frequently and in the 1890s bought a home there, where she wrote The Secret Garden. Burnett's elder son, Lionel, died of tuberculosis in 1890, which caused a relapse of the depression she had struggled with for much of her life. Burnett divorced her husband in 1898 and married Stephen Townsend two years later, but they divorced in 1902. A few years later, Burnett settled in Nassau County, New York, where she died in 1924 and is buried in Roslyn Cemetery.
+    
+    In 1936, a memorial sculpture by Bessie Potter Vonnoh was erected in Burnett's honour in Central Park's Conservatory Garden. The statue depicts her two famous Secret Garden characters, Mary and Dickon.";
+    $author11->ImagePath = "Frances_Burnett.jpg";
+    insertAuthor($author11, $conn);
+
+    $author12 = new Author();
+    $author12->Name = "Robert Louis Stevenson";
+    $author12->Description = "Robert Louis Stevenson (born Robert Lewis Balfour Stevenson; 13 November 1850 – 3 December 1894) was a Scottish novelist, essayist, poet and travel writer. He is best known for the novels Treasure Island (1883), Strange Case of Dr Jekyll and Mr Hyde (1886), and Kidnapped (1886) and for the poetry collection A Child's Garden of Verses (1885).
+
+    Born and educated in Edinburgh, Stevenson suffered from serious bronchial trouble for much of his life but managed to write prolifically and travel widely despite his poor health. As a young man, he mixed in London literary circles, receiving encouragement from Sidney Colvin, Andrew Lang, Edmund Gosse, Leslie Stephen and W. E. Henley, the last of whom may have provided the model for Long John Silver in Treasure Island. In 1890 he settled in Samoa, where, alarmed at increasing European and American influence in the South Sea islands, his writing turned from romance and adventure fiction toward a darker realism. He died of a stroke in his island home in 1894 at age 44.
+    
+    A celebrity in his lifetime, Stevenson's critical reputation has fluctuated since his death, although today his works are held in general acclaim. In 2018 he was ranked just behind Charles Dickens as the 26th-most-translated author in the world.";
+    $author12->ImagePath = "Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg";
+    insertAuthor($author12, $conn);
 }
 
 function createBooks(PDO $conn)
 {
     $book1 = new Book();
-    $book1->BookID = 0;
     $book1->Title = "The Hobbit";
     $book1->Author = 1;
     $book1->Genres = [2, 5];
@@ -265,7 +414,6 @@ The work has never been out of print. Its ongoing legacy encompasses many adapta
     insertBook($book1, $conn);
 
     $book2 = new Book();
-    $book2->BookID = 1;
     $book2->Title = "The Fellowship of the Ring";
     $book2->Author = 1;
     $book2->Genres = [5];
@@ -278,7 +426,6 @@ The volume consists of a foreword, in which the author discusses his writing of 
     insertBook($book2, $conn);
 
     $book3 = new Book();
-    $book3->BookID = 2;
     $book3->Title = "The Two Towers";
     $book3->Author = 1;
     $book3->Genres = [5];
@@ -289,7 +436,6 @@ The volume consists of a foreword, in which the author discusses his writing of 
     insertBook($book3, $conn);
 
     $book4 = new Book();
-    $book4->BookID = 3;
     $book4->Title = "The Return of the King";
     $book4->Author = 1;
     $book4->Genres = [5];
@@ -300,7 +446,6 @@ The volume consists of a foreword, in which the author discusses his writing of 
     insertBook($book4, $conn);
 
     $book5 = new Book();
-    $book5->BookID = 4;
     $book5->Title = "The Silmarillion";
     $book5->Author = 1;
     $book5->Genres = [5];
@@ -323,7 +468,6 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     insertBook($book5, $conn);
 
     $book6 = new Book();
-    $book6->BookID = 5;
     $book6->Title = "Unfinished Tales of Numenor and Middle-Earth";
     $book6->Author = 1;
     $book6->Genres = [5];
@@ -334,7 +478,6 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     insertBook($book6, $conn);
 
     $book7 = new Book();
-    $book7->BookID = 6;
     $book7->Title = "The Fall of Numenor";
     $book7->Author = 1;
     $book7->Genres = [5];
@@ -345,7 +488,6 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     insertBook($book7, $conn);
 
     $book8 = new Book();
-    $book8->BookID = 7;
     $book8->Title = "Harry Potter and the Philosopher's Stone";
     $book8->Author = 2;
     $book8->Genres = [1];
@@ -365,7 +507,6 @@ The Harry Potter series has been used as a source of object lessons in education
     insertBook($book8, $conn);
 
     $book9 = new Book();
-    $book9->BookID = 8;
     $book9->Title = "Harry Potter and the Chamber of Secrets";
     $book9->Author = 2;
     $book9->Genres = [1];
@@ -385,7 +526,6 @@ The film adaptation of the novel, released in 2002, became (at the time) the six
     insertBook($book9, $conn);
 
     $book10 = new Book();
-    $book10->BookID = 9;
     $book10->Title = "Harry Potter and the Prisoner of Azkaban";
     $book10->Author = 2;
     $book10->Genres = [1];
@@ -402,7 +542,6 @@ The film adaptation of the novel was released in 2004, grossing more than $796 m
     insertBook($book10, $conn);
 
     $book11 = new Book();
-    $book11->BookID = 10;
     $book11->Title = "Harry Potter and the Goblet of Fire";
     $book11->Author = 2;
     $book11->Genres = [1];
@@ -416,7 +555,6 @@ The book was published in the United Kingdom by Bloomsbury and in the United Sta
     insertBook($book11, $conn);
 
     $book12 = new Book();
-    $book12->BookID = 11;
     $book12->Title = "Harry Potter and the Order of the Phoenix";
     $book12->Author = 2;
     $book12->Genres = [1];
@@ -430,7 +568,6 @@ Harry Potter and the Order of the Phoenix won several awards, including the Amer
     insertBook($book12, $conn);
 
     $book13 = new Book();
-    $book13->BookID = 12;
     $book13->Title = "Harry Potter and the Half Blood Prince";
     $book13->Author = 2;
     $book13->Genres = [1];
@@ -447,7 +584,6 @@ Reviewers noted that the book had a darker tone than its predecessors, though it
     insertBook($book13, $conn);
 
     $book14 = new Book();
-    $book14->BookID = 13;
     $book14->Title = "Harry Potter and the Deathly Hallows";
     $book14->Author = 2;
     $book14->Genres = [1];
@@ -463,7 +599,6 @@ A film adaptation of the novel was released in two parts: Harry Potter and the D
     insertBook($book14, $conn);
 
     $book15 = new Book();
-    $book15->BookID = 14;
     $book15->Title = "The Hunger Games";
     $book15->Author = 3;
     $book15->Genres = [3, 4];
@@ -489,7 +624,6 @@ A prequel novel, titled The Ballad of Songbirds and Snakes, about the early days
     insertBook($book15, $conn);
 
     $book16 = new Book();
-    $book16->BookID = 15;
     $book16->Title = "The Hunger Games: Catching Fire";
     $book16->Author = 3;
     $book16->Genres = [3, 4];
@@ -506,7 +640,6 @@ A film adaptation, The Hunger Games: Catching Fire, was released on November 22,
     insertBook($book16, $conn);
 
     $book17 = new Book();
-    $book17->BookID = 16;
     $book17->Title = "The Hunger Games: Mockingjay";
     $book17->Author = 3;
     $book17->Genres = [3, 4];
@@ -520,7 +653,6 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     insertBook($book17, $conn);
 
     $book18 = new Book();
-    $book18->BookID = 17;
     $book18->Title = "The Ballad of Songbirds and Snakes";
     $book18->Author = 3;
     $book18->Genres = [3, 4];
@@ -531,7 +663,6 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     insertBook($book18, $conn);
 
     $book19 = new Book();
-    $book19->BookID = 18;
     $book19->Title = "A Game of Thrones";
     $book19->Author = 4;
     $book19->Genres = [5];
@@ -542,7 +673,6 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     insertBook($book19, $conn);
 
     $book20 = new Book();
-    $book20->BookID = 19;
     $book20->Title = "A Clash of Kings";
     $book20->Author = 4;
     $book20->Genres = [5];
@@ -556,7 +686,6 @@ As a prophecy of doom cuts across the sky - a comet the colour of blood and flam
     insertBook($book20, $conn);
 
     $book21 = new Book();
-    $book21->BookID = 20;
     $book21->Title = "A Storm of Swords: Part 1 Steel and Snow";
     $book21->Author = 4;
     $book21->Genres = [5];
@@ -573,7 +702,6 @@ Throughout Westeros, the war for the Iron Throne rages more fiercely than ever, 
     insertBook($book21, $conn);
 
     $book22 = new Book();
-    $book22->BookID = 21;
     $book22->Title = "A Storm of Swords: Part 2 Blood and Gold";
     $book22->Author = 4;
     $book22->Genres = [5];
@@ -590,7 +718,6 @@ Meanwhile, across the ocean, Daenerys Stormborn, the last heir of the Dragon Kin
     insertBook($book22, $conn);
 
     $book23 = new Book();
-    $book23->BookID = 22;
     $book23->Title = "A Feast for Crows";
     $book23->Author = 4;
     $book23->Genres = [5];
@@ -607,7 +734,6 @@ From the icy north, where Others threaten the Wall, apprentice Maester Samwell T
     insertBook($book23, $conn);
 
     $book24 = new Book();
-    $book24->BookID = 23;
     $book24->Title = "A Dance With Dragons: Part 1 Dreams and Dust";
     $book24->Author = 4;
     $book24->Genres = [5];
@@ -624,7 +750,6 @@ To the north lies the great Wall of ice and stone - a structure only as strong a
     insertBook($book24, $conn);
 
     $book25 = new Book();
-    $book25->BookID = 24;
     $book25->Title = "A Dance With Dragons: Part 2 After the Feast";
     $book25->Author = 4;
     $book25->Genres = [5];
@@ -641,7 +766,6 @@ On all sides bitter conflicts are reigniting, played out by a grand cast of outl
     insertBook($book25, $conn);
 
     $book26 = new Book();
-    $book26->BookID = 24;
     $book26->Title = "Nineteen Eighty-Four";
     $book26->Author = 5;
     $book26->Genres = [4, 6];
@@ -659,6 +783,104 @@ The protagonist, Winston Smith, is a diligent mid-level worker at the Ministry o
 
 Nineteen Eighty-Four has become a classic literary example of political and dystopian fiction. It also popularised the term \"Orwellian\" as an adjective, with many terms used in the novel entering common usage, including \"Big Brother\", \"doublethink\", \"Thought Police\", \"thoughtcrime\", \"Newspeak\", and \"2 + 2 = 5\". Parallels have been drawn between the novel's subject matter and real life instances of totalitarianism, mass surveillance, and violations of freedom of expression among other themes. Orwell described his book as a \"satire,\" and a display of the \"perversions to which a centralised economy is liable,\" while also stating he believed \"that something resembling it could arrive.\" Time included the novel on its list of the 100 best English-language novels from 1923 to 2005, and it was placed on the Modern Library's 100 Best Novels list, reaching number 13 on the editors' list and number 6 on the readers' list. In 2003, it was listed at number eight on The Big Read survey by the BBC.";
     insertBook($book26, $conn);
+
+    $book27 = new Book();
+    $book27->Title = "Jane Eyre";
+    $book27->Author = 6;
+    $book27->Genres = [6];
+    $book27->Price = 7.99;
+    $book27->ImagePath = "jane_eyre.jpg";
+    $book27->StockCount = 30;
+    $book27->Description = "Jane Eyre (originally published as Jane Eyre: An Autobiography) is a novel by the English writer Charlotte Brontë. It was published under her pen name \"Currer Bell\" on 19 October 1847 by Smith, Elder & Co. of London. The first American edition was published in January 1848 by Harper & Brothers of New York. Jane Eyre is a bildungsroman that follows the experiences of its eponymous heroine, including her growth to adulthood and her love for Mr Rochester, the brooding master of Thornfield Hall.
+
+    The novel revolutionised prose fiction, being the first to focus on the moral and spiritual development of its protagonist through an intimate first-person narrative, where actions and events are coloured by a psychological intensity. Literary critic Daniel S. Burt has called Charlotte Brontë \"the first historian of the private consciousness\" and the literary ancestor of writers such as Marcel Proust and James Joyce.
+    
+    The book contains elements of social criticism with a strong sense of Christian morality at its core, and it is considered by many to be ahead of its time because of Jane's individualistic character and how the novel approaches the topics of class, sexuality, religion and feminism. Jane Eyre, along with Jane Austen's Pride and Prejudice, is one of the most famous romance novels. It is considered one of the greatest novels in the English language, and in 2003 was ranked as the tenth best-loved book in Britain by the BBC in The Big Read poll.";
+    insertBook($book27, $conn);
+
+    $book28 = new Book();
+    $book28->Title = "Wuthering Heights";
+    $book28->Author = 7;
+    $book28->Genres = [8, 9];
+    $book28->Price = 7.99;
+    $book28->ImagePath = "wuthering_heights.jpg";
+    $book28->StockCount = 30;
+    $book28->Description = "Wuthering Heights is the only novel by the English author Emily Brontë, initially published in 1847 under her pen name Ellis Bell. It concerns two landowning families on the West Yorkshire moors, the Earnshaws and the Lintons, and their turbulent relationships with the Earnshaws' foster son, Heathcliff. Driven by themes of love, possession, revenge, and reconciliation, the novel is influenced by Romanticism and Gothic fiction. It is considered a classic of English literature.
+
+    Wuthering Heights was accepted by publisher Thomas Newby along with Anne Brontë's Agnes Grey before the success of their sister Charlotte Brontë's novel Jane Eyre, but Jane Eyre was published before the other two. The first American edition was published in April 1848 by Harper & Brothers of New York.After Emily's death, Charlotte edited a second edition of Wuthering Heights, which was published in 1850.
+    
+    Though contemporary reviews were polarised, Wuthering Heights has come to be considered one of the greatest novels written in English. It was controversial for its depictions of mental and physical cruelty, including domestic abuse, and for its challenges to Victorian morality, religion, and the class system. It has inspired an array of adaptations across several types of media.";
+    insertBook($book28, $conn);
+
+    $book29 = new Book();
+    $book29->Title = "Dracula";
+    $book29->Author = 8;
+    $book29->Genres = [9, 10];
+    $book29->Price = 7.99;
+    $book29->ImagePath = "dracula.jpg";
+    $book29->StockCount = 30;
+    $book29->Description = "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. The narrative is related through letters, diary entries, and newspaper articles. It has no single protagonist and opens with English solicitor Jonathan Harker taking a business trip to stay at the castle of a Transylvanian nobleman, Count Dracula. Revealing his true nature as a vampire, Dracula moves to England and plagues the seaside town of Whitby. Harker joins a group led by Abraham Van Helsing who hunt and kill the Count.
+
+    The novel was mostly written in the 1890s, and Stoker produced over a hundred pages of notes, drawing extensively from folklore and history. Scholars have suggested various figures as the inspiration for Dracula, including the Wallachian prince Vlad the Impaler and the Countess Elizabeth Báthory, but recent scholarship suggests otherwise. He found the name \"Dracula\" in a history of Wallachia and Moldavia, selecting it because he thought it meant 'devil' in Romanian.
+    
+    Following the novel's publication in May 1897, some reviewers praised its terrifying atmosphere while others thought Stoker included too much horror. Many noted a structural similarity with Wilkie Collins' The Woman in White (1859) and a resemblance to the work of Gothic novelist Ann Radcliffe. In the 20th century, Dracula became regarded by critics as a seminal work of Gothic fiction. Scholars explore the novel within the historical context of the Victorian era and regularly discuss its portrayal of race, religion, gender and sexuality.
+    
+    Dracula is one of the most famous works of English literature and has been called the centrepiece of vampire fiction. In the mid-20th century, publishers and film-makers realised Stoker incorrectly filed the novel's copyright in the United States, making its story and characters public domain there. Consequently, the novel has been adapted many times. Count Dracula has deeply influenced the popular conception of vampires; with over 700 appearances across virtually all forms of media, the Guinness Book of World Records named Dracula the most portrayed literary character. ";
+    insertBook($book29, $conn);
+
+    $book30 = new Book();
+    $book30->Title = "Frankenstein";
+    $book30->Author = 9;
+    $book30->Genres = [8, 9];
+    $book30->Price = 7.99;
+    $book30->ImagePath = "frankenstein.jpg";
+    $book30->StockCount = 30;
+    $book30->Description = "Frankenstein; or, The Modern Prometheus is an 1818 Gothic novel[a] written by English author Mary Shelley. It tells the story of Victor Frankenstein, a young scientist who creates a sapient creature from different body parts in an unorthodox scientific experiment. Shelley started writing the story when she was 18 and staying in Bath, and the first edition was published anonymously in London on 1 January 1818, when she was 20. Her name first appeared in a French translation published in Paris in 1821.
+
+    Shelley travelled through Europe in 1815, moving along the river Rhine in Germany, and stopping in Gernsheim, 17 kilometres (11 mi) away from Frankenstein Castle, where, about a century earlier, Johann Konrad Dippel, an alchemist, had engaged in experiments. She then journeyed to the region of Geneva, Switzerland, where much of the story takes place. Galvanism and occult ideas were topics of conversation for her companions, particularly for her lover and future husband, Percy Bysshe Shelley.
+    
+    In 1816—at the suggestion of Lord Byron—Mary, Percy, John Polidori and Byron himself, each agreed to try writing a ghost story. After thinking for days, Shelley was inspired to write Frankenstein after imagining a scientist who created life and was horrified by what he had made. The novel was first published anonymously in 1818, and in 1831, a revised edition was published under Mary Shelley's name. This version included significant stylistic revisions, a new preface describing the story's conception, and a more explicitly moral tone.
+    
+    Frankenstein is one of the best-known works of English literature. Infused with elements of the Gothic novel and the Romantic movement, it has had a considerable influence on literature and on popular culture, spawning a complete genre of horror stories, films, and plays. Since the publication of the novel, the name Frankenstein has often been used, erroneously, to refer to the monster rather than the man who created it.";
+    insertBook($book30, $conn);
+
+    $book31 = new Book();
+    $book31->Title = "Alice's Adventures in Wonderland";
+    $book31->Author = 10;
+    $book31->Genres = [1];
+    $book31->Price = 7.99;
+    $book31->ImagePath = "alices_adventures_in_wonderland.webp";
+    $book31->StockCount = 30;
+    $book31->Description = "Alice's Adventures in Wonderland (also known as Alice in Wonderland) is an 1865 English children's novel by Lewis Carroll. It tells the story of a little girl named Alice who falls through a rabbit hole into a fantasy world of anthropomorphic creatures. It is seen as an example of the literary nonsense genre. The artist John Tenniel provided 42 wood-engraved illustrations for the original edition.
+
+    The novel received positive reviews upon release. It has become one of the best-known works of Victorian literature; its narrative, structure, characters, and imagery have had a wide influence on popular culture and literature, especially in the fantasy genre.[1][2] It is credited as helping end an era of didacticism in children's literature, inaugurating an era in which writing for children aimed to \"delight or entertain\". The tale plays with logic, giving the story lasting popularity with adults as well as with children. The titular character, Alice, shares her name with Alice Liddell, a girl Carroll knew; scholars disagree about the extent to which the character was based upon her.
+    
+    The novel has never been out of print and has been translated into 174 languages. Its legacy includes adaptations to screen, radio, visual art, ballet, opera, and musical theatre as well as theme parks, board games, and video games.[7] Carroll published a sequel in 1871 entitled Through the Looking-Glass and a shortened version for young children, The Nursery \"Alice\", in 1890.";
+    insertBook($book31, $conn);
+
+    $book32 = new Book();
+    $book32->Title = "The Secret Garden";
+    $book32->Author = 11;
+    $book32->Genres = [11];
+    $book32->Price = 7.99;
+    $book32->ImagePath = "the_secret_garden.jpg";
+    $book32->StockCount = 30;
+    $book32->Description = "The Secret Garden is a children's novel by Frances Hodgson Burnett first published in book form in 1911, after serialisation in The American Magazine (November 1910 – August 1911). Set in England, it is seen as a classic of English children's literature. The American edition was published by the Frederick A. Stokes Company with illustrations by M. L. Kirk, and the British edition by Heinemann with illustrations by Charles Robinson. Several stage and film adaptations have been made of The Secret Garden.";
+    insertBook($book32, $conn);
+
+    $book33 = new Book();
+    $book33->Title = "Treasure Island";
+    $book33->Author = 12;
+    $book33->Genres = [12, 13];
+    $book33->Price = 7.99;
+    $book33->ImagePath = "treasure_island.jpg";
+    $book33->StockCount = 30;
+    $book33->Description = "Treasure Island is an adventure and historical novel by Scottish novelist Robert Louis Stevenson. It was published as a book in 1883, but is set in the 18th century, and tells a story of \"buccaneers and buried gold\". It is considered a coming-of-age story, and is noted for its atmosphere, characters, and action.
+
+    The author used the working title The Sea Cook: A Story for Boys, and the pseudonym \"Captain George North\". When it was first published as a serial from 1881 to 1882 in the children's magazine Young Folks the title became Treasure Island or the Mutiny of the Hispaniola. It was first published as a book on 14 November 1883 by Cassell & Co. It has since become one of the most-often dramatised and adapted novels.
+    
+    Since its publication Treasure Island has significantly influenced depictions of pirates in popular culture, including elements such as deserted tropical islands, treasure maps marked with an \"X\", and one-legged seamen with parrots perched on their shoulders.";
+    insertBook($book33, $conn);
 }
 
 $host = $_ENV['POSTGRES_HOST'];
