@@ -22,6 +22,252 @@ class CompiledQuery
     }
 }
 
+abstract class QueryCompiler
+{
+    public function compile(QueryBuilder $queryBuilder): CompiledQuery
+    {
+        $parameterCount = 0;
+        return $this->compileImpl($queryBuilder, $parameterCount);
+    }
+
+    protected function createBindingParameterName(int &$parameterCounter): string
+    {
+        return ':p' . $parameterCounter++;
+    }
+
+    protected function compileImpl(QueryBuilder $queryBuilder, int &$parameterCounter): CompiledQuery
+    {
+        $sqlOutput = '';
+        $paramBindings = [];
+
+        $sqlOutput .= $this->buildOperationString($queryBuilder, $paramBindings, $parameterCounter);
+        $sqlOutput .= $this->buildJoinString($queryBuilder);
+        $sqlOutput .= $this->buildWhereString($queryBuilder, $paramBindings, $parameterCounter);
+        $sqlOutput .= $this->buildGroupByString($queryBuilder);
+        $sqlOutput .= $this->buildOffsetLimitString($queryBuilder);
+
+        return new CompiledQuery($sqlOutput, $paramBindings);
+    }
+
+    abstract protected function buildOperationString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string;
+    abstract protected function buildWhereString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string;
+    abstract protected  function buildJoinString(QueryBuilder $queryBuilder): string;
+    abstract protected function buildOffsetLimitString(QueryBuilder $queryBuilder): string;
+    abstract protected function buildGroupByString(QueryBuilder $queryBuilder): string;
+}
+
+class PostgresCompiler extends QueryCompiler
+{
+    protected function buildOperationString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string
+    {
+        $sqlOutput = '';
+        [$table, $alias] = $queryBuilder->getTable();
+
+        switch ($queryBuilder->getQueryType()) {
+            case QueryType::SELECT: {
+                    $sqlOutput = 'SELECT ';
+
+                    $selects = $queryBuilder->getSelects();
+                    $selectCount = count($selects);
+
+                    if ($selectCount === 0) {
+                        $sqlOutput .= " *";
+                    } else {
+                        for ($index = 0; $index < $selectCount; $index++) {
+                            $select = $selects[$index];
+                            if ($select instanceof ColumnName) {
+                                $sqlOutput .= $select->columnName;
+
+                                if ($select->alias) {
+                                    $sqlOutput .= " AS {$select->alias}";
+                                }
+
+                                if ($selectCount > 1 && $index < $selectCount - 1) {
+                                    $sqlOutput .= ', ';
+                                }
+                            } else if ($select instanceof ColumnCount) {
+                                $sqlOutput .= "COUNT({$select->columnName})";
+
+                                if ($select->alias) {
+                                    $sqlOutput .= " AS {$select->alias}";
+                                }
+
+                                if ($selectCount > 1 && $index < $selectCount - 1) {
+                                    $sqlOutput .= ', ';
+                                }
+                            } else if ($select instanceof Constant) {
+                                $sqlOutput .= " {$select->value}";
+                            } else {
+                                throw new Exception("Failed to find a valid select type");
+                            }
+                        }
+                    }
+
+                    $sqlOutput .= " FROM {$table}";
+
+                    if ($alias !== null) {
+                        $sqlOutput .= " AS {$alias}";
+                    }
+
+                    break;
+                }
+            case QueryType::INSERT: {
+                    $keysSQL = '';
+                    $valuesSQL = '';
+
+                    $inserts = $queryBuilder->getInserts();
+                    $valueCount = count($inserts);
+
+                    for ($index = 0; $index < $valueCount; $index++) {
+                        $insert = $inserts[$index];
+                        $bindingName = $this->createBindingParameterName($parameterCounter);
+
+                        $keysSQL .= $insert['key'];
+                        $valuesSQL .= $bindingName;
+                        $params[$bindingName] = $insert['value'];
+
+                        if ($valueCount > 1 && $index < $valueCount - 1) {
+                            $keysSQL .= ", ";
+                            $valuesSQL .= ", ";
+                        }
+                    }
+
+                    $sqlOutput = "INSERT INTO {$table} ({$keysSQL}) VALUES ({$valuesSQL})";
+                    break;
+                }
+            case QueryType::DELETE: {
+                    $sqlOutput = "DELETE FROM {$table}";
+                    break;
+                }
+            default:
+                throw new Exception("Invalid query type");
+        }
+
+        return $sqlOutput;
+    }
+    protected function buildWhereString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string
+    {
+        $sqlOutput = '';
+
+        $wheres = $queryBuilder->getWheres();
+        $whereCount = count($wheres);
+
+        if ($whereCount > 0) {
+            $sqlOutput .= ' WHERE ';
+            $whereIndex = 0;
+
+            foreach ($wheres as $where) {
+                switch ($where['type']) {
+                    case 'column': {
+                            $value = $where['value'];
+                            if ($value instanceof Constant) {
+                                $generatedParamName = $this->createBindingParameterName($parameterCounter);
+                                $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
+                                $params[$generatedParamName] = $value->value;
+                            } else if ($value instanceof ColumnName) {
+                                $sqlOutput .= "{$where['key']} {$where['operator']} {$value->columnName}";
+                            } else {
+                                throw new Exception("Invalid where clause");
+                            }
+
+                            if ($whereIndex++ !== $whereCount - 1) {
+                                $sqlOutput .= " {$where['join']} ";
+                            }
+
+                            break;
+                        }
+                    case 'in': {
+                            $data = $where['values'];
+                            if (is_array($data)) {
+                                $placeholders = [];
+                                foreach ($data as $value) {
+                                    $generatedParamName = $this->createBindingParameterName($parameterCounter);
+                                    $params[$generatedParamName] = $value;
+                                    $placeholders[] = $generatedParamName;
+                                }
+                                $paramsArray = implode(', ', $placeholders);
+                                $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
+                            } else if ($data instanceof ColumnName) {
+                                $sqlOutput .= "{$where['key']} IN {$value->columnName}";
+                            } else {
+                                throw new Exception("Invalid IN clause");
+                            }
+
+                            break;
+                        }
+                    case 'exists': {
+                            $query = $where['query'];
+                            $compiledQuery = $this->compileImpl($query, $parameterCounter);
+
+                            $sqlOutput .= "EXISTS ({$compiledQuery->getSQL()})";
+
+                            foreach ($compiledQuery->getBindings() as $key => $value) {
+                                $params[$key] = $value;
+                            }
+
+                            if ($whereIndex++ !== $whereCount - 1) {
+                                $sqlOutput .= " {$where['join']} ";
+                            }
+                            break;
+                        }
+                    default:
+                        throw new Exception('Invalid where clause');
+                }
+            }
+        }
+
+        return $sqlOutput;
+    }
+    protected  function buildJoinString(QueryBuilder $queryBuilder): string
+    {
+        $joins = $queryBuilder->getJoins();
+
+        if (count($joins) === 0)
+            return '';
+
+        $sql = '';
+        foreach ($joins as $join) {
+            $sql .= " {$join['type']} JOIN {$join['table']}";
+
+            if ($join['alias'] !== null) {
+                $sql .= " AS {$join['alias']}";
+            }
+
+            $sql .= " ON {$join['column1']} = {$join['column2']}";
+        }
+
+        return $sql;
+    }
+    protected function buildOffsetLimitString(QueryBuilder $queryBuilder): string
+    {
+        $limit = $queryBuilder->getLimit();
+        $offset = $queryBuilder->getOffset();
+
+        $sql = '';
+
+        if ($limit != null) {
+            $sql .= " LIMIT {$limit}";
+        }
+
+        if ($offset != null) {
+            $sql .= " OFFSET {$offset}";
+        }
+
+        return $sql;
+    }
+    protected function buildGroupByString(QueryBuilder $queryBuilder): string
+    {
+        $groupBys = $queryBuilder->getGroupBys();
+
+        if (count($groupBys) === 0) {
+            return '';
+        }
+
+        return ' GROUP BY '
+            . implode(', ', $groupBys);
+    }
+}
+
 class ColumnName
 {
     public function __construct(public readonly string $columnName, public readonly ?string $alias = null) {}
@@ -121,6 +367,19 @@ class QueryBuilder
         return $this;
     }
 
+    public function whereLike(string $column, ColumnName|Constant $value): self
+    {
+        $this->wheres[] = [
+            'type' => 'column',
+            'key' => $column,
+            'value' => $value,
+            'join' => 'AND',
+            'operator' => 'LIKE'
+        ];
+
+        return $this;
+    }
+
     public function whereILike(string $column, ColumnName|Constant $value): self
     {
         $this->wheres[] = [
@@ -205,230 +464,55 @@ class QueryBuilder
         return $this->recordJoin('INNER', $table, $column1, $column2, $alias);
     }
 
-    private function buildOperationString(array &$params, int &$parameterCounter): string
+    public function getTable(): array
     {
-        $sqlOutput = '';
+        if (!$this->table)
+            throw new Exception("No table has been selected");
 
-        switch ($this->queryType) {
-            case QueryType::SELECT: {
-                    $sqlOutput = 'SELECT ';
-
-                    $selectCount = count($this->selects);
-
-                    if ($selectCount === 0) {
-                        $sqlOutput .= " *";
-                    } else {
-                        for ($index = 0; $index < $selectCount; $index++) {
-                            $select = $this->selects[$index];
-                            if ($select instanceof ColumnName) {
-                                $sqlOutput .= $select->columnName;
-
-                                if ($select->alias) {
-                                    $sqlOutput .= " AS {$select->alias}";
-                                }
-
-                                if ($selectCount > 1 && $index < $selectCount - 1) {
-                                    $sqlOutput .= ', ';
-                                }
-                            } else if ($select instanceof ColumnCount) {
-                                $sqlOutput .= "COUNT({$select->columnName})";
-
-                                if ($select->alias) {
-                                    $sqlOutput .= " AS {$select->alias}";
-                                }
-
-                                if ($selectCount > 1 && $index < $selectCount - 1) {
-                                    $sqlOutput .= ', ';
-                                }
-                            } else if ($select instanceof Constant) {
-                                $sqlOutput .= " {$select->value}";
-                            } else {
-                                throw new Exception("Failed to find a valid select type");
-                            }
-                        }
-                    }
-
-                    $sqlOutput .= " FROM {$this->table}";
-
-                    if ($this->alias !== null) {
-                        $sqlOutput .= " AS {$this->alias}";
-                    }
-
-                    break;
-                }
-            case QueryType::INSERT: {
-                    $keysSQL = '';
-                    $valuesSQL = '';
-
-                    $valueCount = count($this->inserts);
-
-                    for ($index = 0; $index < $valueCount; $index++) {
-                        $insert = $this->inserts[$index];
-                        $bindingName = $this->createBindingParameterName($parameterCounter);
-
-                        $keysSQL .= $insert['key'];
-                        $valuesSQL .= $bindingName;
-                        $params[$bindingName] = $insert['value'];
-
-                        if ($valueCount > 1 && $index < $valueCount - 1) {
-                            $keysSQL .= ", ";
-                            $valuesSQL .= ", ";
-                        }
-                    }
-
-                    $sqlOutput = "INSERT INTO {$this->table} ({$keysSQL}) VALUES ({$valuesSQL})";
-                    break;
-                }
-            case QueryType::DELETE: {
-                    $sqlOutput = "DELETE FROM {$this->table}";
-                    break;
-                }
-            default:
-                throw new Exception("Invalid query type");
-        }
-
-        return $sqlOutput;
+        return [$this->table, $this->alias];
     }
 
-    private function buildWhereString(array &$params, int &$parameterCounter): string
+    public function getQueryType(): QueryType
     {
-        $sqlOutput = '';
+        if (!$this->queryType)
+            throw new Exception("No query type has been selected");
 
-        $whereCount = count($this->wheres);
-        if ($whereCount > 0) {
-            $sqlOutput .= ' WHERE ';
-            $whereIndex = 0;
-
-            foreach ($this->wheres as $where) {
-                switch ($where['type']) {
-                    case 'column': {
-                            $value = $where['value'];
-                            if ($value instanceof Constant) {
-                                $generatedParamName = $this->createBindingParameterName($parameterCounter);
-                                $sqlOutput .= "{$where['key']} {$where['operator']} {$generatedParamName}";
-                                $params[$generatedParamName] = $value->value;
-                            } else if ($value instanceof ColumnName) {
-                                $sqlOutput .= "{$where['key']} {$where['operator']} {$value->columnName}";
-                            } else {
-                                throw new Exception("Invalid where clause");
-                            }
-
-                            if ($whereIndex++ !== $whereCount - 1) {
-                                $sqlOutput .= " {$where['join']} ";
-                            }
-
-                            break;
-                        }
-                    case 'in': {
-                            $data = $where['values'];
-                            if (is_array($data)) {
-                                $placeholders = [];
-                                foreach ($data as $value) {
-                                    $generatedParamName = $this->createBindingParameterName($parameterCounter);
-                                    $params[$generatedParamName] = $value;
-                                    $placeholders[] = $generatedParamName;
-                                }
-                                $paramsArray = implode(', ', $placeholders);
-                                $sqlOutput .= "{$where['key']} IN ({$paramsArray})";
-                            } else if ($data instanceof ColumnName) {
-                                $sqlOutput .= "{$where['key']} IN {$value->columnName}";
-                            } else {
-                                throw new Exception("Invalid IN clause");
-                            }
-
-                            break;
-                        }
-                    case 'exists': {
-                            $query = $where['query'];
-                            $compiledQuery = QueryBuilder::compileImpl($query, $parameterCounter);
-
-                            $sqlOutput .= "EXISTS ({$compiledQuery->getSQL()})";
-
-                            foreach ($compiledQuery->getBindings() as $key => $value) {
-                                $params[$key] = $value;
-                            }
-
-                            if ($whereIndex++ !== $whereCount - 1) {
-                                $sqlOutput .= " {$where['join']} ";
-                            }
-                            break;
-                        }
-                    default:
-                        throw new Exception('Invalid where clause');
-                }
-            }
-        }
-
-        return $sqlOutput;
+        return $this->queryType;
     }
 
-    private function buildJoinString(): string
+    public function getSelects(): array
     {
-        if (count($this->joins) === 0)
-            return '';
-
-        $sql = '';
-        foreach ($this->joins as $join) {
-            $sql .= " {$join['type']} JOIN {$join['table']}";
-
-            if ($join['alias'] !== null) {
-                $sql .= " AS {$join['alias']}";
-            }
-
-            $sql .= " ON {$join['column1']} = {$join['column2']}";
-        }
-
-        return $sql;
+        return $this->selects;
     }
 
-    private function buildOffsetLimitString(): string
+    public function getInserts(): array
     {
-        $sql = '';
-
-        if ($this->limit != null) {
-            $sql .= " LIMIT {$this->limit}";
-        }
-
-        if ($this->offset != null) {
-            $sql .= " OFFSET {$this->offset}";
-        }
-
-        return $sql;
+        return $this->inserts;
     }
 
-
-    private function buildGroupByString(): string
+    public function getWheres(): array
     {
-        if (count($this->groupBys) === 0) {
-            return '';
-        }
-
-        return ' GROUP BY '
-            . implode(', ', $this->groupBys);
+        return $this->wheres;
     }
 
-    private static function compileImpl(QueryBuilder $queryBuilder, int &$parameterCounter): CompiledQuery
+    public function getGroupBys(): array
     {
-        if ($queryBuilder->queryType === null) {
-            throw new Exception('Attempting to compile query with no valid type');
-        }
-
-        $sqlOutput = '';
-        $paramBindings = [];
-
-        $sqlOutput .= $queryBuilder->buildOperationString($paramBindings, $parameterCounter);
-        $sqlOutput .= $queryBuilder->buildJoinString();
-        $sqlOutput .= $queryBuilder->buildWhereString($paramBindings, $parameterCounter);
-        $sqlOutput .= $queryBuilder->buildGroupByString();
-        $sqlOutput .= $queryBuilder->buildOffsetLimitString();
-
-        return new CompiledQuery($sqlOutput, $paramBindings);
+        return $this->groupBys;
     }
 
-    public function compileQuery(): CompiledQuery
+    public function getJoins(): array
     {
-        $parameterCounter = 0;
-        return QueryBuilder::compileImpl($this, $parameterCounter);
+        return $this->joins;
+    }
+
+    public function getOffset(): ?int
+    {
+        return $this->offset;
+    }
+
+    public function getLimit(): ?int
+    {
+        return $this->limit;
     }
 }
 
@@ -470,7 +554,8 @@ class RelationalDatabase
 
     private function executeImpl(QueryBuilder $query): PDOStatement
     {
-        $compiledQuery = $query->compileQuery();
+        $sqlCompiler = new PostgresCompiler();
+        $compiledQuery = $sqlCompiler->compile($query);
 
         $stmt = $this->pdo->prepare($compiledQuery->getSQL());
         $stmt->execute($compiledQuery->getBindings());
