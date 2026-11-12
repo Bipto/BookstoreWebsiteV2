@@ -1,7 +1,8 @@
 <?php
 
 require_once '/var/www/shared/rest_builder.php';
-require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
 
 class UserController
 {
@@ -22,7 +23,10 @@ class UserController
             ]);
 
         try {
-            $this->db->execute($queryBuilder);
+            $this->db->execute(
+                new PostgresCompiler(),
+                $queryBuilder
+            );
             REST::response(201, []);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);

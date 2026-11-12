@@ -22,9 +22,12 @@ class Carousel
 
         <section class="carousel-section">
 
-            <h2 class="carousel-heading">
-                <?= htmlspecialchars($this->title) ?>
-            </h2>
+            <div class="carousel-heading-container">
+                <h3>
+                    <?= htmlspecialchars($this->title) ?>
+                </h3>
+            </div>
+
 
             <div class="carousel-container">
 

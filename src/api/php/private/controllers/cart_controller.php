@@ -1,7 +1,7 @@
 <?php
 
-require_once '/var/www/shared/db.php';
-require_once '/var/www/shared/rest_builder.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
 
 class CartController
 {
@@ -27,7 +27,10 @@ class CartController
             ->whereEqual('email', new Constant($email));
 
         try {
-            $data = $this->db->executeAndReturnAll($query);
+            $data = $this->db->executeAndReturnAll(
+                new PostgresCompiler(),
+                $query
+            );
             REST::response(200, $data);
         } catch (Exception $e) {
             REST::response(500, ['error' => 'An error occurred accessing te database']);
@@ -43,7 +46,10 @@ class CartController
             ->whereEqual('cart_item_id', new Constant($id));
 
         try {
-            $this->db->execute($query);
+            $this->db->execute(
+                new PostgresCompiler(),
+                $query
+            );
             REST::response(200, []);
         } catch (Exception $e) {
             REST::response(500, ['error' => 'An error occurred processing the request']);

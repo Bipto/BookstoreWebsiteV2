@@ -1,7 +1,8 @@
 <?php
 
 require_once '/var/www/shared/rest_builder.php';
-require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
 
 class AuthorController
 {
@@ -44,7 +45,11 @@ class AuthorController
         $query = $this->queryAuthors($limit, $offset, null);
 
         try {
-            $data = $this->db->executeAndReturnAll($query);
+            $data = $this->db->executeAndReturnAll(
+                new PostgresCompiler(),
+                $query
+            );
+
             REST::response(200, $data);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);
@@ -56,7 +61,11 @@ class AuthorController
         $query = $this->queryAuthors(null, null, $id);
 
         try {
-            $data = $this->db->executeAndReturnOne($query);
+            $data = $this->db->executeAndReturnOne(
+                new PostgresCompiler(),
+                $query
+            );
+
             REST::response(200, $data);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);

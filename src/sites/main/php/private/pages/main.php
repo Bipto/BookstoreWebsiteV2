@@ -40,7 +40,7 @@ foreach ($authors->getData() as $author) {
 
 //authors
 $authorCarousel = new Carousel(
-    'Authors',
+    'Bestselling Authors',
     $authorCards,
     'authorsCarousel'
 );

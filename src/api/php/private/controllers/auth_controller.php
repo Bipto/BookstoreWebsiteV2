@@ -1,7 +1,8 @@
 <?php
 
 require_once '/var/www/shared/rest_builder.php';
-require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
 
 class AuthController
 {
@@ -16,7 +17,11 @@ class AuthController
                 ->select()
                 ->whereEqual('email', new Constant($data['email']));
 
-            $results = $this->db->executeAndReturnOne($queryBuilder);
+            $results = $this->db->executeAndReturnOne(
+                new PostgresCompiler(),
+                $queryBuilder
+            );
+
             if ($results === false) {
                 REST::response(401, ['error' => 'An account could not be found with the provided email']);
             }

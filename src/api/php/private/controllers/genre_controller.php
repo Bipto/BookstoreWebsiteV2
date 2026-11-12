@@ -1,5 +1,9 @@
 <?php
 
+require_once '/var/www/shared/rest_builder.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
+
 class GenreController
 {
     public function __construct(private RelationalDatabase $db) {}
@@ -27,9 +31,16 @@ class GenreController
             $query->innerJoin('bookstore.book_genres', 'g.genre_id', 'bg.genre_id', 'bg') :
             $query->leftJoin('bookstore.book_genres', 'g.genre_id', 'bg.genre_id', 'bg');
 
-        $data = $this->db->executeAndReturnAll($query);
+        try {
+            $data = $this->db->executeAndReturnAll(
+                new PostgresCompiler(),
+                $query
+            );
 
-        echo json_encode($data);
+            REST::response(200, $data);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => 'An error occurred accessing the database']);
+        }
     }
 
     public function getGenreById(int $id): void
@@ -42,7 +53,11 @@ class GenreController
             )
             ->whereEqual('genre_id', new Constant($id));
 
-        $results = $this->db->executeAndReturnOne($queryBuilder);
+        $results = $this->db->executeAndReturnOne(
+            new PostgresCompiler(),
+            $queryBuilder
+        );
+
         if ($results === false) {
             REST::response(404, ['error' => 'An invalid genre ID was entered']);
         } else {

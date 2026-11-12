@@ -195,3 +195,8 @@ input {
 .book-grid-container:has(.spinner-overlay.htmx-request) #page-content {
     visibility: hidden;
 }
+
+.carousel-heading-container {
+    margin: 0 auto;
+    text-align: center;
+}

@@ -1,6 +1,6 @@
 <?php
 
-require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/db/db.php';
 require_once '/var/www/shared/router.php';
 
 require_once '/var/www/api/private/url_validator.php';

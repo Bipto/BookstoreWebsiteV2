@@ -41,7 +41,6 @@ class API
 {
     private static function send(string $url, array $options): API_Response
     {
-        $json = [];
         $ch = curl_init("http://apache{$url}");
 
         curl_setopt_array($ch, $options);
@@ -52,15 +51,8 @@ class API
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
             if ($response === false) {
-                //$json['error'] = curl_error($ch);
-                //$json['success'] = false;
-
                 return API_Response::error(curl_error($ch), 0);
             } else {
-                //$json['success'] = ($httpCode >= 200 && $httpCode < 300);
-                //$json['status_code'] = $httpCode;
-                //$json['data'] = $response;
-
                 return $httpCode >= 200 && $httpCode < 300 ?
                     API_Response::success(json_decode($response, true), $httpCode) :
                     API_Response::error(curl_error($ch), $httpCode);

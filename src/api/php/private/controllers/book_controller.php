@@ -1,7 +1,8 @@
 <?php
 
 require_once '/var/www/shared/rest_builder.php';
-require_once '/var/www/shared/db.php';
+require_once '/var/www/shared/db/db.php';
+require_once '/var/www/shared/db/postgres_compiler.php';
 
 class BookController
 {
@@ -72,7 +73,11 @@ class BookController
         }
 
         try {
-            $data = $this->db->executeAndReturnAll($query);
+            $data = $this->db->executeAndReturnAll(
+                new PostgresCompiler(),
+                $query
+            );
+
             REST::response(200, $data);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);
@@ -116,7 +121,11 @@ class BookController
             ]);
 
         try {
-            $result = $this->db->executeAndReturnOne($query);
+            $result = $this->db->executeAndReturnOne(
+                new PostgresCompiler(),
+                $query
+            );
+
             REST::response(200, $result);
         } catch (Exception $e) {
             REST::response(500, ['error' => $e->getMessage()]);
