@@ -11,8 +11,9 @@ class BookCard implements Control
         $displayImagePath = htmlspecialchars($this->imagePath);
         $displayTitle = htmlspecialchars($this->title);
         $displayAuthor = htmlspecialchars($this->author);
-        $displayPrice = htmlspecialchars($this->price);
         $displayUrl = htmlspecialchars($this->url);
+        $price = $this->price;
+        $displayPrice = number_format($price, 2);
 
         return "
         <div class='card'>
