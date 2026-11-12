@@ -61,7 +61,11 @@ session_start();
     echo $menubar->build();
 
     $router = new Router();
-    $router->get('/', '/var/www/sites/main/private/pages/main.php');
+
+    $router->get('/', function () {
+        echo AJAX::call("/ajax/main.php", 'page-content');
+    });
+
     $router->get('/explore', '/var/www/sites/main/private/pages/explore.php');
     $router->get('/categories', '/var/www/sites/main/private/pages/categories.php');
     $router->get('/about', '/var/www/sites/main/private/pages/about.php');

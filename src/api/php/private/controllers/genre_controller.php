@@ -15,6 +15,8 @@ class GenreController
         parse_str($queryString, $parameters);
 
         $active = $parameters['active'] ?? false;
+        $limit = $parameters['limit'] ?? null;
+        $offset = $parameters['offset'] ?? null;
 
         $query = QueryBuilder::table('bookstore.genres', 'g')
             ->select(
@@ -30,6 +32,14 @@ class GenreController
         $active ?
             $query->innerJoin('bookstore.book_genres', 'g.genre_id', 'bg.genre_id', 'bg') :
             $query->leftJoin('bookstore.book_genres', 'g.genre_id', 'bg.genre_id', 'bg');
+
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+
+        if ($offset !== null) {
+            $query->offset($offset);
+        }
 
         try {
             $data = $this->db->executeAndReturnAll(
@@ -58,10 +68,14 @@ class GenreController
             $queryBuilder
         );
 
-        if ($results === false) {
-            REST::response(404, ['error' => 'An invalid genre ID was entered']);
-        } else {
-            REST::response(200, $results);
+        try {
+            if ($results === false) {
+                REST::response(404, ['error' => 'An invalid genre ID was entered']);
+            } else {
+                REST::response(200, $results);
+            }
+        } catch (Exception $e) {
+            REST::response(500, ['error' => 'An error occurred accessing the database']);
         }
     }
 }

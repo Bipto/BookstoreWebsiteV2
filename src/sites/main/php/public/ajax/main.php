@@ -28,6 +28,7 @@ $bestSellersCarousel = new Carousel(
 
 echo $bestSellersCarousel->render();
 
+//authors
 $authors = API::get('/authors?limit=15');
 $authorCards = [];
 foreach ($authors->getData() as $author) {
@@ -38,7 +39,6 @@ foreach ($authors->getData() as $author) {
     );
 }
 
-//authors
 $authorCarousel = new Carousel(
     'Bestselling Authors',
     $authorCards,
@@ -46,3 +46,29 @@ $authorCarousel = new Carousel(
 );
 
 echo $authorCarousel->render();
+
+//genres
+$genres = API::get('/genres?limit=15&active=true');
+$genreCards = [];
+foreach ($genres->getData() as $genre) {
+    $genreId = "{$genre['genre_id']}";
+
+    $genreBook = API::get("/books?genre[]={$genreId}&limit=1");
+    $bookData = $genreBook->getData() ?? [];
+
+    if (!$genreBook->hasError() && count($bookData) === 1) {
+        $genreCards[] = new AuthorCard(
+            $genre['name'],
+            getBookImagePath($bookData[0]['image_path']),
+            "/genre/{$genreId}",
+        );
+    }
+}
+
+$genreCarousel = new Carousel(
+    'Bestselling Genres',
+    $genreCards,
+    'genresCarousel'
+);
+
+echo $genreCarousel->render();
