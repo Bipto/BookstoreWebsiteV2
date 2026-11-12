@@ -966,21 +966,12 @@ try {
     echo 'Created users table<br>';
 
     $pdo->exec("
-        CREATE TABLE IF NOT EXISTS bookstore.carts (
-            cart_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            user_id INTEGER UNIQUE,
-            FOREIGN KEY (user_id) REFERENCES bookstore.users(user_id)
-        )
-    ");
-    echo 'Created carts table<br>';
-
-    $pdo->exec("
         CREATE TABLE IF NOT EXISTS bookstore.cart_items (
             cart_item_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            cart_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL,
             book_id INTEGER NOT NULL,
             quantity INTEGER NOT NULL,
-            FOREIGN KEY (cart_id) REFERENCES bookstore.carts(cart_id),
+            FOREIGN KEY (user_id) REFERENCES bookstore.users(user_id),
             FOREIGN KEY (book_id) REFERENCES bookstore.books(book_id)
 
         )

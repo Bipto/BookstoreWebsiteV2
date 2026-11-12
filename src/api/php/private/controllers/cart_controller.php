@@ -21,8 +21,7 @@ class CartController
                 new ColumnName('quantity')
             )
             ->innerJoin('bookstore.cart_items', 'ci.book_id', 'b.book_id', 'ci')
-            ->innerJoin('bookstore.carts', 'c.cart_id', 'ci.cart_id', 'c')
-            ->innerJoin('bookstore.users', 'u.user_id', 'c.user_id', 'u')
+            ->innerJoin('bookstore.users', 'u.user_id', 'ci.user_id', 'u')
             ->innerJoin('bookstore.authors', 'a.author_id', 'b.author_id', 'a')
             ->whereEqual('email', new Constant($email));
 
@@ -80,37 +79,11 @@ class CartController
         $userId = $succeeded ? $stmt->fetch(PDO::FETCH_ASSOC)['user_id'] : null;
 
         $stmt = $pdo->prepare('
-            WITH inserted AS (
-                INSERT INTO bookstore.carts (user_id)
-                SELECT :user_id
-                WHERE NOT EXISTS (
-                    SELECT 1
-                    FROM bookstore.carts
-                    WHERE user_id = :user_id
-                )
-                RETURNING cart_id
-            )
-            SELECT cart_id FROM inserted
-            UNION ALL
-            SELECT cart_id
-            FROM bookstore.carts
-            WHERE user_id = :user_id
-            LIMIT 1;
-        ');
-        $succeeded = $stmt->execute(['user_id' => $userId]);
-        if (!$succeeded) {
-            echo json_encode(['success' => false]);
-            return;
-        }
-
-        $cartId = $stmt->fetch(PDO::FETCH_ASSOC)['cart_id'] ?? null;
-
-        $stmt = $pdo->prepare('
-        INSERT INTO bookstore.cart_items(cart_id, book_id, quantity)
-        VALUES(:cart_id, :book_id, :quantity)
+        INSERT INTO bookstore.cart_items(user_id, book_id, quantity)
+        VALUES(:user_id, :book_id, :quantity)
         ');
         $succeeded = $stmt->execute([
-            ':cart_id' => $cartId,
+            ':user_id' => $userId,
             ':book_id' => $bookId,
             ':quantity' => $quantity
         ]);
