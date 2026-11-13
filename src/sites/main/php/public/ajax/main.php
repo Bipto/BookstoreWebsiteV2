@@ -53,7 +53,7 @@ $genreCards = [];
 foreach ($genres->getData() as $genre) {
     $genreId = "{$genre['genre_id']}";
 
-    $genreBook = API::get("/books?genre[]={$genreId}&limit=1");
+    $genreBook = API::get("/books?genre={$genreId}&limit=1");
     $bookData = $genreBook->getData() ?? [];
 
     if (!$genreBook->hasError() && count($bookData) === 1) {

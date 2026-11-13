@@ -20,6 +20,10 @@ class BookController
         $limit = $parameters['limit'] ?? null;
         $offset = $parameters['offset'] ?? null;
 
+        if (!is_array($genres)) {
+            $genres = [$genres];
+        }
+
         $query = QueryBuilder::table('bookstore.books', 'b')
             ->select(
                 new ColumnName("b.book_id"),
