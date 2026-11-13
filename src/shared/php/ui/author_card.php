@@ -1,6 +1,7 @@
 <?php
 
 require_once '/var/www/shared/ui/carousel.php';
+require_once '/var/www/shared/utils/file_utils.php';
 
 class AuthorCard implements Control
 {
@@ -8,7 +9,7 @@ class AuthorCard implements Control
 
     public function render(): string
     {
-        $displayImagePath = htmlspecialchars($this->imagePath);
+        $displayImagePath = sanitiseImageUrl($this->imagePath);
         $displayName = htmlspecialchars($this->name);
         $displayUrl = htmlspecialchars($this->url);
 

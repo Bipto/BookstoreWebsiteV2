@@ -10,7 +10,7 @@ $response = API::get("/books/{$id}");
 if (!$response->hasError()) {
     $data = $response->getData();
 
-    $imagePath = getBookImagePath($data['image_path']);
+    $imagePath = sanitiseImageUrl(getBookImagePath($data['image_path']));
     $price = ($data['price'] ?? 0);
     $formattedPrice = number_format($price, 2);
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once '/var/www/shared/api.php';
+require_once '/var/www/shared/utils/file_utils.php';
 
 $id = $_GET['id'] ?? 1;
 
@@ -10,7 +11,7 @@ if (!$response->hasError()) {
     $data = $response->getData();
 
     $name = $data['name'] ?? '';
-    $imagePath = isset($data['image_path']) ? "/img/{$data['image_path']}" : '';
+    $imagePath = sanitiseImageUrl(isset($data['image_path']) ? "/img/{$data['image_path']}" : '');
     $description = $data['description'] ?? '';
 
     $html = "

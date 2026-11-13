@@ -14,3 +14,8 @@ function getAuthorImagePath(string $filename): string
 {
     return "http://assets.localhost/img/authors/{$filename}";
 }
+
+function sanitiseImageUrl(string $url): string
+{
+    return htmlspecialchars($url);
+}
