@@ -185,11 +185,13 @@ input {
 .spinner-overlay.htmx-indicator {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.1s ease 0s, visibility 0s linear 0.2s;
 }
 
 .spinner-overlay.htmx-indicator.htmx-request {
     opacity: 1;
     visibility: visible;
+    transition: opacity 0.1s ease 0.5s, visibility 0s linear 0.5s;
 }
 
 .book-grid-container:has(.spinner-overlay.htmx-request) #page-content {
