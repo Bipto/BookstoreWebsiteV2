@@ -18,7 +18,7 @@ $response = API::get("/authors/{$id}");
 <?php else: ?>
     <?php
     $data = $response->getData();
-    $imagePath = getAuthorImagePath($data['image_path']);
+    $imagePath = sanitiseImageUrl(getAuthorImagePath($data['image_path']));
     ?>
 
     <div class="edit-modal-form">
