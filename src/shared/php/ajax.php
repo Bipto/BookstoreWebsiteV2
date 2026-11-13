@@ -6,7 +6,6 @@ class AJAX
     {
         $generatedId = uniqid();
         $id = $elementId;
-        $jsScriptId = "script_{$generatedId}";
 
         return <<<HTML
         <div
