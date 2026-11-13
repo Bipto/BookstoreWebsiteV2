@@ -22,7 +22,7 @@ function updateCarouselButtons(id) {
       carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function registerCarouselCallbacks() {
   document.querySelectorAll('.carousel').forEach(carousel => {
     const id = carousel.id;
 
@@ -32,4 +32,4 @@ document.addEventListener('DOMContentLoaded', function() {
       updateCarouselButtons(id);
     });
   });
-});
+}

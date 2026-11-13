@@ -72,3 +72,9 @@ $genreCarousel = new Carousel(
 );
 
 echo $genreCarousel->render();
+?>
+
+<script>
+    registerCarouselCallbacks();
+    document.currentScript.remove();
+</script>
