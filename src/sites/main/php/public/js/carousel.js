@@ -1,7 +1,11 @@
 function moveCarousel(id, direction) {
   const carousel = document.getElementById(id);
+  const firstItem = carousel.children[0];
 
-  const scrollAmount = carousel.clientWidth * 0.4;
+  const itemWidth = firstItem.getBoundingClientRect().width;
+  const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+
+  const scrollAmount = itemWidth + gap;
 
   carousel.scrollBy({left: direction * scrollAmount, behavior: 'smooth'});
 }
