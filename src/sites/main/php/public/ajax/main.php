@@ -29,7 +29,7 @@ $bestSellersCarousel = new Carousel(
 echo $bestSellersCarousel->render();
 
 //authors
-$authors = API::get('/authors?limit=15');
+$authors = API::get('/authors?limit=30');
 $authorCards = [];
 foreach ($authors->getData() as $author) {
     $authorCards[] = new AuthorCard(

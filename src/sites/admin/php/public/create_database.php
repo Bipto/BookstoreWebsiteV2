@@ -245,11 +245,49 @@ The expression fantastic literature is often used for this genre by Anglophone l
     );
     insertGenre($genre12, $conn);
 
-    $genre12 = new Genre(
+    $genre13 = new Genre(
         "Adventure Fiction",
         "Adventure fiction is a type of fiction that usually presents danger, or gives the reader a sense of excitement. Some adventure fiction also satisfies the literary definition of romance fiction."
     );
-    insertGenre($genre12, $conn);
+    insertGenre($genre13, $conn);
+
+    $genre14 = new Genre(
+        "Philosophical fiction",
+        "Philosophical fiction is any fiction that devotes a significant portion of its content to the sort of questions addressed by philosophy. It might explore any facet of the human condition, including the function and role of society, the nature and motivation of human acts, the purpose of life, ethics or morals, the role of art in human lives, the role of experience or reason in the development of knowledge, whether there exists free will, or any other topic of philosophical interest. Philosophical fiction includes the novel of ideas, which can also fall under the genre of science fiction, utopian and dystopian fiction, and bildungsroman."
+    );
+    insertGenre($genre14, $conn);
+
+    $genre15 = new Genre(
+        "Coming-of-age story",
+        "In genre studies, a coming-of-age story is a genre of literature, theatre, film, and video game that focuses on the growth of a protagonist from childhood to adulthood, or \"coming of age\". Coming-of-age stories tend to emphasize dialogue or internal monologue over action and are often set in the past. The subjects of coming-of-age stories are typically teenagers. The Bildungsroman is a specific subgenre of coming-of-age story.
+
+        The plot points of coming-of-age stories are usually emotional changes within the character(s) in question."
+    );
+    insertGenre($genre15, $conn);
+
+    $genre16 = new Genre(
+        "Bildungsroman",
+        "In literary criticism, a bildungsroman is a literary genre that focuses on the psychological and moral growth and change of the protagonist as they progress from childhood to adulthood (coming of age). The term comes from the German words Bildung ('formation' or 'education') and Roman ('novel')."
+    );
+    insertGenre($genre16, $conn);
+
+    $genre17 = new Genre(
+        "Science fiction",
+        "Science fiction (often shortened to sci-fi or abbreviated SF) is the genre of speculative fiction that imagines advanced and futuristic changes in technology, scientific knowledge, or biological systems. The elements common to science fiction have increased over time: from space exploration, extraterrestrial life, time travel, and robotics; to parallel universes, dystopian societies, and biological manipulations; and, most recently, to information technology, transhumanism, posthumanism, and environmental challenges. Science fiction often explores human responses to the consequences of these types of projected or imagined scientific advances.
+
+        The precise definition of science fiction has long been disputed among authors, critics, scholars, and readers. It contains many subgenres, including hard science fiction, which emphasizes scientific accuracy, and soft science fiction, which focuses on social sciences. Other notable subgenres are: space opera, which emphasizes pure adventure in a universe in which space travel is common; cyberpunk, which explores the interface between technology and society; and climate fiction, which addresses environmental issues.
+        
+        Precedents for science fiction are claimed to exist as far back as antiquity. Some books written in the Scientific Revolution and the Enlightenment Age were considered early science-fantasy stories. The modern genre arose primarily in the 19th and early 20th centuries, when popular writers began looking to technological progress for inspiration and speculation. Mary Shelley's Frankenstein, written in 1818, is often credited as the first true science fiction novel. Jules Verne and H. G. Wells are pivotal figures in the genre's development. In the 20th century, the genre grew during the Golden Age of Science Fiction, and it expanded with the introduction of space operas, dystopian literature, and pulp magazines.
+        
+        Science fiction has come to influence not only literature, but also film, television, and culture at large. Science fiction can criticize present-day society and explore alternatives, as well as provide entertainment and inspire a sense of wonder."
+    );
+    insertGenre($genre17, $conn);
+
+    $genre18 = new Genre(
+        "Novella",
+        "A novella is a book of narrative prose fiction whose length is shorter than most novels, but longer than most novelettes and short stories. The English word \"novella\" derives from the Italian novella meaning a short story related to true (or apparently so) facts."
+    );
+    insertGenre($genre18, $conn);
 }
 
 function createAuthors(PDO $conn)
@@ -384,6 +422,66 @@ function createAuthors(PDO $conn)
     A celebrity in his lifetime, Stevenson's critical reputation has fluctuated since his death, although today his works are held in general acclaim. In 2018 he was ranked just behind Charles Dickens as the 26th-most-translated author in the world.";
     $author12->ImagePath = "Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg";
     insertAuthor($author12, $conn);
+
+    $author13 = new Author();
+    $author13->Name = "Oscar Wilde";
+    $author13->Description = "Oscar Fingal O'Fflahertie Wills Wilde[a] (16 October 1854 – 30 November 1900) was an Irish author, poet and playwright. After writing in different literary styles throughout the 1880s, he became one of the most popular and influential dramatists in London in the early 1890s. He was a key figure in the emerging Aestheticism movement of the late 19th century and is widely regarded as the greatest playwright of the Victorian era. Wilde is best known for his Gothic novel The Picture of Dorian Gray (1890), his epigrams, plays and bedtime stories for children, as well as his criminal conviction in 1895 for gross indecency and for practicing homosexual acts.
+
+    Wilde's parents were Anglo-Irish intellectuals in Dublin. In his youth, Wilde became conversant in French and German. At university, he read Greats; he demonstrated himself to be an exceptional classicist, first at Trinity College Dublin, then at Magdalen College, Oxford. He became associated with the emerging philosophy of aestheticism during this time, led by two of his tutors, Walter Pater and John Ruskin. After university, Wilde moved to London into fashionable cultural and social circles.[8]
+    
+    Wilde tried his hand at various literary activities: he wrote a play, published a book of poems, lectured in the United States and Canada on \"The English Renaissance\" in art and interior decoration, and then returned to London where he lectured on his American travels and wrote reviews for various periodicals. Known for his biting wit, flamboyant dress and glittering conversational skill, Wilde became one of the best-known personalities of his day. At the turn of the 1890s, he refined his ideas about the supremacy of art in a series of dialogues and essays, and incorporated themes of decadence, duplicity and beauty into what would be his only novel, The Picture of Dorian Gray (1890). Wilde returned to drama, writing Salome (1891) in French while in Paris, but it was refused a licence for England complicated by a prohibition on the portrayal of biblical subjects on the English stage. Undiscouraged, Wilde produced four society comedies in the early 1890s, which made him one of the most successful playwrights of late-Victorian London.
+    
+    At the height of his fame and success, while An Ideal Husband (1895) and The Importance of Being Earnest (1895) were still being performed in London, Wilde issued a civil writ against John Sholto Douglas, the 9th Marquess of Queensberry for criminal libel. The Marquess was the father of Wilde's lover, Lord Alfred Douglas. The libel hearings unearthed evidence that caused Wilde to drop his charges and led to his own arrest and criminal prosecution for gross indecency with other males. The jury was unable to reach a verdict and so, a retrial was ordered. In the second trial, however, Wilde was convicted and sentenced to two years' hard labour, the maximum penalty, and jailed from 1895 to 1897. During his last year in prison he wrote De Profundis (published posthumously in abridged form in 1905, and in full in 1962 in his Complete Letters), a long letter that discusses his spiritual journey through his trials and is a dark counterpoint to his earlier philosophy of pleasure. On the day of his release, he caught the overnight steamer to France, never to return to Britain or Ireland. In France and Italy, he wrote his last work, The Ballad of Reading Gaol (1898), a long poem commemorating the harsh rhythms of prison life.";
+    $author13->ImagePath = "Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph,_seated_(cropped).jpg";
+    insertAuthor($author13, $conn);
+
+    $author14 = new Author();
+    $author14->Name = "Louisa May Alcott";
+    $author14->Description = "Louisa May Alcott (November 29, 1832 – March 6, 1888) was an American novelist, short story writer, and poet best known for writing the novel Little Women (1868) and its sequels Good Wives (1869), Little Men (1871), and Jo's Boys (1886). Raised in New England by her transcendentalist parents, Abigail May and Amos Bronson Alcott, she grew up among many well-known intellectuals of the day, including Margaret Fuller, Ralph Waldo Emerson, Nathaniel Hawthorne, and Henry David Thoreau. Encouraged by her family, Alcott began writing from an early age.
+
+    Alcott's family experienced financial hardship, and while Alcott took on various jobs to help support the family from an early age, she also sought to earn money by writing. In the 1860s she began to achieve critical success for her writing with the publication of Hospital Sketches, a book based on her service as a nurse in the American Civil War. Early in her career, she sometimes used pen names such as A. M. Barnard, under which she wrote lurid short stories and sensation novels for adults. Little Women was one of her first successful novels and has been adapted for film and television. It is loosely based on Alcott's childhood experiences with her three sisters, Abigail May Alcott Nieriker, Elizabeth Sewall Alcott, and Anna Alcott Pratt.
+    
+    Alcott was an abolitionist and a feminist and remained unmarried throughout her life. She also spent her life active in reform movements such as temperance and women's suffrage. During the last eight years of her life she raised the daughter of her deceased sister. She died from a stroke in Boston on March 6, 1888, just two days after her father's death and was buried in Sleepy Hollow Cemetery. Louisa May Alcott has been the subject of numerous biographies, novels, and a documentary, and has influenced other writers and public figures such as Theodore Roosevelt and Ursula K. Le Guin.";
+    $author14->ImagePath = "Louisa_May_Alcott,_c._1870_-_Warren's_Portraits,_Boston.jpg";
+    insertAuthor($author14, $conn);
+
+    $author15 = new Author();
+    $author15->Name = "Charles Dickens";
+    $author15->Description = "Charles John Huffam Dickens (7 February 1812 – 9 June 1870) was an English writer and journalist. He created some of literature's best-known fictional characters, and is regarded by many as the greatest novelist of the Victorian era. His works enjoyed unprecedented popularity during his lifetime and, by the 20th century, critics and scholars had recognised him as a literary genius. His novels and short stories are widely read today.
+
+    Born in Portsmouth, Dickens left school at age 12 to work in a boot-blacking factory when his father John was incarcerated in a debtors' prison. After three years, he returned to school before beginning his literary career as a journalist. Dickens edited a weekly journal for 20 years; wrote 15 novels, 5 novellas, hundreds of short stories and nonfiction articles; lectured and performed readings extensively; was a tireless letter writer; and campaigned vigorously for children's rights, education and other social reforms.
+    
+    Dickens's literary success began with the 1836 serial publication of The Pickwick Papers, a publishing phenomenon—thanks largely to the introduction of the character Sam Weller in the fourth episode—that sparked Pickwick merchandise and spin-offs. Within a few years, Dickens had become an international literary celebrity, famous for his humour, satire and keen observation of character and society. His novels, most of them published in monthly or weekly instalments, pioneered the serial publication of narrative fiction, which became the dominant Victorian mode for novel publication. Cliffhanger endings in his serial publications kept readers in suspense. The installment format allowed Dickens to evaluate his audience's reaction, and he often modified his plot and character development based on such feedback. For example, when his wife's podiatrist expressed distress at the way Miss Mowcher in David Copperfield seemed to reflect her own disabilities, Dickens improved the character with positive features. His plots were carefully constructed and he often wove elements from topical events into his narratives. Masses of the illiterate poor would individually pay a halfpenny to have each new monthly episode read to them, opening up and inspiring a new class of readers.
+    
+    His 1843 novella A Christmas Carol remains especially popular and continues to inspire adaptations in every creative medium. Oliver Twist and Great Expectations are also frequently adapted and, like many of his novels, evoke images of early Victorian London. His 1853 novel Bleak House, a satire on the judicial system, helped support a reformist movement that culminated in the 1870s legal reform in England. A Tale of Two Cities (1859; set in London and Paris) is regarded as his best-known work of historical fiction. The most famous celebrity of his era, he undertook, in response to public demand, a series of public reading tours in the later part of his career. The term Dickensian is used to describe something that is reminiscent of Dickens and his writings, such as poor social or working conditions, or comically repulsive characters.";
+    $author15->ImagePath = "Dickens_Gurney_head.jpg";
+    insertAuthor($author15, $conn);
+
+    $author16 = new Author();
+    $author16->Name = "H. G. Wells";
+    $author16->Description = "Herbert George Wells (21 September 1866 – 13 August 1946) was an English writer, prolific in many genres. He wrote more than forty novels and dozens of short stories. His non-fiction output included works of social commentary, politics, history, popular science, satire, biography, and autobiography. Wells is most known today for his groundbreaking science fiction novels; he has sometimes been called the \"father of science fiction\", a title that has also been given to Jules Verne and Hugo Gernsback.
+
+    In addition to his fame as a writer, he was prominent in his lifetime as a forward-looking, even prophetic social critic who devoted his literary talents to the development of a progressive vision on a global scale. As a futurist, he wrote a number of utopian works and foresaw the advent of aircraft, tanks, space travel, nuclear weapons, satellite television and something resembling the World Wide Web. His science fiction imagined time travel, alien invasion, invisibility, and biological engineering before these subjects were common in the genre. Brian Aldiss referred to Wells as the \"Shakespeare of science fiction\", while Charles Fort called him a \"wild talent\".
+    
+    Wells rendered his works convincing by instilling commonplace detail alongside a single extraordinary assumption per work – dubbed \"Wells's law\" – leading Joseph Conrad to hail him in 1898 with \"O Realist of the Fantastic!\". His most notable science fiction works include The Time Machine (1895), which was his first novella, The Island of Doctor Moreau (1896), The Invisible Man (1897), The War of the Worlds (1898), the military science fiction The War in the Air (1907), and the dystopian When the Sleeper Wakes (1910). Novels of social realism such as Kipps (1905) and The History of Mr Polly (1910), which describe lower-middle-class English life, led to the suggestion that he was a worthy successor to Charles Dickens, but Wells described a range of social strata and even attempted, in Tono-Bungay (1909), a diagnosis of English society as a whole. Wells was nominated for the Nobel Prize in Literature four times.
+    
+    Wells's earliest specialised training was in biology, and his thinking on ethical matters took place in a Darwinian context.[11] He was also an outspoken socialist from a young age, often (but not always, as at the beginning of the First World War) sympathising with pacifist views. For much of his adult life he was a passionate advocate of eugenics and involuntary euthanasia, arguing in favour of the \"sterilisation of failure\" as a necessary condition for socialism to succeed, a view he had largely recanted by 1940. In his later years, he wrote less fiction and more works expounding his political and social views, sometimes giving his profession as that of journalist. Wells was a diabetic and co-founded the charity The Diabetic Association (Diabetes UK) in 1934.";
+    $author16->ImagePath = "H.G._Wells_by_Beresford.jpg";
+    insertAuthor($author16, $conn);
+
+    $author17 = new Author();
+    $author17->Name = "Alexandre Dumas";
+    $author17->Description = "Alexandre Dumas (born Alexandre Davy de la Pailleterie; 24 July 1802 – 5 December 1870), also known as Alexandre Dumas père, was a French novelist and playwright.
+
+    His works have been translated into many languages and he is one of the most widely read French authors. Many of his historical novels of adventure were originally published as serials, including The Count of Monte Cristo, The Three Musketeers, Twenty Years After and The Vicomte of Bragelonne: Ten Years Later. He also wrote many plays and, since the early 20th century, many of his novels have been adapted into films. Prolific in several genres, Dumas began his career by writing plays, which were successfully produced from the first. He wrote numerous magazine articles and travel books; his published works totalled 100,000 pages. In the 1840s, Dumas founded the Théâtre Historique in Paris.
+    
+    His father, General Thomas-Alexandre Dumas, né Davy de la Pailleterie, was born in the French colony of Saint-Domingue (present-day Haiti) to Alexandre Antoine Davy de la Pailleterie, a French nobleman, and Marie-Cessette Dumas, an African slave.[6][7] At age 14, Thomas-Alexandre was taken by his father to France, where he was given his freedom, educated in a military academy, and entered the military for what became an illustrious career.
+    
+    Alexandre acquired work with Louis-Philippe, Duke of Orléans, then as a writer, a career that led to his early success. Decades later, after the election of Louis-Napoléon Bonaparte in 1851, Dumas fell from favour and left France for Belgium, where he stayed for several years. He moved to Russia for a few years and then to Italy. In 1861, he founded and published the newspaper L'Indépendant, which supported Italian unification. He returned to Paris in 1864.
+    
+    English playwright Watts Phillips, who knew Dumas in his later life, described him as \"the most generous, large-hearted being in the world. He also was the most delightfully amusing and egotistical creature on the face of the earth. His tongue was like a windmill—once set in motion, you would never know when he would stop, especially if the theme was himself.\"";
+    $author17->ImagePath = "Nadar_-_Alexander_Dumas_père_(1802-1870)_-_Google_Art_Project_2.jpg";
+    insertAuthor($author17, $conn);
 }
 
 function createBooks(PDO $conn)
@@ -881,6 +979,86 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     
     Since its publication Treasure Island has significantly influenced depictions of pirates in popular culture, including elements such as deserted tropical islands, treasure maps marked with an \"X\", and one-legged seamen with parrots perched on their shoulders.";
     insertBook($book33, $conn);
+
+    $book34 = new Book();
+    $book34->Title = "The Picture of Dorian Gray";
+    $book34->Author = 13;
+    $book34->Genres = [9, 10, 13];
+    $book34->Price = 7.99;
+    $book34->ImagePath = "the_picture_of_dorian_gray.jpg";
+    $book34->StockCount = 30;
+    $book34->Description = "The Picture of Dorian Gray is an 1890 philosophical fiction and Gothic horror novel by Irish author Oscar Wilde. A shorter novella-length version was published in the July 1890 issue of the American periodical Lippincott's Monthly Magazine, while the novel-length version was published in April 1891. As the only novel written by Wilde, it is widely regarded as a classic of both Gothic and English literature, having been adapted many times for films, stage, plays, and other forms of art performances.
+
+    The story revolves around a portrait of Dorian Gray painted by Basil Hallward, a friend of Dorian's and an artist infatuated with Dorian's beauty. Through Basil, Dorian meets Lord Henry Wotton and is soon enthralled by the aristocrat's hedonistic worldview: that beauty and sensual fulfilment are the only things worth pursuing in life. Knowing that he will lose his beauty with time, Dorian impulsively chooses to sell his soul and asks for the portrait, rather than himself, to age and fade. His wish granted, Dorian pursues a libertine life of varied immoral experiences while staying young and beautiful; all the while, his portrait ages and visually records every one of Dorian's sins.
+    
+    The Picture of Dorian Gray was initially subjected to significant controversy and criticism following its publication. Largely ignored until the 1980s, it has come to be recognised as one of Wilde's best-known works, attracting critical academic and popular interest, and it remains one of the most widely read Gothic novels. The Guardian listed it among the 100 best novels ever written in English, and the book has inspired the Dorian Awards since 2009.";
+    insertBook($book34, $conn);
+
+    $book35 = new Book();
+    $book35->Title = "Little Women";
+    $book35->Author = 14;
+    $book35->Genres = [15];
+    $book35->Price = 7.99;
+    $book35->ImagePath = "little_women.jpg";
+    $book35->StockCount = 30;
+    $book35->Description = "Little Women is a coming-of-age novel written by American novelist Louisa May Alcott, originally published in two volumes, in 1868 and 1869. The story follows the lives of the four March sisters—Meg, Jo, Beth, and Amy—and details their passage from childhood to womanhood. Loosely based on the lives of the author and her three sisters, it is classified as an autobiographical or semi-autobiographical novel.
+
+    Little Women was an immediate commercial and critical success, and readers were eager for more of the characters. Alcott quickly completed a second volume (titled Good Wives or Little Women Married in the United Kingdom, though the name originated with the publisher and not Alcott). It was also met with success. The two volumes were issued in 1880 as a single novel titled Little Women. Alcott subsequently wrote two sequels to her popular work, both also featuring the March sisters: Little Men (1871) and Jo's Boys (1886).
+    
+    The novel has been said to address three major themes: \"domesticity, work, and true love, all of them interdependent and each necessary to the achievement of its heroine's individual identity.\" According to Sarah Elbert, Alcott created a new form of literature, one that took elements from romantic children's fiction and combined it with others from sentimental novels, resulting in a totally new genre. Elbert argues that within Little Women can be found the first vision of the \"All-American girl\" and that her various aspects are embodied in the differing March sisters.
+    
+    The book has been translated into numerous languages and frequently adapted for stage and screen.";
+    insertBook($book35, $conn);
+
+    $book36 = new Book();
+    $book36->Title = "Great Expectations";
+    $book36->Author = 15;
+    $book36->Genres = [16];
+    $book36->Price = 7.99;
+    $book36->ImagePath = "great-expectations-9781416503002_hr.jpg";
+    $book36->StockCount = 30;
+    $book36->Description = "Great Expectations is the thirteenth novel by the English author Charles Dickens and his penultimate completed novel. The novel is a bildungsroman and depicts the education of an orphan nicknamed Pip. It is Dickens' second novel, after David Copperfield, to be fully narrated in the first person. The novel was first published as a serial in Dickens's weekly periodical All the Year Round, from 1 December 1860 to August 1861. In October 1861, Chapman & Hall published the novel in three volumes.
+
+    The novel is set in Kent and London in the early to mid-19th century and contains some of Dickens's most celebrated scenes, starting in a graveyard, where the young Pip is accosted by the escaped convict Abel Magwitch. Great Expectations is full of extreme imagery—poverty, prison ships, chains, and fights to the death—and features a colourful cast of characters who have entered popular culture. These include the eccentric Miss Havisham, the beautiful but cold Estella, and Joe Gargery, the unsophisticated and kind blacksmith. Dickens's themes include wealth and poverty, love and rejection, and the eventual triumph of good over evil. Great Expectations, which is popular with both readers and literary critics, has been translated into many languages and adapted numerous times into various media.
+    
+    The novel was very widely praised. Although Dickens's contemporary Thomas Carlyle referred to it disparagingly as \"that Pip nonsense\", he nevertheless reacted to each fresh instalment with \"roars of laughter\". Later, George Bernard Shaw praised the novel, describing it as \"all of one piece and consistently truthful\". During the serial publication, Dickens was pleased with public response to Great Expectations and its sales; when he first conceived the plot, he called it \"a very fine, new and grotesque idea\". In the 21st century, the novel retains good standing among literary critics and in 2003 it was ranked 17th in the BBC's The Big Read poll.";
+    insertBook($book36, $conn);
+
+    $book37 = new Book();
+    $book37->Title = "The Time Machine";
+    $book37->Author = 16;
+    $book37->Genres = [4, 17, 18];
+    $book37->Price = 7.99;
+    $book37->ImagePath = "the_time_machine.jpg";
+    $book37->StockCount = 30;
+    $book37->Description = "The Time Machine is an 1895 dystopian science fiction novella by H. G. Wells about a Victorian scientist known as the Time Traveller who travels to the year 802,701. The work is generally credited with the popularization of the concept of time travel by using a vehicle or device to travel intentionally and selectively forward or backward through time. The term \"time machine\", coined by Wells, is now almost universally used to refer to such a vehicle or device.
+
+    Utilizing a frame story set in then-present Victorian England, Wells's text focuses on a recount of the otherwise anonymous Time Traveller's journey into the far future. A work of future history and speculative evolution, The Time Machine is interpreted in modern times as a commentary on the increasing inequality and class divisions of Wells's era, which he projects as giving rise to two separate human species: the fair, childlike Eloi; and the savage, simian Morlocks, distant descendants of the contemporary upper and lower classes respectively. It is believed that Wells's depiction of the Eloi as a race living in plenitude and abandon was inspired by the utopic romance novel News from Nowhere (1890), though Wells's universe in the novel is notably more savage and brutal.
+    
+    In his 1931 preface to the book, Wells wrote that The Time Machine seemed \"a very undergraduate performance to its now mature writer, as he looks over it once more\", though he states that \"the writer feels no remorse for this youthful effort\". However, critics have praised the novella's handling of its thematic concerns, with Marina Warner writing that the book was the most significant contribution to understanding fragments of desire before Sigmund Freud's The Interpretation of Dreams, conveying \"how close [Wells] felt to the melancholy seeker after a door that he once opened on to a luminous vision and could never find again\".
+    
+    In 1933, in the preface to his collected works The Scientific Romances of H.G. Wells, Wells explained: \"My early, profound and lifelong admiration for [Jonathan] Swift...is particularly evident in a predisposition to make the stories reflect upon contemporary political and social discussions.\" He then noted, \"Mr. [Israel] Zangwill in a review in 1895 complained that my first book, The Time Machine, concerned itself with 'our present discontents'. The Time Machine is indeed quite as philosophical and polemical and critical of life and so forth, as Men Like Gods written twenty-eight years later. No more and no less. I have never been able to get away from life in the mass and life in general as disinterested from life in the individual experience, in any book I have ever written\". He added later on, \"The Time Machine was another assault on human self-satisfaction\", being \"consciously grim, under the influence of Swift's tradition\".
+    
+    The Time Machine has been adapted into two feature films of the same name, as well as two television versions and many comic book adaptations. It has also indirectly inspired many more works of fiction in many media productions.";
+    insertBook($book37, $conn);
+
+    $book38 = new Book();
+    $book38->Title = "The Count of Monte Cristo";
+    $book38->Author = 17;
+    $book38->Genres = [13];
+    $book38->Price = 7.99;
+    $book38->ImagePath = "the_count_of_monte_cristo.webp";
+    $book38->StockCount = 30;
+    $book38->Description = "The Count of Monte Cristo (French: Le Comte de Monte-Cristo) is an adventure novel by the French writer Alexandre Dumas. It was serialised from 1844 to 1846, then published in book form in 1846. It is one of his most popular works, along with The Three Musketeers (1844) and Man in the Iron Mask (1850). Like many of his novels, it was expanded from plot outlines suggested by his collaborating ghostwriter, Auguste Maquet. It is regarded as a classic of French and world literature.
+
+    The novel is set in France, Italy, and islands in the Mediterranean Sea during the historical events of 1815–1839, the era of the Bourbon Restoration through the reign of Louis Philippe I. It begins on the day when Napoleon left his first island of exile, Elba, beginning the Hundred Days period of his return to power. The historical setting is fundamental to the narrative. The Count of Monte Cristo explores themes of hope, justice, vengeance, mercy and forgiveness.
+    
+    It follows the life of Edmond Dantès, a young sailor who is falsely accused of treason, and imprisoned in the prison Château d’If. There, he meets Abbé Faria, who educates him and reveals the location of a hidden treasure on the island of Monte Cristo. After escaping, Dantès recovers the treasure, and transforms himself into a wealthy and enigmatic nobleman.
+    
+    Under the identity of the titular Count of Monte Cristo, he enters high society in Paris and begins a calculated plan of revenge against those who betrayed him, including Danglars, his former ship's supercargo; Fernand, the cousin and suitor of his fiancée; and Villefort, the crown prosecutor who ensures his imprisonment to protect his own career. In the end, he abandons complete devotion to revenge, seeks redemption, and departs with his former slave and lover Haydée, leaving others to confront the consequences of both their actions and his.
+    
+    The Count of Monte Cristo achieved widespread popularity upon its serialized publication in 1844, attracting large audiences across Europe who followed its installments with sustained interest and discussion. Contemporary accounts describe it as one of the most widely read works of its time.[4] Its popularity has endured and is today viewed as a classic, with the novel remaining continuously in print and adapted into many films and television series. The work has also inspired later literature across genres, including historical fiction, science fiction, and modern retellings, and continues to be regarded as a significant and widely influential novel.";
+    insertBook($book38, $conn);
 }
 
 $host = $_ENV['POSTGRES_HOST'];
