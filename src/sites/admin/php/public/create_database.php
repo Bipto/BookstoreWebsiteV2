@@ -288,6 +288,12 @@ The expression fantastic literature is often used for this genre by Anglophone l
         "A novella is a book of narrative prose fiction whose length is shorter than most novels, but longer than most novelettes and short stories. The English word \"novella\" derives from the Italian novella meaning a short story related to true (or apparently so) facts."
     );
     insertGenre($genre18, $conn);
+
+    $genre19 = new Genre(
+        "Detective fiction",
+        "Detective fiction is a subtype of crime fiction and mystery fiction in which an investigator or a detective—whether professional, amateur or retired—investigates a crime, often murder. The detective genre began around the same time as speculative fiction and other genre fiction in the mid-nineteenth century and has remained extremely popular, particularly in novels.[1] Some of the most famous heroes of detective fiction include C. Auguste Dupin, Sherlock Holmes, Kogoro Akechi, Miss Marple and Hercule Poirot. Juvenile stories featuring The Hardy Boys, Nancy Drew, and The Boxcar Children have also remained in print for several decades."
+    );
+    insertGenre($genre19, $conn);
 }
 
 function createAuthors(PDO $conn)
@@ -482,6 +488,24 @@ function createAuthors(PDO $conn)
     English playwright Watts Phillips, who knew Dumas in his later life, described him as \"the most generous, large-hearted being in the world. He also was the most delightfully amusing and egotistical creature on the face of the earth. His tongue was like a windmill—once set in motion, you would never know when he would stop, especially if the theme was himself.\"";
     $author17->ImagePath = "Nadar_-_Alexander_Dumas_père_(1802-1870)_-_Google_Art_Project_2.jpg";
     insertAuthor($author17, $conn);
+
+    $author18 = new Author();
+    $author18->Name = "Arthur Conan Doyle";
+    $author18->Description = "Sir Arthur Ignatius Conan Doyle (22 May 1859 – 7 July 1930) was a British writer and physician. He is best known for his four novels and fifty-six short stories about the fictional consulting detective Sherlock Holmes and his assistant Dr. Watson, which are milestones in crime fiction, and for his first work featuring Professor Challenger, The Lost World (1912), which gave its name to a subgenre of speculative fiction. He was a prolific writer who produced over 200 stories and articles, four volumes of poetry, and a number of works for the stage. He was knighted by King Edward VII in the 1902 Coronation Honours.
+
+    Born in Edinburgh, Doyle published his earliest stories whilst studying medicine at the University of Edinburgh Medical School, and he served as a doctor and surgeon on two sea voyages before establishing an unsuccessful medical practice in Portsmouth. His time at sea inspired the short story \"J. Habakuk Jephson's Statement\" (1884), which popularised the mystery of the Mary Celeste. His first Sherlock Holmes work, the novel A Study in Scarlet, was published in 1887, and the short story \"A Scandal in Bohemia\" (1891) was the first of twenty-four monthly Holmes stories published in The Strand Magazine, for which Doyle became one of the most famous and well-paid authors of his time. His ambivalence towards the character led to Holmes\'s being killed off in \"The Final Problem\" (1893); but public outcry resulted in his return in The Hound of the Baskervilles (1901), and Doyle continued to write stories featuring him up to 1927. He was also known for his humorous stories about the Napoleonic soldier Brigadier Gerard.
+    
+    Doyle was involved in political activism throughout his life and twice stood unsuccessfully for Parliament. He wrote in support of compulsory vaccination, the British causes in the Second Boer War and First World War and the reform of the Congo Free State. He was a fervent advocate of justice who personally investigated two closed cases, both resulting in the exoneration of the accused men and setting precedent which partially led to the establishment of the Court of Criminal Appeal in 1907. He was noted for his skill as an architect and was involved in several sports as a player and judge.
+    
+    Doyle was raised a Catholic but was agnostic as a young adult, later becoming a spiritualist mystic as a result of family tragedies, and was a Freemason for two separate periods. He embraced supernatural phenomena, including psychics, telepathy, mentalism and spirit photography, and publicly supported the Cottingley Fairies, later confirmed to be a hoax, which led to a public falling-out with his friend, the American magician Harry Houdini. Doyle's works are still widely read and adapted in the 21st century, with Sherlock Holmes being recognised as the single most portrayed literary character in film and television history, and a number of fictional works have depicted or been inspired by his life.";
+    $author18->ImagePath = "Arthur_Conan_Doyle_by_Walter_Benington,_1914.png";
+    insertAuthor($author18, $conn);
+
+    $author19 = new Author();
+    $author19->Name = "Kenneth Grahame";
+    $author19->Description = "Kenneth Grahame (/ˈɡreɪ.əm/ GRAY-əm; 8 March 1859 – 6 July 1932) was a Scottish writer. He is best remembered for the classic of children's literature The Wind in the Willows (1908). Born in Scotland, he spent most of his childhood with his grandmother in England, following the death of his mother and his father's inability to look after the children. After attending St Edward's School in Oxford, his ambition to attend university was thwarted and he joined the Bank of England, where he had a successful career. Before writing The Wind in the Willows, he published three other books: Pagan Papers (1893), The Golden Age (1895), and Dream Days (1898).";
+    $author19->ImagePath = "KennethGrahame.jpg";
+    insertAuthor($author19, $conn);
 }
 
 function createBooks(PDO $conn)
@@ -1059,6 +1083,32 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     
     The Count of Monte Cristo achieved widespread popularity upon its serialized publication in 1844, attracting large audiences across Europe who followed its installments with sustained interest and discussion. Contemporary accounts describe it as one of the most widely read works of its time.[4] Its popularity has endured and is today viewed as a classic, with the novel remaining continuously in print and adapted into many films and television series. The work has also inspired later literature across genres, including historical fiction, science fiction, and modern retellings, and continues to be regarded as a significant and widely influential novel.";
     insertBook($book38, $conn);
+
+    $book39 = new Book();
+    $book39->Title = "The Adventures of Sherlock Holmes";
+    $book39->Author = 18;
+    $book39->Genres = [19];
+    $book39->Price = 7.99;
+    $book39->ImagePath = "the_adventures_of_sherlock_holmes.jpg";
+    $book39->StockCount = 30;
+    $book39->Description = "The Adventures of Sherlock Holmes is a collection of short stories by British writer Arthur Conan Doyle, first published on 14 October, 1892. It contains the earliest short stories featuring the consulting detective Sherlock Holmes, which had been published in twelve monthly issues of The Strand Magazine, from July 1891 to June 1892. The stories are collected in the same sequence, which is not supported by any fictional chronology. The only characters common to all twelve are Holmes and Dr. Watson, and all are relayed in first-person narrative from Watson's point of view.
+
+    In general, the stories in The Adventures of Sherlock Holmes identify, and try to correct, social injustices. Holmes is portrayed as offering a new, fairer sense of justice. The stories were well received, and boosted the subscriptions figures of The Strand Magazine, prompting Doyle to be able to demand more money for his next set of stories. The first story, \"A Scandal in Bohemia\", includes the character of Irene Adler, who, despite being featured only within this one story by Doyle, is a prominent character in modern Sherlock Holmes adaptations, often as a love interest for Holmes. Doyle included four of the stories from this collection in his twelve favourite Sherlock Holmes stories, picking \"The Adventure of the Speckled Band\" as his overall favourite.";
+    insertBook($book39, $conn);
+
+    $book40 = new Book();
+    $book40->Title = "The Wind in the Willows";
+    $book40->Author = 19;
+    $book40->Genres = [11];
+    $book40->Price = 7.99;
+    $book40->ImagePath = "the_wind_in_the_willows.jpg";
+    $book40->StockCount = 30;
+    $book40->Description = "The Wind in the Willows is a children's novel by the British novelist Kenneth Grahame, first published in 1908. It tells the story of Mole, Ratty and Badger as they try to help Mr. Toad after he becomes obsessed with motorcars and gets into trouble.
+
+    It also contains short stories about them that are disconnected from the main narrative. The novel was based on bedtime stories that Grahame told his son Alastair.
+    
+    Although The Wind in the Willows received negative reviews upon its initial publication, the public loved it and it has since become a classic of British literature. It was listed at No. 16 in the BBC's survey The Big Read and has been adapted multiple times in different media.";
+    insertBook($book40, $conn);
 }
 
 $host = $_ENV['POSTGRES_HOST'];
