@@ -63,31 +63,29 @@ class CartController
         $bookId = $data['bookId'];
         $quantity = $data['quantity'] ?? 1;
 
-        $pdo = $this->db->getPDO();
+        $selectQuery = QueryBuilder::table('bookstore.users')
+            ->select(new ColumnName('user_id'))
+            ->whereEqual('email', new Constant($email));
 
-        $stmt = $pdo->prepare('
-            SELECT user_id FROM bookstore.users
-            WHERE email = :email
-        ');
+        try {
+            $data = $this->db->executeAndReturnOne(
+                new PostgresCompiler(),
+                $selectQuery
+            );
 
-        $succeeded = $stmt->execute(['email' => $email]);
-        if (!$succeeded) {
-            echo json_encode(['success' => false]);
-            return;
+            $userId = $data['user_id'] ?? null;
+
+            $insertQuery = QueryBuilder::table('bookstore.cart_items')
+                ->insert([
+                    'user_id' => $userId,
+                    'book_id' => $bookId,
+                    'quantity' => $quantity
+                ]);
+            $this->db->execute(new PostgresCompiler(), $insertQuery);
+
+            REST::response(200, []);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => 'An error occurred processing the request']);
         }
-
-        $userId = $succeeded ? $stmt->fetch(PDO::FETCH_ASSOC)['user_id'] : null;
-
-        $stmt = $pdo->prepare('
-        INSERT INTO bookstore.cart_items(user_id, book_id, quantity)
-        VALUES(:user_id, :book_id, :quantity)
-        ');
-        $succeeded = $stmt->execute([
-            ':user_id' => $userId,
-            ':book_id' => $bookId,
-            ':quantity' => $quantity
-        ]);
-
-        echo json_encode(['success' => $succeeded]);
     }
 }
