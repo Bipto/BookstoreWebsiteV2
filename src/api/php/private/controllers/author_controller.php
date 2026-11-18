@@ -71,4 +71,9 @@ class AuthorController
             REST::response(500, ['error' => $e->getMessage()]);
         }
     }
+
+    public function updateAuthor(): void
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+    }
 }

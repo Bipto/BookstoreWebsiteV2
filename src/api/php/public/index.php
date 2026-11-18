@@ -61,6 +61,10 @@ try {
         '/authors/{id}',
         fn($id) => $authorController->getAuthorById($id)
     );
+    $router->put(
+        '/authors',
+        [$authorController, 'updateAuthor']
+    );
     $router->get(
         '/genres',
         [$genreController, 'getGenres']

@@ -21,13 +21,28 @@ $response = API::get("/authors/{$id}");
     $imagePath = sanitiseImageUrl(getAuthorImagePath($data['image_path']));
     ?>
 
-    <div class="edit-modal-form">
-        <img src='<?= $imagePath ?>' class='view-book-image' loading='lazy'>
+    <form id="edit-author-form" method="POST">
 
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="<?= $data['name'] ?>"> </input>
+        <div class="edit-modal-form">
 
-        <label for="description">Description:</label>
-        <textarea rows="15" name="description" style="width: 100%; resize: none;"> <?= $data['description'] ?></textarea>
-    </div>
+            <img src="<?= $imagePath ?>" class="view-book-image" loading="lazy">
+
+            <label for="name">Name:</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="<?= htmlspecialchars($data['name']) ?>">
+
+            <label for="description">Description:</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="15"
+                style="width: 100%; resize: none;"><?= htmlspecialchars($data['description']) ?></textarea>
+
+        </div>
+
+    </form>
+
 <?php endif; ?>
