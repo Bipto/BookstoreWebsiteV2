@@ -8,16 +8,18 @@ FROM composer:2 AS composer-deps
 WORKDIR /var/www
 
 # Install required PHP extensions for Composer
-RUN apk add --no-cache \
-        oniguruma-dev \
+RUN apk add --no-cache oniguruma-dev \
     && docker-php-ext-install mbstring
 
+# Copy Composer files first
 COPY composer.json ./
 
+# Install dependencies
 RUN composer install \
     --no-interaction \
     --no-progress \
-    --prefer-dist
+    --prefer-dist \
+    --no-scripts
 
 # ==========================================================
 # Stage 2: PHP-FPM

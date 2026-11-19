@@ -51,7 +51,7 @@ abstract class QueryCompiler
 
     abstract protected function buildOperationString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string;
     abstract protected function buildWhereString(QueryBuilder $queryBuilder, array &$params, int &$parameterCounter): string;
-    abstract protected  function buildJoinString(QueryBuilder $queryBuilder): string;
+    abstract protected function buildJoinString(QueryBuilder $queryBuilder): string;
     abstract protected function buildOffsetLimitString(QueryBuilder $queryBuilder): string;
     abstract protected function buildGroupByString(QueryBuilder $queryBuilder): string;
 }
