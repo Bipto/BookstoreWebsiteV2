@@ -1,0 +1,53 @@
+
+name: PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  phpunit:
+    name: Run PHPUnit
+    runs-on: ubuntu-latest
+
+    steps:
+      # Get the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Prepare environment
+      - name: Prepare environment
+        run: |
+          if [ -f .env.example ]; then
+            cp .env.example .env
+          else
+            touch .env
+          fi
+
+      # Build the PHPUnit Docker image
+      - name: Build PHP test container
+        run: docker compose build php-tests
+
+      # Install Composer dependencies
+      - name: Install dependencies
+        run: |
+          docker compose run --rm --no-deps php-tests \
+            composer install --no-interaction --prefer-dist
+
+      # Run PHPUnit
+      - name: Run PHPUnit tests
+        run: |
+          docker compose run --rm --no-deps php-tests \
+            vendor/bin/phpunit --configuration /var/www/phpunit.xml
+
+      # Clean up
+      - name: Docker cleanup
+        if: always()
+        run: docker compose down -v
