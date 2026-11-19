@@ -155,6 +155,8 @@ services:
     working_dir: /var/www
 
     volumes:
+      - ./composer.json:/var/www/composer.json:ro
+      - ./composer.lock:/var/www/composer.lock:ro
       - ./vendor:/var/www/vendor
 
       - ./src/sites/main/php:/var/www/src/sites/main/php:ro

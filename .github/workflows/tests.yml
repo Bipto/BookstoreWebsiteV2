@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: |
           docker compose run --rm --no-deps php-tests \
-            composer install --no-interaction --prefer-dist
+            composer install --no-interaction --prefer-dist --no-progress
 
       # Run PHPUnit
       - name: Run PHPUnit tests
