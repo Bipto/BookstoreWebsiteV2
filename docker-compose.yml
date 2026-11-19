@@ -165,6 +165,7 @@ services:
       - ./src/shared/php:/var/www/src/shared/php:ro
 
       - ./tests:/var/www/tests:ro
+      - ./phpstan.neon:/var/www/phpstan.neon:ro
       - ./phpunit.xml:/var/www/phpunit.xml:ro
 
     command: [ "tail", "-f", "/dev/null" ]
