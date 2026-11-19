@@ -1,0 +1,16 @@
+{
+    "phpunit.php": "php",
+    "phpunit.phpunit": "vendor/bin/phpunit",
+
+    "phpunit.command": "docker compose exec -T php-tests /bin/sh -c \"${php} ${phpargs} ${phpunit} ${phpunitargs}\"",
+
+    "phpunit.paths": {
+        "${workspaceFolder}": "/var/www"
+    },
+
+    "phpunit.args": [],
+
+    "phpunit.saveBeforeTest": true,
+
+    "phpunit.output.preset": "collision"
+}
