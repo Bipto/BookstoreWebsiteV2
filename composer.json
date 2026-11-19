@@ -28,7 +28,6 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyse": "phpstan analyse --configuration=phpstan.neon",
-        "analyse:clear": "phpstan clear-result-cache"
+        "analyse": "@php vendor/bin/phpstan analyse --configuration=phpstan.neon"
     }
 }

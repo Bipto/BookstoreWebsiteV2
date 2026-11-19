@@ -25,15 +25,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+    
       - name: Build PHP test container
         run: docker compose build php-tests
-
+    
+      - name: Install Composer dependencies
+        run: docker compose run --rm php-tests composer install --no-interaction --prefer-dist
+    
       - name: Start PHP test container
         run: docker compose up -d php-tests
-
+    
       - name: Validate Composer
         run: docker compose exec -T php-tests composer validate --strict
-
+    
       - name: Run PHPStan
         run: docker compose exec -T php-tests composer analyse
