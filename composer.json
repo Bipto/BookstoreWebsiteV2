@@ -2,6 +2,7 @@
     "name": "myapp/bookstore",
     "description": "Bookstore application",
     "type": "project",
+    "license": "proprietary",
     "require": {},
     "require-dev": {
         "phpstan/phpstan": "^2.3",
