@@ -35,32 +35,3 @@ document.addEventListener('submit', async function(e) {
     console.error(error);
   }
 });
-
-
-/* document.addEventListener('click', (event) => {
-  const button = event.target.closest('#update-author-button');
-
-  if (button) {
-    const form = document.getElementById('edit-author-form');
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const formData = new FormData(this);
-
-      try {
-        const response = await fetch(
-            '/ajax/update_author.php', {method: 'POST', body: formData});
-
-        const result = await response.json();
-
-        document.getElementById('message').textContent = result.message;
-
-      } catch (error) {
-        document.getElementById('message').textContent = 'Submission failed.';
-      }
-    })
-
-    form.submit();
-  }
-}); */
