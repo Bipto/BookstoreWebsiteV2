@@ -75,5 +75,22 @@ class AuthorController
     public function updateAuthor(): void
     {
         $data = json_decode(file_get_contents('php://input'), true);
+
+        $query = QueryBuilder::table('bookstore.authors')
+            ->update([
+                'name' => $data['name'],
+                'description' => $data['description']
+            ]);
+
+        try {
+            $this->db->execute(
+                new PostgresCompiler(),
+                $query
+            );
+
+            REST::response(200, []);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
+        }
     }
 }

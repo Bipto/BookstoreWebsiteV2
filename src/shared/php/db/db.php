@@ -5,6 +5,7 @@ enum QueryType
     case SELECT;
     case INSERT;
     case DELETE;
+    case UPDATE;
 }
 
 class CompiledQuery
@@ -77,6 +78,7 @@ class QueryBuilder
 
     private array $selects = [];
     private array $inserts = [];
+    private array $updates = [];
     private array $wheres = [];
     private array $groupBys = [];
     private array $joins = [];
@@ -111,6 +113,24 @@ class QueryBuilder
 
         for ($i = 0; $i < $count; $i++) {
             $this->inserts[] = [
+                'key' => $keys[$i],
+                'value' => $values[$i]
+            ];
+        }
+
+        return $this;
+    }
+
+    public function update(array $updates): self
+    {
+        $this->queryType = QueryType::UPDATE;
+
+        $count = count($updates);
+        $keys = array_keys($updates);
+        $values = array_values($updates);
+
+        for ($i = 0; $i < $count; $i++) {
+            $this->updates[] = [
                 'key' => $keys[$i],
                 'value' => $values[$i]
             ];
@@ -271,6 +291,11 @@ class QueryBuilder
     public function getInserts(): array
     {
         return $this->inserts;
+    }
+
+    public function getUpdates(): array
+    {
+        return $this->updates;
     }
 
     public function getWheres(): array

@@ -44,6 +44,7 @@ session_start();
     $sidebar->close();
 
     echo ModalBuilder::build('author-modal');
+
     ?>
 
 </body>

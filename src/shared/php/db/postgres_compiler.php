@@ -81,6 +81,27 @@ class PostgresCompiler extends QueryCompiler
                     $sqlOutput = "INSERT INTO {$table} ({$keysSQL}) VALUES ({$valuesSQL})";
                     break;
                 }
+            case QueryType::UPDATE: {
+                    $updateSQL = '';
+
+                    $updates = $queryBuilder->getUpdates();
+                    $valueCount = count($updates);
+
+                    for ($index = 0; $index < $valueCount; $index++) {
+                        $insert = $updates[$index];
+                        $bindingName = $this->createBindingParameterName($parameterCounter);
+
+                        $updateSQL .= "{$insert['key']} = {$bindingName}";
+                        $params[$bindingName] = $insert['value'];
+
+                        if ($valueCount > 1 && $index < $valueCount - 1) {
+                            $updateSQL .= ", ";
+                        }
+                    }
+
+                    $sqlOutput = "UPDATE {$table} SET ({$updateSQL})";
+                    break;
+                }
             case QueryType::DELETE: {
                     $sqlOutput = "DELETE FROM {$table}";
                     break;
