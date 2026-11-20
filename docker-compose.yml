@@ -162,7 +162,7 @@ services:
       - ./src/sites/admin/php:/var/www/src/sites/admin/php:ro
       - ./src/sites/assets/php:/var/www/src/sites/assets/php:ro
       - ./src/api/php:/var/www/src/api/php:ro
-      - ./src/shared/php:/var/www/src/shared/php:ro
+      - ./src/shared/php:/var/www/shared/php:ro
 
       - ./tests:/var/www/tests:ro
       - ./phpstan.neon:/var/www/phpstan.neon:ro
