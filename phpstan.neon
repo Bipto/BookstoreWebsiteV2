@@ -2,11 +2,11 @@ parameters:
     level: 6
 
     paths:
-        - sites/main/php
-        - sites/admin/php
-        - sites/assets/php
-        - api/php
-        - shared/php
+        - sites/main
+        - sites/admin
+        - sites/assets
+        - api
+        - shared
         - tests
 
     bootstrapFiles:
