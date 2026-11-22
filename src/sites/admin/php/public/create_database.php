@@ -1141,7 +1141,7 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS bookstore.genres(
             genre_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            name VARCHAR(150) NOT NULL UNIQUE,
+            name VARCHAR(150) NOT NULL,
             description VARCHAR NOT NULL
         )
     ");
@@ -1150,7 +1150,7 @@ try {
     $pdo->exec("
     CREATE TABLE IF NOT EXISTS bookstore.authors(
         author_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        name VARCHAR(150) NOT NULL UNIQUE,
+        name VARCHAR(150) NOT NULL,
         description VARCHAR NOT NULL,
         image_path VARCHAR(150)
     )
@@ -1160,7 +1160,7 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS bookstore.books (
             book_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            title VARCHAR(50) NOT NULL UNIQUE,
+            title VARCHAR(50) NOT NULL,
             author_id INTEGER NOT NULL,
             book_description TEXT NOT NULL,
             price DECIMAL(10,2) NOT NULL,
@@ -1185,7 +1185,7 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS bookstore.users (
             user_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            email VARCHAR(150) NOT NULL UNIQUE,
+            email VARCHAR(150) NOT NULL,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
             password VARCHAR(150) NOT NULL

@@ -27,6 +27,8 @@ $response = API::get("/authors/{$id}");
 
             <img src="<?= $imagePath ?>" class="view-book-image" loading="lazy">
 
+            <input type="hidden" name="author_id" value="<?= $id ?>">
+
             <label for="name">Name:</label>
             <input
                 type="text"

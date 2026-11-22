@@ -99,7 +99,7 @@ class PostgresCompiler extends QueryCompiler
                         }
                     }
 
-                    $sqlOutput = "UPDATE {$table} SET ({$updateSQL})";
+                    $sqlOutput = "UPDATE {$table} SET {$updateSQL}";
                     break;
                 }
             case QueryType::DELETE: {

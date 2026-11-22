@@ -80,7 +80,8 @@ class AuthorController
             ->update([
                 'name' => $data['name'],
                 'description' => $data['description']
-            ]);
+            ])
+            ->whereEqual('author_id', new Constant($data['author_id']));
 
         try {
             $this->db->execute(
