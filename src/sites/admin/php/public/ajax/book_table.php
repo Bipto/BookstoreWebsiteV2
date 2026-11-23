@@ -8,28 +8,28 @@ require_once '/var/www/shared/ui/carousel.php';
 require_once '/var/www/shared/ui/table.php';
 require_once '/var/www/shared/utils/text_utils.php';
 
-$response = API::get('/authors');
+$response = API::get('/books');
 
-$headers = ['ID', 'Name', 'Description', 'Image Path'];
+$headers = ['ID', 'Title', 'Author', 'Price'];
 $rows = [];
 
 foreach ($response->getData() as $item) {
     $data[] = [];
 
-    $authorId = $item['author_id'];
+    $bookId = $item['book_id'];
 
     $rows[] = [
         'data' => [
-            'id' => $item['author_id'],
-            'name' => $item['name'],
-            'description' => truncate($item['description'], 150),
-            'image_path' => $item['image_path']
+            'id' => $item['book_id'],
+            'title' => $item['title'],
+            'author' => $item['author'],
+            'price' => $item['price']
         ],
-        'action' => "openAuthorModal({$authorId});"
+        'action' => "console.log('{$bookId}');"
     ];
 }
 
-echo '<h2>Users</h2>';
+echo '<h2>Books</h2>';
 $table = new Table($headers, $rows);
 
 $table->setClass('table table-striped table-bordered');

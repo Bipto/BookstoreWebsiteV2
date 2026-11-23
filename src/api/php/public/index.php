@@ -73,6 +73,10 @@ try {
         '/genres/{id}',
         fn($id) => $genreController->getGenreById($id)
     );
+    $router->get(
+        '/users',
+        [$userController, 'getUsers']
+    );
     $router->post(
         '/users',
         [$userController, 'addUser']

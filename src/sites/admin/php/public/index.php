@@ -36,10 +36,27 @@ session_start();
     require_once '/var/www/shared/ui/table.php';
     require_once '/var/www/shared/ui/modal.php';
 
+    $router = new Router();
+    $router->get('/', function () {
+        echo '<h2>Dashboard</h2>';
+    });
+    $router->get('/users', function () {
+        echo AJAX::call('/ajax/user_table.php', 'page-content');
+    });
+    $router->get('/authors', function () {
+        echo AJAX::call('/ajax/author_table.php', 'page-content');
+    });
+    $router->get('/books', function () {
+        echo AJAX::call('/ajax/book_table.php', 'page-content');
+    });
+    $router->get('/genres', function () {
+        echo AJAX::call('/ajax/genre_table.php', 'page-content');
+    });
+
     $sidebar = new BookstoreSidebar();
     $sidebar->render();
 
-    echo AJAX::call('/ajax/book_table.php', 'page-content');
+    $router->dispatch();
 
     $sidebar->close();
 

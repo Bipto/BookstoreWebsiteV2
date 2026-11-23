@@ -7,17 +7,19 @@ class BookstoreSidebar
 
     public function __construct()
     {
-        $this->currentPage = basename($_SERVER['PHP_SELF']);
+        $this->currentPage = basename(
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        );
 
         $this->menu = [
             [
                 "title" => "Dashboard",
-                "icon" => "📊",
-                "link" => "dashboard.php"
+                "icon" => "fa-solid fa-chart-line",
+                "link" => "/"
             ],
             [
                 "title" => "Users",
-                "icon" => "👥",
+                "icon" => "fa-solid fa-users",
                 "children" => [
                     ["title" => "All Users", "link" => "/users"],
                     ["title" => "Add User", "link" => "/add-user"],
@@ -27,30 +29,36 @@ class BookstoreSidebar
             ],
             [
                 "title" => "Books",
-                "icon" => "📚",
+                "icon" => "fa-solid fa-book-open",
                 "children" => [
                     ["title" => "All Books", "link" => "/books"],
                     ["title" => "Add Book", "link" => "/add-book"],
-                    ["title" => "Edit Books", "link" => "/edit-books"],
                     ["title" => "Stock Management", "link" => "/stock"]
                 ]
             ],
             [
-                "title" => "Reports",
-                "icon" => "📈",
+                "title" => "Authors",
+                "icon" => "fa-solid fa-pen-nib",
                 "children" => [
-                    ["title" => "Sales Reports", "link" => "/sales-reports"],
-                    ["title" => "Stock Reports", "link" => "/stock-reports"],
-                    ["title" => "Customer Reports", "link" => "/customer-reports"]
+                    ["title" => "All Authors", "link" => "/authors"],
+                    ["title" => "Add Author", "link" => "/add-author"]
                 ]
             ],
             [
                 "title" => "Genres",
-                "icon" => "🏷️",
+                "icon" => "fa-solid fa-tags",
                 "children" => [
                     ["title" => "All Genres", "link" => "/genres"],
-                    ["title" => "Add Genre", "link" => "/add-genre"],
-                    ["title" => "Edit Genres", "link" => "/edit-genres"]
+                    ["title" => "Add Genre", "link" => "/add-genre"]
+                ]
+            ],
+            [
+                "title" => "Reports",
+                "icon" => "fa-solid fa-chart-pie",
+                "children" => [
+                    ["title" => "Sales Reports", "link" => "/sales-reports"],
+                    ["title" => "Stock Reports", "link" => "/stock-reports"],
+                    ["title" => "Customer Reports", "link" => "/customer-reports"]
                 ]
             ]
         ];
@@ -69,16 +77,30 @@ class BookstoreSidebar
     }
 
     /**
+     * Check whether a menu link matches the current page.
+     */
+    private function isCurrentPage(string $link): bool
+    {
+        $linkPath = trim(
+            parse_url($link, PHP_URL_PATH),
+            '/'
+        );
+
+        return $linkPath === $this->currentPage
+            || basename($linkPath) === $this->currentPage;
+    }
+
+    /**
      * Check whether a menu section contains the current page.
      */
     private function isMenuActive(array $item): bool
     {
         if (isset($item['link'])) {
-            return $item['link'] === $this->currentPage;
+            return $this->isCurrentPage($item['link']);
         }
 
         foreach ($item['children'] ?? [] as $child) {
-            if ($child['link'] === $this->currentPage) {
+            if ($this->isCurrentPage($child['link'])) {
                 return true;
             }
         }
@@ -113,14 +135,15 @@ class BookstoreSidebar
                         </h2>
                     </a>
 
-
                     <button
                         type="button"
                         class="toggle-btn"
                         @click="collapsed = !collapsed"
                         :aria-expanded="!collapsed"
                         aria-label="Toggle sidebar">
-                        ☰
+
+                        <i class="fa-solid fa-bars"></i>
+
                     </button>
 
                 </div>
@@ -157,7 +180,7 @@ class BookstoreSidebar
                                     <span class="menu-label">
 
                                         <span class="menu-icon">
-                                            <?= $item['icon'] ?>
+                                            <i class="<?= $this->escape($item['icon']) ?>" aria-hidden="true"></i>
                                         </span>
 
                                         <span class="menu-text">
@@ -172,7 +195,9 @@ class BookstoreSidebar
                                         :class="{
                                             'rotated': openMenus['<?= $menuKey ?>'] || <?= $isActive ? 'true' : 'false' ?>
                                         }">
-                                        ▼
+
+                                        <i class="fa-solid fa-chevron-down"></i>
+
                                     </span>
 
                                 </button>
@@ -184,11 +209,15 @@ class BookstoreSidebar
 
                                     <?php foreach ($item['children'] as $child): ?>
 
+                                        <?php $childActive = $this->isCurrentPage($child['link']); ?>
+
                                         <a
                                             href="<?= $this->escape($child['link']) ?>"
-                                            class="<?= $child['link'] === $this->currentPage ? 'active' : '' ?>"
-                                            <?= $child['link'] === $this->currentPage ? 'aria-current="page"' : '' ?>>
+                                            class="<?= $childActive ? 'active' : '' ?>"
+                                            <?= $childActive ? 'aria-current="page"' : '' ?>>
+
                                             <?= $this->escape($child['title']) ?>
+
                                         </a>
 
                                     <?php endforeach; ?>
@@ -208,7 +237,7 @@ class BookstoreSidebar
                                 <span class="menu-label">
 
                                     <span class="menu-icon">
-                                        <?= $item['icon'] ?>
+                                        <i class="<?= $this->escape($item['icon']) ?>" aria-hidden="true"></i>
                                     </span>
 
                                     <span class="menu-text">
@@ -235,12 +264,17 @@ class BookstoreSidebar
             <?php
         }
 
+        /**
+         * Close the sidebar layout.
+         */
         public function close(): void
         {
             ?>
+
             </main>
 
         </div>
+
 <?php
         }
     }

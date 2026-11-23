@@ -32,4 +32,26 @@ class UserController
             REST::response(500, ['error' => $e->getMessage()]);
         }
     }
+
+    public function getUsers(): void
+    {
+        $query = QueryBuilder::table('bookstore.users', 'u')
+            ->select(
+                new ColumnName("u.user_id"),
+                new ColumnName("u.email"),
+                new ColumnName("u.first_name"),
+                new ColumnName("u.last_name")
+            );
+
+        try {
+            $data = $this->db->executeAndReturnAll(
+                new PostgresCompiler(),
+                $query
+            );
+
+            REST::response(200, $data);
+        } catch (Exception $e) {
+            REST::response(500, ['error' => $e->getMessage()]);
+        }
+    }
 }
