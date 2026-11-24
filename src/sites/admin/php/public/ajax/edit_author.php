@@ -21,11 +21,25 @@ $response = API::get("/authors/{$id}");
     $imagePath = sanitiseImageUrl(getAuthorImagePath($data['image_path']));
     ?>
 
-    <form id="edit-author-form" method="POST">
+    <form
+        id="edit-author-form"
+        method="POST"
+        enctype="multipart/form-data">
 
         <div class="edit-modal-form">
 
-            <img src="<?= $imagePath ?>" class="view-book-image" loading="lazy">
+            <img
+                id="author-image-preview"
+                src="<?= htmlspecialchars($imagePath) ?>"
+                class="view-book-image"
+                loading="lazy">
+
+            <label for="image">Change image:</label>
+            <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/jpeg,image/png,image/webp">
 
             <input type="hidden" name="author_id" value="<?= $id ?>">
 
@@ -47,4 +61,18 @@ $response = API::get("/authors/{$id}");
 
     </form>
 
+    <script>
+        const imageInput = document.getElementById('image');
+        const imagePreview = document.getElementById('author-image-preview');
+
+        imageInput.addEventListener('change', function() {
+
+            const file = this.files[0];
+
+            if (file) {
+                imagePreview.src = URL.createObjectURL(file);
+            }
+
+        });
+    </script>
 <?php endif; ?>

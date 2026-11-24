@@ -76,11 +76,17 @@ class AuthorController
     {
         $data = json_decode(file_get_contents('php://input'), true);
 
+        $updates = [
+            'name' => $data['name'],
+            'description' => $data['description']
+        ];
+
+        if (isset($data['image_path'])) {
+            $updates['image_path'] = $data['image_path'];
+        }
+
         $query = QueryBuilder::table('bookstore.authors')
-            ->update([
-                'name' => $data['name'],
-                'description' => $data['description']
-            ])
+            ->update($updates)
             ->whereEqual('author_id', new Constant($data['author_id']));
 
         try {

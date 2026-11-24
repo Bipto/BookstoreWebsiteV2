@@ -1,3 +1,4 @@
+
 FROM php:8.5-fpm
 
 # ==========================================================
@@ -10,19 +11,30 @@ RUN apt-get update \
         unzip \
         git \
         curl \
+        $PHPIZE_DEPS \
     && docker-php-ext-install \
         pdo \
         pdo_pgsql \
-    && pecl install xdebug \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# ==========================================================
+# Install PEAR / PECL
+# ==========================================================
+
+RUN curl -fsSL https://pear.php.net/go-pear.phar \
+        -o /tmp/go-pear.phar \
+    && php /tmp/go-pear.phar \
+    && rm /tmp/go-pear.phar
 
 # ==========================================================
 # Xdebug
 # ==========================================================
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 RUN { \
-        echo "zend_extension=xdebug"; \
         echo "xdebug.mode=debug"; \
         echo "xdebug.start_with_request=yes"; \
         echo "xdebug.client_host=host.docker.internal"; \
@@ -31,6 +43,17 @@ RUN { \
         echo "xdebug.log=/tmp/xdebug.log"; \
         echo "xdebug.log_level=7"; \
     } > /usr/local/etc/php/conf.d/99-xdebug.ini
+
+# ==========================================================
+# PHP upload configuration
+# ==========================================================
+
+RUN { \
+        echo "file_uploads=On"; \
+        echo "upload_max_filesize=10M"; \
+        echo "post_max_size=12M"; \
+        echo "max_file_uploads=20"; \
+    } > /usr/local/etc/php/conf.d/99-uploads.ini
 
 # ==========================================================
 # Composer
