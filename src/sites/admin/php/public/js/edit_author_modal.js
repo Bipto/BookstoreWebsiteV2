@@ -2,9 +2,26 @@ function openAuthorModal(id) {
   const modal = new Modal('author-modal');
   modal.openModalWithFetch(
       '<h2>Edit Author</h2>', '/ajax/edit_author.php?id=' + id,
-      '<button class="btn btn-primary" type="submit" id="update-author-button" form="edit-author-form">Save</button>');
+      '<button class="btn btn-primary" type="submit" id="update-author-button" form="edit-author-form">Save</button>',
+      initialiseImagePreview);
 }
 
+function initialiseImagePreview() {
+  const imageInput = document.getElementById('image');
+  const imagePreview = document.getElementById('author-image-preview');
+
+  if (!imageInput || !imagePreview) return;
+
+  imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+
+      imagePreview.src = imageUrl;
+    }
+  });
+}
 
 document.addEventListener('submit', async function(e) {
   // Get the form that was submitted

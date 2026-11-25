@@ -11,7 +11,7 @@ if (!$response->hasError()) {
     $data = $response->getData();
 
     $name = $data['name'] ?? '';
-    $imagePath = sanitiseImageUrl(isset($data['image_path']) ? "/img/{$data['image_path']}" : '');
+    $imagePath = sanitiseAssetUrl(isset($data['image_path']) ? "/img/{$data['image_path']}" : '');
     $description = $data['description'] ?? '';
 
     $html = "

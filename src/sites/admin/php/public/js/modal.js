@@ -46,7 +46,7 @@ class Modal {
     }
   }
 
-  async openModalWithFetch(header, url, footer = '') {
+  async openModalWithFetch(header, url, footer = '', callback = null) {
     this.modal.hidden = false;
     document.body.style.overflow = 'hidden';
 
@@ -54,6 +54,10 @@ class Modal {
     this.modalFooter.innerHTML = footer;
 
     await this.loadContent(url);
+
+    if (callback) {
+      callback();
+    }
   }
 
   openModal(header, content, footer) {

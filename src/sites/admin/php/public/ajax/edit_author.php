@@ -60,19 +60,4 @@ $response = API::get("/authors/{$id}");
         </div>
 
     </form>
-
-    <script>
-        const imageInput = document.getElementById('image');
-        const imagePreview = document.getElementById('author-image-preview');
-
-        imageInput.addEventListener('change', function() {
-
-            const file = this.files[0];
-
-            if (file) {
-                imagePreview.src = URL.createObjectURL(file);
-            }
-
-        });
-    </script>
 <?php endif; ?>
