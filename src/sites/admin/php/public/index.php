@@ -22,6 +22,7 @@ session_start();
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer src="/js/modal.js"></script>
     <script defer src="/js/edit_author_modal.js"></script>
+    <script defer src="/js/edit_book_modal.js"></script>
 </head>
 
 <body>
@@ -60,7 +61,7 @@ session_start();
 
     $sidebar->close();
 
-    echo ModalBuilder::build('author-modal');
+    echo ModalBuilder::build('modal');
 
     ?>
 

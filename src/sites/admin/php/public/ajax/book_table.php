@@ -25,7 +25,7 @@ foreach ($response->getData() as $item) {
             'author' => $item['author'],
             'price' => $item['price']
         ],
-        'action' => "console.log('{$bookId}');"
+        'action' => "openBookModal({$bookId});"
     ];
 }
 

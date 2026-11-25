@@ -1,6 +1,8 @@
 <?php
 
+require_once '/var/www/shared/rest_builder.php';
 require_once '/var/www/shared/api.php';
+require_once '/var/www/shared/utils/file_utils.php';
 require_once '/var/www/shared/utils/file_utils.php';
 
 try {
@@ -18,6 +20,7 @@ try {
     }
 
     API::put("/authors", $data);
+    REST::response(200, []);
 } catch (RuntimeException $e) {
-    echo $e->getMessage();
+    REST::response(401, ['error' => $e->getMessage()]);
 }

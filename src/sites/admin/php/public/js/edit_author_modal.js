@@ -1,5 +1,5 @@
 function openAuthorModal(id) {
-  const modal = new Modal('author-modal');
+  const modal = new Modal('modal');
   modal.openModalWithFetch(
       '<h2>Edit Author</h2>', '/ajax/edit_author.php?id=' + id,
       '<button class="btn btn-primary" type="submit" id="update-author-button" form="edit-author-form">Save</button>',
@@ -43,12 +43,9 @@ document.addEventListener('submit', async function(e) {
       throw new Error('Server returned an error: ' + response.status);
     }
 
-    const result = await response.json();
-
-    message.textContent = result.message;
-
+    const modal = new Modal('modal');
+    modal.closeModal();
   } catch (error) {
-    message.textContent = 'Submission failed.';
     console.error(error);
   }
 });

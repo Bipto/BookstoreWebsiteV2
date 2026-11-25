@@ -1,13 +1,13 @@
 <?php
 
+require_once '/var/www/shared/api.php';
+require_once '/var/www/shared/utils/file_utils.php';
+
 $queryString = $_SERVER['QUERY_STRING'];
 $parameters = [];
 parse_str($queryString, $parameters);
 
 $id = $parameters['id'] ?? 0;
-
-require_once '/var/www/shared/api.php';
-require_once '/var/www/shared/utils/file_utils.php';
 
 $response = API::get("/authors/{$id}");
 
@@ -18,7 +18,7 @@ $response = API::get("/authors/{$id}");
 <?php else: ?>
     <?php
     $data = $response->getData();
-    $imagePath = sanitiseAssetUrl(getAssetUrl($data['image_path']));
+    $imagePath = getAssetUrl($data['image_path']);
     ?>
 
     <form
