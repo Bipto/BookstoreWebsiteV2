@@ -9,7 +9,7 @@ class GenreCard implements Control
 
     public function render(): string
     {
-        $displayImagePath = sanitiseImageUrl($this->imagePath);
+        $displayImagePath = sanitiseAssetUrl($this->imagePath);
         $displayName = htmlspecialchars($this->name);
         $displayUrl = htmlspecialchars($this->url);
 

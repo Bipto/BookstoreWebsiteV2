@@ -14,7 +14,7 @@ foreach ($books->getData() as $book) {
     $bookCards[] = new BookCard(
         $book['title'],
         $book['author'],
-        getBookImagePath($book['image_path']),
+        getAssetUrl($book['image_path']),
         "/book/{$book['book_id']}",
         $book['price']
     );
@@ -34,7 +34,7 @@ $authorCards = [];
 foreach ($authors->getData() as $author) {
     $authorCards[] = new AuthorCard(
         $author['name'],
-        getAuthorImagePath($author['image_path']),
+        getAssetUrl($author['image_path']),
         "/author/{$author['author_id']}",
     );
 }
@@ -59,7 +59,7 @@ foreach ($genres->getData() as $genre) {
     if (!$genreBook->hasError() && count($bookData) === 1) {
         $genreCards[] = new AuthorCard(
             $genre['name'],
-            getBookImagePath($bookData[0]['image_path']),
+            getAssetUrl($bookData[0]['image_path']),
             "/genre/{$genreId}",
         );
     }

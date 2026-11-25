@@ -18,7 +18,7 @@ $response = API::get("/authors/{$id}");
 <?php else: ?>
     <?php
     $data = $response->getData();
-    $imagePath = sanitiseImageUrl(getAuthorImagePath($data['image_path']));
+    $imagePath = sanitiseAssetUrl(getAssetUrl($data['image_path']));
     ?>
 
     <form

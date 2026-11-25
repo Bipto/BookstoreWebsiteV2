@@ -1,33 +1,28 @@
 <?php
 
-function getImagePath(string $filename): string
+function getAssetUrl(string $filename): string
 {
-    return "http://assets.localhost/img/{$filename}";
+    return "http://assets.localhost/{$filename}";
 }
 
-function getBookImagePath(string $filename): string
-{
-    return "http://assets.localhost/img/books/{$filename}";
-}
-
-function getAuthorImagePath(string $filename): string
-{
-    return "http://assets.localhost/img/authors/{$filename}";
-}
-
-function sanitiseImageUrl(string $url): string
+function sanitiseAssetUrl(string $url): string
 {
     return htmlspecialchars($url);
 }
 
+
 function uploadImage(string $folder, array $file): ?string
 {
-    if ($file['error'] === UPLOAD_ERR_NO_FILE) {
+    // No file uploaded
+    if (
+        !isset($file['error']) ||
+        $file['error'] === UPLOAD_ERR_NO_FILE
+    ) {
         return null;
     }
 
+    // Check upload errors
     if ($file['error'] !== UPLOAD_ERR_OK) {
-
         $errors = [
             UPLOAD_ERR_INI_SIZE   => 'File exceeds upload_max_filesize in php.ini.',
             UPLOAD_ERR_FORM_SIZE  => 'File exceeds the form MAX_FILE_SIZE limit.',
@@ -41,17 +36,32 @@ function uploadImage(string $folder, array $file): ?string
         $error = $errors[$file['error']] ?? 'Unknown upload error.';
 
         throw new RuntimeException(
-            "Image upload failed (code {$file['error']}): {$error}"
+            "Image upload failed: {$error}"
         );
     }
 
-    // Validate MIME type
+    // Validate required upload fields
+    if (
+        empty($file['tmp_name']) ||
+        !is_uploaded_file($file['tmp_name'])
+    ) {
+        throw new RuntimeException('Invalid uploaded file.');
+    }
+
+    // Maximum file size: 5MB
+    $maxSize = 5 * 1024 * 1024;
+
+    if ($file['size'] > $maxSize) {
+        throw new RuntimeException('Image must be smaller than 5MB.');
+    }
+
+    // Validate MIME type using file contents
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mimeType = $finfo->file($file['tmp_name']);
 
     $allowedTypes = [
         'image/jpeg' => 'jpg',
-        'image/png' => 'png',
+        'image/png'  => 'png',
         'image/webp' => 'webp'
     ];
 
@@ -59,34 +69,60 @@ function uploadImage(string $folder, array $file): ?string
         throw new RuntimeException('Invalid image type.');
     }
 
-    // Validate image contents
-    if (getimagesize($file['tmp_name']) === false) {
+    // Validate actual image contents
+    $imageInfo = getimagesize($file['tmp_name']);
+
+    if ($imageInfo === false) {
         throw new RuntimeException('Invalid image file.');
     }
 
-    // Maximum file size: 5MB
-    if ($file['size'] > 5 * 1024 * 1024) {
-        throw new RuntimeException('Image must be smaller than 5MB.');
+    // Ensure MIME type matches image contents
+    if ($imageInfo['mime'] !== $mimeType) {
+        throw new RuntimeException('Image MIME type mismatch.');
     }
 
-    $extension = $allowedTypes[$mimeType];
+    // Sanitise folder name
+    $folder = trim($folder, '/\\');
 
-    // Generate a unique filename
+    if (
+        $folder !== '' &&
+        !preg_match('/^[a-zA-Z0-9_-]+$/', $folder)
+    ) {
+        throw new RuntimeException('Invalid upload folder.');
+    }
+
+    // Base upload directory
+    $baseDirectory = '/var/www/sites/assets/public/img';
+
+    // Build destination directory
+    $uploadDirectory = $baseDirectory;
+
+    if ($folder !== '') {
+        $uploadDirectory .= DIRECTORY_SEPARATOR . $folder;
+    }
+
+    // Create directory if necessary
+    if (
+        !is_dir($uploadDirectory) &&
+        !mkdir($uploadDirectory, 0755, true) &&
+        !is_dir($uploadDirectory)
+    ) {
+        throw new RuntimeException('Unable to create upload directory.');
+    }
+
+    // Generate unique filename
+    $extension = $allowedTypes[$mimeType];
     $filename = bin2hex(random_bytes(16)) . '.' . $extension;
 
-    // Server directory
-    $uploadDirectory = '/var/www/shared/img/';
+    $destination = $uploadDirectory . DIRECTORY_SEPARATOR . $filename;
 
-    if (!is_dir($uploadDirectory)) {
-        mkdir($uploadDirectory, 0755, true);
-    }
-
-    $destination = $uploadDirectory . $filename;
-
+    // Move uploaded file
     if (!move_uploaded_file($file['tmp_name'], $destination)) {
         throw new RuntimeException('Unable to save uploaded image.');
     }
 
-    // Return the relative path to store in your database
-    return "img/{$folder}{$filename}";
+    //Return relative path
+    return $folder !== ''
+        ? "img/{$folder}/{$filename}"
+        : "img/{$filename}";
 }

@@ -9,7 +9,7 @@ class BookCard implements Control
 
     public function render(): string
     {
-        $displayImagePath = sanitiseImageUrl($this->imagePath);
+        $displayImagePath = sanitiseAssetUrl($this->imagePath);
         $displayTitle = htmlspecialchars($this->title);
         $displayAuthor = htmlspecialchars($this->author);
         $displayUrl = htmlspecialchars($this->url);

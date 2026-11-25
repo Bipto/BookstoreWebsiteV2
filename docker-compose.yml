@@ -16,9 +16,10 @@ services:
       - ./vendor:/var/www/vendor
       - ./src/sites/main/php:/var/www/sites/main:ro
       - ./src/sites/admin/php:/var/www/sites/admin:ro
-      - ./src/sites/assets/php:/var/www/sites/assets:ro
+      - ./src/sites/assets/php:/var/www/sites/assets
       - ./src/api/php:/var/www/api:ro
-      - ./src/shared/php:/var/www/shared:ro
+      - ./src/shared/php:/var/www/shared
+      - ./uploads/assets-img:/var/www/uploads/assets-img
 
     depends_on:
       - php-main
@@ -47,6 +48,7 @@ services:
       - ./src/sites/main/php:/var/www/sites/main:ro
       - ./src/shared/php:/var/www/shared:ro
       - ./src/sites/main/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - ./uploads:/var/www/uploads
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -65,6 +67,7 @@ services:
     build:
       context: .
       dockerfile: ./php/Dockerfile
+
     container_name: multidomain-php-admin
 
     env_file:
@@ -74,13 +77,9 @@ services:
       - ./vendor:/var/www/vendor
       - ./src/sites/admin/php:/var/www/sites/admin:ro
       - ./src/shared/php:/var/www/shared:ro
+      - ./src/sites/assets/php:/var/www/sites/assets
+      - ./uploads:/var/www/uploads
       - ./src/sites/admin/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-    cpus: "0.50"
-    mem_limit: 512m
 
     networks:
       - web
@@ -103,6 +102,7 @@ services:
       - ./src/api/php:/var/www/api:ro
       - ./src/shared/php:/var/www/shared:ro
       - ./src/api/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - ./uploads:/var/www/uploads
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -128,9 +128,10 @@ services:
 
     volumes:
       - ./vendor:/var/www/vendor
-      - ./src/sites/assets/php:/var/www/sites/assets:ro
+      - ./src/sites/assets/php:/var/www/sites/assets
       - ./src/shared/php:/var/www/shared:ro
       - ./src/sites/assets/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - ./uploads:/var/www/uploads
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -160,9 +161,10 @@ services:
 
       - ./src/sites/main/php:/var/www/sites/main:ro
       - ./src/sites/admin/php:/var/www/sites/admin:ro
-      - ./src/sites/assets/php:/var/www/sites/assets:ro
+      - ./src/sites/assets/php:/var/www/sites/assets
       - ./src/api/php:/var/www/api:ro
       - ./src/shared/php:/var/www/shared:ro
+      - ./uploads:/var/www/uploads
 
       - ./tests:/var/www/tests:ro
       - ./phpstan.neon:/var/www/phpstan.neon:ro

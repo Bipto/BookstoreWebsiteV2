@@ -307,7 +307,7 @@ function createAuthors(PDO $conn)
     After Tolkien's death, his son Christopher published a series of works based on his father's extensive notes and unpublished manuscripts, including The Silmarillion. These, together with The Hobbit and The Lord of the Rings, form a connected body of tales, poems, fictional histories, invented languages, and literary essays about a fantasy world called Arda and, within it, Middle-earth. Between 1951 and 1955 Tolkien applied the term legendarium to the larger part of these writings.
     
     While many other authors had published works of fantasy before Tolkien, the tremendous success of The Hobbit and The Lord of the Rings ignited a profound interest in the fantasy genre and ultimately precipitated an avalanche of new fantasy books and authors. This has led to his popular identification as the \"father\" of modern fantasy literature. He is widely regarded as one of the most influential authors of all time.";
-    $author1->ImagePath = "J._R._R._Tolkien,_ca._1925.jpg";
+    $author1->ImagePath = "img/authors/J._R._R._Tolkien,_ca._1925.jpg";
     insertAuthor($author1, $conn);
 
     $author2 = new Author();
@@ -320,13 +320,13 @@ function createAuthors(PDO $conn)
     
     Rowling has attracted criticism for trans-exclusionary positions she has taken from 2019 onwards, including opposition to gender self-identification and to allowing transgender women into women's toilets and changing rooms. She has supported and donated to the campaign group For Women Scotland, the plaintiffs in For Women Scotland Ltd v The Scottish Ministers.";
 
-    $author2->ImagePath = "J._K._Rowling_2010.jpg.webp";
+    $author2->ImagePath = "img/authors/J._K._Rowling_2010.jpg.webp";
     insertAuthor($author2, $conn);
 
     $author3 = new Author();
     $author3->Name = "Suzanne Collins";
     $author3->Description = "Suzanne Collins (born August 10, 1962)[2] is an American author and television writer who is best known as the author of the young adult dystopian fiction book series The Hunger Games. She is also the author of the children's fantasy series The Underland Chronicles.";
-    $author3->ImagePath = "Suzanne_Collins_David_Shankbone_2010.jpg";
+    $author3->ImagePath = "img/authors/Suzanne_Collins_David_Shankbone_2010.jpg";
     insertAuthor($author3, $conn);
 
     $author4 = new Author();
@@ -334,7 +334,7 @@ function createAuthors(PDO $conn)
     $author4->Description = "George Raymond Richard Martin (born George Raymond Martin, September 20, 1948), also known by the initials GRRM, is an American author, screenwriter, and television producer. Martin is best known as the author of the epic fantasy novel series A Song of Ice and Fire, which was adapted by HBO into the Primetime Emmy Award–winning television series Game of Thrones (2011–2019) and its prequel series House of the Dragon (2022–present). Martin also wrote a related series of novellas, Tales of Dunk and Egg, which have been adapted by HBO as A Knight of the Seven Kingdoms (2026–present). Outside of A Song of Ice and Fire and its related media, Martin helped create the Wild Cards anthology series and contributed worldbuilding for the video game Elden Ring (2022).
 
     In 2005, Lev Grossman of Time called Martin \"the American Tolkien\", and in 2011, he was included on the annual Time 100 list of the most influential people in the world. He is a longtime resident of Santa Fe, New Mexico, where he helped fund Meow Wolf and owns the Jean Cocteau Cinema.";
-    $author4->ImagePath = "George_R._R._Martin_(54743316729)_(cropped).jpg";
+    $author4->ImagePath = "img/authors/George_R._R._Martin_(54743316729)_(cropped).jpg";
     insertAuthor($author4, $conn);
 
     $author5 = new Author();
@@ -344,7 +344,7 @@ function createAuthors(PDO $conn)
     Orwell is best known for his allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949), although his works also encompass literary criticism, poetry, fiction and polemical journalism. His non-fiction works, including The Road to Wigan Pier (1937), documenting his experience of working-class life in industrial Northern England, and Homage to Catalonia (1938), an account of his experiences soldiering for the Republican faction of the Spanish Civil War (1936–1939), are as critically respected as his essays on politics, literature, language and culture.
     
     Orwell's work remains influential in both popular and political culture, with the adjective \"Orwellian\"—describing totalitarian and authoritarian social practices—becoming part of the English language, as are many of his neologisms, such as \"Big Brother\", \"Thought Police\", \"Room 101\", \"Newspeak\", \"memory hole\", \"doublethink\", and \"thoughtcrime\". In 2008, The Times named Orwell the second-greatest British writer since 1945.";
-    $author5->ImagePath = "George_Orwell_press_photo.jpg";
+    $author5->ImagePath = "img/authors/George_Orwell_press_photo.jpg";
     insertAuthor($author5, $conn);
 
     $author6 = new Author();
@@ -356,7 +356,7 @@ function createAuthors(PDO $conn)
     In 1831, Charlotte became a pupil at Roe Head School in Mirfield, but left the following year to teach her sisters, Emily and Anne, at home. In 1835, Charlotte returned to Roe Head as a teacher. In 1839, she accepted a job as governess to a local family, but left after a few months. In 1842, Charlotte joined the Heger Pensionnat, a girls' boarding school in Brussels, as a student, then later as a teacher, in the hope of acquiring the skills required to open a school of her own. However, she was obliged to leave after falling in love with the school's director, Constantin Heger, a married man, who inspired both the character of Rochester in Jane Eyre, and Charlotte's first novel, The Professor.
     
     Charlotte, Emily and Anne attempted to open a school in Haworth, but failed to attract pupils. In 1846 the sisters published a collection of poems under the pseudonyms Currer, Ellis, and Acton Bell. Although Charlotte's first novel, The Professor, was rejected by publishers, her second novel, Jane Eyre, was published in 1847, attracting both praise and controversy. The sisters' true identities were revealed in 1848, and by the following year Charlotte was known in London literary circles. In 1854, Charlotte married Arthur Bell Nicholls, her father's curate. She became pregnant shortly after her wedding in June 1854, but died on 31 March 1855, possibly of tuberculosis, although there is evidence that she may have died from hyperemesis gravidarum, a complication of pregnancy.";
-    $author6->ImagePath = "Charlotte_Brontë_by_Patrick_Branwell_Brontë_restored.jpg";
+    $author6->ImagePath = "img/authors/Charlotte_Brontë_by_Patrick_Branwell_Brontë_restored.jpg";
     insertAuthor($author6, $conn);
 
     $author7 = new Author();
@@ -368,7 +368,7 @@ function createAuthors(PDO $conn)
     Apart from a brief period at school, and another as a student and teacher in Brussels with her sister Charlotte, Emily spent most of her life at home in Haworth, helping the family servant with chores, playing the piano and teaching herself from books.
     
     Her work was originally published under the pen name Ellis Bell. It was not generally admired at the time, and many critics felt that the characters in Wuthering Heights were coarse and immoral. In spite of this, the novel is considered a classic of English literature. Emily Brontë died in 1848, aged 30, a year after the novel's publication.";
-    $author7->ImagePath = "Emily_Brontë_by_Patrick_Branwell_Brontë_restored.jpg.webp";
+    $author7->ImagePath = "img/authors/Emily_Brontë_by_Patrick_Branwell_Brontë_restored.jpg.webp";
     insertAuthor($author7, $conn);
 
     $author8 = new Author();
@@ -380,7 +380,7 @@ function createAuthors(PDO $conn)
     At the outset of his career, Stoker spent ten years in the civil service at Dublin Castle, during which time he was also a drama critic for the Dublin Evening Mail. Following this, he was employed as a theatre critic for several newspapers, including the Daily Telegraph, and occasionally wrote short stories and theatre commentaries. He also served as the personal assistant of the actor Sir Henry Irving and the business manager of the West End's Lyceum Theatre, which Irving owned. While a theatre critic, Stoker founded the \"Dublin Sketching Club\" in 1879, which dealt mostly with art collections. He regularly travelled during his free time, particularly to Cruden Bay in Scotland, which was the setting for two of his novels and also served as the inspiration for writing Dracula. He was a close friend of Hall Caine and an acquaintance of Arthur Conan Doyle, Oscar Wilde and many others prominent cultural figures. He collaborated with other authors for experimental novels such as The Fate of Fenella (1892).
     
     Stoker wrote numerous works of fiction and non-fiction across several genres, but his literary reputation rests solely with Dracula. Since the early 20th century, the novel has become one of the best-selling works of vampire fiction, with Count Dracula entering the public imagination as one of the best-known fictional figures of the Victorian era. The work also shaped future representations of vampiric characters and themes, making Stoker \"the father of vampire fiction.\"";
-    $author8->ImagePath = "Bram_Stoker_1906.jpg";
+    $author8->ImagePath = "img/authors/Bram_Stoker_1906.jpg";
     insertAuthor($author8, $conn);
 
     $author9 = new Author();
@@ -394,7 +394,7 @@ function createAuthors(PDO $conn)
     In 1816, the couple and Mary's stepsister famously spent a summer with Lord Byron and John William Polidori near Geneva, Switzerland, where Mary conceived the idea for her novel Frankenstein. The Shelleys left Britain in 1818 for Italy, where their second and third children died before Mary gave birth to her last and only surviving child, Percy Florence Shelley. In 1822, her husband drowned when his sailing boat sank during a storm near Viareggio. A year later, Mary returned to England and from then on devoted herself to raising her son and to her career as a professional author. The last decade of her life was dogged by illness, most likely caused by the brain tumour which killed her at the age of 53.
     
     Until the 1970s, Mary Shelley was known mainly for her efforts to publish her husband's works and for her novel Frankenstein, which remains widely read and has inspired many theatrical and film adaptations. Recent scholarship has yielded a more comprehensive view of her achievements. Scholars have shown increasing interest in her literary output, particularly in her novels, which include the historical novels Valperga (1823) and Perkin Warbeck (1830), the apocalyptic novel The Last Man (1826) and her final two novels, Lodore (1835) and Falkner (1837). Studies of her lesser-known works, such as the travel book Rambles in Germany and Italy (1844) and the biographical articles for Dionysius Lardner's Cabinet Cyclopaedia (1829–1846), support the growing view that Mary Shelley remained a political radical throughout her life. Mary Shelley's works often argue that cooperation and sympathy, particularly as practised by women in the family, were the ways to reform civil society. This view was a direct challenge to the individualistic Romantic ethos promoted by Percy Shelley and the Enlightenment political theories articulated by Mary's father, William Godwin.";
-    $author9->ImagePath = "Mary_Wollstonecraft_Shelley_Rothwell.tif.jpg";
+    $author9->ImagePath = "img/authors/Mary_Wollstonecraft_Shelley_Rothwell.tif.jpg";
     insertAuthor($author9, $conn);
 
     $author10 = new Author();
@@ -404,7 +404,7 @@ function createAuthors(PDO $conn)
     Carroll came from a family of high-church Anglicans and pursued his clerical training at Christ Church, Oxford, where he lived for most of his life as a scholar, teacher and Anglican deacon (required for his academic fellowship at the time). Alice Liddell – a daughter of Henry Liddell, the Dean of Christ Church – is widely identified as the original inspiration for Alice in Wonderland, although Carroll always denied this.
     
     An avid puzzler, Carroll created the word ladder puzzle, which he called \"Doublets\", which was published in Vanity Fair magazine between 1879 and 1881. In 1982 a memorial stone to Carroll was unveiled at Poets' Corner in Westminster Abbey. There are societies in many parts of the world dedicated to the enjoyment and promotion of his works.";
-    $author10->ImagePath = "LewisCarrollSelfPhoto.jpg";
+    $author10->ImagePath = "img/authors/LewisCarrollSelfPhoto.jpg";
     insertAuthor($author10, $conn);
 
     $author11 = new Author();
@@ -416,7 +416,7 @@ function createAuthors(PDO $conn)
     Beginning in the 1880s, Burnett began to travel to England frequently and in the 1890s bought a home there, where she wrote The Secret Garden. Burnett's elder son, Lionel, died of tuberculosis in 1890, which caused a relapse of the depression she had struggled with for much of her life. Burnett divorced her husband in 1898 and married Stephen Townsend two years later, but they divorced in 1902. A few years later, Burnett settled in Nassau County, New York, where she died in 1924 and is buried in Roslyn Cemetery.
     
     In 1936, a memorial sculpture by Bessie Potter Vonnoh was erected in Burnett's honour in Central Park's Conservatory Garden. The statue depicts her two famous Secret Garden characters, Mary and Dickon.";
-    $author11->ImagePath = "Frances_Burnett.jpg";
+    $author11->ImagePath = "img/authors/Frances_Burnett.jpg";
     insertAuthor($author11, $conn);
 
     $author12 = new Author();
@@ -426,7 +426,7 @@ function createAuthors(PDO $conn)
     Born and educated in Edinburgh, Stevenson suffered from serious bronchial trouble for much of his life but managed to write prolifically and travel widely despite his poor health. As a young man, he mixed in London literary circles, receiving encouragement from Sidney Colvin, Andrew Lang, Edmund Gosse, Leslie Stephen and W. E. Henley, the last of whom may have provided the model for Long John Silver in Treasure Island. In 1890 he settled in Samoa, where, alarmed at increasing European and American influence in the South Sea islands, his writing turned from romance and adventure fiction toward a darker realism. He died of a stroke in his island home in 1894 at age 44.
     
     A celebrity in his lifetime, Stevenson's critical reputation has fluctuated since his death, although today his works are held in general acclaim. In 2018 he was ranked just behind Charles Dickens as the 26th-most-translated author in the world.";
-    $author12->ImagePath = "Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg";
+    $author12->ImagePath = "img/authors/Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg";
     insertAuthor($author12, $conn);
 
     $author13 = new Author();
@@ -438,7 +438,7 @@ function createAuthors(PDO $conn)
     Wilde tried his hand at various literary activities: he wrote a play, published a book of poems, lectured in the United States and Canada on \"The English Renaissance\" in art and interior decoration, and then returned to London where he lectured on his American travels and wrote reviews for various periodicals. Known for his biting wit, flamboyant dress and glittering conversational skill, Wilde became one of the best-known personalities of his day. At the turn of the 1890s, he refined his ideas about the supremacy of art in a series of dialogues and essays, and incorporated themes of decadence, duplicity and beauty into what would be his only novel, The Picture of Dorian Gray (1890). Wilde returned to drama, writing Salome (1891) in French while in Paris, but it was refused a licence for England complicated by a prohibition on the portrayal of biblical subjects on the English stage. Undiscouraged, Wilde produced four society comedies in the early 1890s, which made him one of the most successful playwrights of late-Victorian London.
     
     At the height of his fame and success, while An Ideal Husband (1895) and The Importance of Being Earnest (1895) were still being performed in London, Wilde issued a civil writ against John Sholto Douglas, the 9th Marquess of Queensberry for criminal libel. The Marquess was the father of Wilde's lover, Lord Alfred Douglas. The libel hearings unearthed evidence that caused Wilde to drop his charges and led to his own arrest and criminal prosecution for gross indecency with other males. The jury was unable to reach a verdict and so, a retrial was ordered. In the second trial, however, Wilde was convicted and sentenced to two years' hard labour, the maximum penalty, and jailed from 1895 to 1897. During his last year in prison he wrote De Profundis (published posthumously in abridged form in 1905, and in full in 1962 in his Complete Letters), a long letter that discusses his spiritual journey through his trials and is a dark counterpoint to his earlier philosophy of pleasure. On the day of his release, he caught the overnight steamer to France, never to return to Britain or Ireland. In France and Italy, he wrote his last work, The Ballad of Reading Gaol (1898), a long poem commemorating the harsh rhythms of prison life.";
-    $author13->ImagePath = "Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph,_seated_(cropped).jpg";
+    $author13->ImagePath = "img/authors/Oscar_Wilde_by_Napoleon_Sarony._Three-quarter-length_photograph,_seated_(cropped).jpg";
     insertAuthor($author13, $conn);
 
     $author14 = new Author();
@@ -448,7 +448,7 @@ function createAuthors(PDO $conn)
     Alcott's family experienced financial hardship, and while Alcott took on various jobs to help support the family from an early age, she also sought to earn money by writing. In the 1860s she began to achieve critical success for her writing with the publication of Hospital Sketches, a book based on her service as a nurse in the American Civil War. Early in her career, she sometimes used pen names such as A. M. Barnard, under which she wrote lurid short stories and sensation novels for adults. Little Women was one of her first successful novels and has been adapted for film and television. It is loosely based on Alcott's childhood experiences with her three sisters, Abigail May Alcott Nieriker, Elizabeth Sewall Alcott, and Anna Alcott Pratt.
     
     Alcott was an abolitionist and a feminist and remained unmarried throughout her life. She also spent her life active in reform movements such as temperance and women's suffrage. During the last eight years of her life she raised the daughter of her deceased sister. She died from a stroke in Boston on March 6, 1888, just two days after her father's death and was buried in Sleepy Hollow Cemetery. Louisa May Alcott has been the subject of numerous biographies, novels, and a documentary, and has influenced other writers and public figures such as Theodore Roosevelt and Ursula K. Le Guin.";
-    $author14->ImagePath = "Louisa_May_Alcott,_c._1870_-_Warren's_Portraits,_Boston.jpg";
+    $author14->ImagePath = "img/authors/Louisa_May_Alcott,_c._1870_-_Warren's_Portraits,_Boston.jpg";
     insertAuthor($author14, $conn);
 
     $author15 = new Author();
@@ -460,7 +460,7 @@ function createAuthors(PDO $conn)
     Dickens's literary success began with the 1836 serial publication of The Pickwick Papers, a publishing phenomenon—thanks largely to the introduction of the character Sam Weller in the fourth episode—that sparked Pickwick merchandise and spin-offs. Within a few years, Dickens had become an international literary celebrity, famous for his humour, satire and keen observation of character and society. His novels, most of them published in monthly or weekly instalments, pioneered the serial publication of narrative fiction, which became the dominant Victorian mode for novel publication. Cliffhanger endings in his serial publications kept readers in suspense. The installment format allowed Dickens to evaluate his audience's reaction, and he often modified his plot and character development based on such feedback. For example, when his wife's podiatrist expressed distress at the way Miss Mowcher in David Copperfield seemed to reflect her own disabilities, Dickens improved the character with positive features. His plots were carefully constructed and he often wove elements from topical events into his narratives. Masses of the illiterate poor would individually pay a halfpenny to have each new monthly episode read to them, opening up and inspiring a new class of readers.
     
     His 1843 novella A Christmas Carol remains especially popular and continues to inspire adaptations in every creative medium. Oliver Twist and Great Expectations are also frequently adapted and, like many of his novels, evoke images of early Victorian London. His 1853 novel Bleak House, a satire on the judicial system, helped support a reformist movement that culminated in the 1870s legal reform in England. A Tale of Two Cities (1859; set in London and Paris) is regarded as his best-known work of historical fiction. The most famous celebrity of his era, he undertook, in response to public demand, a series of public reading tours in the later part of his career. The term Dickensian is used to describe something that is reminiscent of Dickens and his writings, such as poor social or working conditions, or comically repulsive characters.";
-    $author15->ImagePath = "Dickens_Gurney_head.jpg";
+    $author15->ImagePath = "img/authors/Dickens_Gurney_head.jpg";
     insertAuthor($author15, $conn);
 
     $author16 = new Author();
@@ -472,7 +472,7 @@ function createAuthors(PDO $conn)
     Wells rendered his works convincing by instilling commonplace detail alongside a single extraordinary assumption per work – dubbed \"Wells's law\" – leading Joseph Conrad to hail him in 1898 with \"O Realist of the Fantastic!\". His most notable science fiction works include The Time Machine (1895), which was his first novella, The Island of Doctor Moreau (1896), The Invisible Man (1897), The War of the Worlds (1898), the military science fiction The War in the Air (1907), and the dystopian When the Sleeper Wakes (1910). Novels of social realism such as Kipps (1905) and The History of Mr Polly (1910), which describe lower-middle-class English life, led to the suggestion that he was a worthy successor to Charles Dickens, but Wells described a range of social strata and even attempted, in Tono-Bungay (1909), a diagnosis of English society as a whole. Wells was nominated for the Nobel Prize in Literature four times.
     
     Wells's earliest specialised training was in biology, and his thinking on ethical matters took place in a Darwinian context.[11] He was also an outspoken socialist from a young age, often (but not always, as at the beginning of the First World War) sympathising with pacifist views. For much of his adult life he was a passionate advocate of eugenics and involuntary euthanasia, arguing in favour of the \"sterilisation of failure\" as a necessary condition for socialism to succeed, a view he had largely recanted by 1940. In his later years, he wrote less fiction and more works expounding his political and social views, sometimes giving his profession as that of journalist. Wells was a diabetic and co-founded the charity The Diabetic Association (Diabetes UK) in 1934.";
-    $author16->ImagePath = "H.G._Wells_by_Beresford.jpg";
+    $author16->ImagePath = "img/authors/H.G._Wells_by_Beresford.jpg";
     insertAuthor($author16, $conn);
 
     $author17 = new Author();
@@ -486,7 +486,7 @@ function createAuthors(PDO $conn)
     Alexandre acquired work with Louis-Philippe, Duke of Orléans, then as a writer, a career that led to his early success. Decades later, after the election of Louis-Napoléon Bonaparte in 1851, Dumas fell from favour and left France for Belgium, where he stayed for several years. He moved to Russia for a few years and then to Italy. In 1861, he founded and published the newspaper L'Indépendant, which supported Italian unification. He returned to Paris in 1864.
     
     English playwright Watts Phillips, who knew Dumas in his later life, described him as \"the most generous, large-hearted being in the world. He also was the most delightfully amusing and egotistical creature on the face of the earth. His tongue was like a windmill—once set in motion, you would never know when he would stop, especially if the theme was himself.\"";
-    $author17->ImagePath = "Nadar_-_Alexander_Dumas_père_(1802-1870)_-_Google_Art_Project_2.jpg";
+    $author17->ImagePath = "img/authors/Nadar_-_Alexander_Dumas_père_(1802-1870)_-_Google_Art_Project_2.jpg";
     insertAuthor($author17, $conn);
 
     $author18 = new Author();
@@ -498,13 +498,13 @@ function createAuthors(PDO $conn)
     Doyle was involved in political activism throughout his life and twice stood unsuccessfully for Parliament. He wrote in support of compulsory vaccination, the British causes in the Second Boer War and First World War and the reform of the Congo Free State. He was a fervent advocate of justice who personally investigated two closed cases, both resulting in the exoneration of the accused men and setting precedent which partially led to the establishment of the Court of Criminal Appeal in 1907. He was noted for his skill as an architect and was involved in several sports as a player and judge.
     
     Doyle was raised a Catholic but was agnostic as a young adult, later becoming a spiritualist mystic as a result of family tragedies, and was a Freemason for two separate periods. He embraced supernatural phenomena, including psychics, telepathy, mentalism and spirit photography, and publicly supported the Cottingley Fairies, later confirmed to be a hoax, which led to a public falling-out with his friend, the American magician Harry Houdini. Doyle's works are still widely read and adapted in the 21st century, with Sherlock Holmes being recognised as the single most portrayed literary character in film and television history, and a number of fictional works have depicted or been inspired by his life.";
-    $author18->ImagePath = "Arthur_Conan_Doyle_by_Walter_Benington,_1914.png";
+    $author18->ImagePath = "img/authors/Arthur_Conan_Doyle_by_Walter_Benington,_1914.png";
     insertAuthor($author18, $conn);
 
     $author19 = new Author();
     $author19->Name = "Kenneth Grahame";
     $author19->Description = "Kenneth Grahame (/ˈɡreɪ.əm/ GRAY-əm; 8 March 1859 – 6 July 1932) was a Scottish writer. He is best remembered for the classic of children's literature The Wind in the Willows (1908). Born in Scotland, he spent most of his childhood with his grandmother in England, following the death of his mother and his father's inability to look after the children. After attending St Edward's School in Oxford, his ambition to attend university was thwarted and he joined the Bank of England, where he had a successful career. Before writing The Wind in the Willows, he published three other books: Pagan Papers (1893), The Golden Age (1895), and Dream Days (1898).";
-    $author19->ImagePath = "KennethGrahame.jpg";
+    $author19->ImagePath = "img/authors/KennethGrahame.jpg";
     insertAuthor($author19, $conn);
 }
 
@@ -516,7 +516,7 @@ function createBooks(PDO $conn)
     $book1->Genres = [2, 5];
     $book1->Price = 7.99;
     $book1->StockCount = 30;
-    $book1->ImagePath = "the_hobbit.jpg";
+    $book1->ImagePath = "img/books/the_hobbit.jpg";
     $book1->Description = "The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published in 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.
 <br><br>
 
@@ -540,7 +540,7 @@ The work has never been out of print. Its ongoing legacy encompasses many adapta
     $book2->Author = 1;
     $book2->Genres = [5];
     $book2->Price = 7.99;
-    $book2->ImagePath = "fellowship_of_the_ring.png";
+    $book2->ImagePath = "img/books/fellowship_of_the_ring.png";
     $book2->StockCount = 30;
     $book2->Description = "The Fellowship of the Ring is the first of three volumes of the epic novel The Lord of the Rings by the English author J. R. R. Tolkien. It is followed by The Two Towers and The Return of the King. It takes place in the fictional universe of Middle-earth, and was originally published on 29 July 1954 in the United Kingdom.
 <br><br>
@@ -552,7 +552,7 @@ The volume consists of a foreword, in which the author discusses his writing of 
     $book3->Author = 1;
     $book3->Genres = [5];
     $book3->Price = 7.99;
-    $book3->ImagePath = "the_two_towers.png";
+    $book3->ImagePath = "img/books/the_two_towers.png";
     $book3->StockCount = 30;
     $book3->Description = "The Two Towers is the second volume of J. R. R. Tolkien's high fantasy novel The Lord of the Rings. It is preceded by The Fellowship of the Ring and followed by The Return of the King.";
     insertBook($book3, $conn);
@@ -562,7 +562,7 @@ The volume consists of a foreword, in which the author discusses his writing of 
     $book4->Author = 1;
     $book4->Genres = [5];
     $book4->Price = 7.99;
-    $book4->ImagePath = "the_return_of_the_king.png";
+    $book4->ImagePath = "img/books/the_return_of_the_king.png";
     $book4->StockCount = 30;
     $book4->Description = "The Return of the King is the third and final volume of J. R. R. Tolkien's The Lord of the Rings, following The Fellowship of the Ring and The Two Towers. It was published in 1955. The story begins in the kingdom of Gondor, which is soon to be attacked by the Dark Lord Sauron.";
     insertBook($book4, $conn);
@@ -572,7 +572,7 @@ The volume consists of a foreword, in which the author discusses his writing of 
     $book5->Author = 1;
     $book5->Genres = [5];
     $book5->Price = 7.99;
-    $book5->ImagePath = "the_silmarillion.png";
+    $book5->ImagePath = "img/books/the_silmarillion.png";
     $book5->StockCount = 30;
     $book5->Description = "The Silmarillion (Quenya: [silmaˈrilliɔn]) is a collection of myths and stories in varying styles by the English writer J. R. R. Tolkien. It was edited and published posthumously by his son Christopher Tolkien in 1977, assisted by the fantasy author Guy Gavriel Kay. It tells of Eä, a fictional universe that includes the Blessed Realm of Valinor, the once-great region of Beleriand, the sunken island of Númenor, and the continent of Middle-earth, where Tolkien's most popular works—The Hobbit and The Lord of the Rings—are set. After the success of The Hobbit, Tolkien's publisher Stanley Unwin requested a sequel, and Tolkien offered a draft of the writings that would later become The Silmarillion. Unwin rejected this proposal, calling the draft obscure and \"too Celtic\", so Tolkien began working on a new story that eventually became The Lord of the Rings.
 <br><br>
@@ -594,7 +594,7 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     $book6->Author = 1;
     $book6->Genres = [5];
     $book6->Price = 7.99;
-    $book6->ImagePath = "unfinished_tales_of_numenor_middle_earth.jpg";
+    $book6->ImagePath = "img/books/unfinished_tales_of_numenor_middle_earth.jpg";
     $book6->StockCount = 30;
     $book6->Description = "Unfinished Tales of Númenor and Middle-earth is a collection of stories and essays by J. R. R. Tolkien that were never completed during his lifetime, but were edited by his son Christopher Tolkien and published in 1980. Many of the tales within are retold in The Silmarillion, albeit in modified forms; the work also contains a summary of the events of The Lord of the Rings told from a less personal perspective.";
     insertBook($book6, $conn);
@@ -604,7 +604,7 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     $book7->Author = 1;
     $book7->Genres = [5];
     $book7->Price = 7.99;
-    $book7->ImagePath = "fall_of_numenor.jpg";
+    $book7->ImagePath = "img/books/fall_of_numenor.jpg";
     $book7->StockCount = 30;
     $book7->Description = "The Fall of Númenor is a fantasy work collecting all J. R. R. Tolkien's Second Age writings together. It is edited by Brian Sibley. The book uses \"The Tale of Years\" in the Appendices of The Lord of the Rings to present the content of the Second Age. The stories include the foundation of Númenor, the forging of the Rings of Power, and the Last Alliance against Sauron that ended the Second Age. The editor, Brian Sibley, has provided new introductions and commentaries to unify Tolkien's writings. The publication contains ten new colour paintings by Alan Lee. The book published on 15 November 2022.";
     insertBook($book7, $conn);
@@ -614,7 +614,7 @@ The Silmarillion received a generally poor reception on publication; it sold muc
     $book8->Author = 2;
     $book8->Genres = [1];
     $book8->Price = 7.99;
-    $book8->ImagePath = "harry_potter_philosophers_stone.png";
+    $book8->ImagePath = "img/books/harry_potter_philosophers_stone.png";
     $book8->StockCount = 30;
     $book8->Description = "Harry Potter and the Philosopher's Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling's debut novel, it follows Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry. Harry makes close friends and a few enemies during his first year at the school and with the help of his friends, Ron Weasley and Hermione Granger, he faces an attempted comeback by the dark wizard Lord Voldemort, who killed Harry's parents, but failed to kill Harry when he was just 15 months old.
 <br><br>
@@ -633,7 +633,7 @@ The Harry Potter series has been used as a source of object lessons in education
     $book9->Author = 2;
     $book9->Genres = [1];
     $book9->Price = 7.99;
-    $book9->ImagePath = "harry_potter_chamber_of_secrets.png";
+    $book9->ImagePath = "img/books/harry_potter_chamber_of_secrets.png";
     $book9->StockCount = 30;
     $book9->Description = "Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry's second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school's corridors warn that the \"Chamber of Secrets\" has been opened and that the \"heir of Slytherin\" would kill all pupils who do not come from all-magical families. These threats are found after attacks that leave residents of the school petrified. Throughout the year, Harry and his friends Ron and Hermione investigate the attacks.
 <br><br>
@@ -652,7 +652,7 @@ The film adaptation of the novel, released in 2002, became (at the time) the six
     $book10->Author = 2;
     $book10->Genres = [1];
     $book10->Price = 7.99;
-    $book10->ImagePath = "harry_potter_prisoner_of_azkaban.png";
+    $book10->ImagePath = "img/books/harry_potter_prisoner_of_azkaban.png";
     $book10->StockCount = 30;
     $book10->Description = "Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J. K. Rowling and is the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemort's old allies.
 <br><br>
@@ -668,7 +668,7 @@ The film adaptation of the novel was released in 2004, grossing more than $796 m
     $book11->Author = 2;
     $book11->Genres = [1];
     $book11->Price = 7.99;
-    $book11->ImagePath = "harry_potter_goblet_of_fire.png";
+    $book11->ImagePath = "img/books/harry_potter_goblet_of_fire.png";
     $book11->StockCount = 30;
     $book11->Description = "Harry Potter and the Goblet of Fire is a fantasy novel written by British author J. K. Rowling and the fourth novel in the Harry Potter series. It follows Harry Potter, a wizard in his fourth year at Hogwarts School of Witchcraft and Wizardry, and the mystery surrounding the entry of Harry's name into the Triwizard Tournament, in which he is forced to compete.
 <br><br>
@@ -681,7 +681,7 @@ The book was published in the United Kingdom by Bloomsbury and in the United Sta
     $book12->Author = 2;
     $book12->Genres = [1];
     $book12->Price = 7.99;
-    $book12->ImagePath = "harry_potter_order_of_the_phoenix.png";
+    $book12->ImagePath = "img/books/harry_potter_order_of_the_phoenix.png";
     $book12->StockCount = 30;
     $book12->Description = "Harry Potter and the Order of the Phoenix is a fantasy novel written by British author J. K. Rowling and the fifth novel in the Harry Potter series. It follows Harry Potter's struggles through his fifth year at Hogwarts School of Witchcraft and Wizardry, including the surreptitious return of the antagonist Lord Voldemort, O.W.L. exams, and an obstructive Ministry of Magic. The novel was published on 21 June 2003 by Bloomsbury in the United Kingdom, Scholastic in the United States, and Raincoast in Canada. It sold five million copies in the first 24 hours of publication.
 <br><br>
@@ -694,7 +694,7 @@ Harry Potter and the Order of the Phoenix won several awards, including the Amer
     $book13->Author = 2;
     $book13->Genres = [1];
     $book13->Price = 7.99;
-    $book13->ImagePath = "harry_potter_half_blood_prince.png";
+    $book13->ImagePath = "img/books/harry_potter_half_blood_prince.png";
     $book13->StockCount = 30;
     $book13->Description = "Harry Potter and the Half-Blood Prince is a fantasy novel written by British author J. K. Rowling and the sixth and penultimate novel in the Harry Potter series. Set during Harry Potter's sixth year at Hogwarts, the novel explores the past of the boy wizard's nemesis, Lord Voldemort, and Harry's preparations for the final battle against Voldemort alongside his headmaster and mentor Albus Dumbledore.
 <br><br>
@@ -710,7 +710,7 @@ Reviewers noted that the book had a darker tone than its predecessors, though it
     $book14->Author = 2;
     $book14->Genres = [1];
     $book14->Price = 7.99;
-    $book14->ImagePath = "harry_potter_and_the_deathly_hallows.jpg";
+    $book14->ImagePath = "img/books/harry_potter_and_the_deathly_hallows.jpg";
     $book14->StockCount = 30;
     $book14->Description = "Harry Potter and the Deathly Hallows is a fantasy novel written by British author J. K. Rowling and the seventh and final novel of the main Harry Potter series. It was released on 21 July 2007 in the United Kingdom by Bloomsbury Publishing, in the United States by Scholastic, and in Canada by Raincoast Books. The novel chronicles the events directly following Harry Potter and the Half-Blood Prince (2005) and the final confrontation between the wizards Harry Potter and Lord Voldemort.
 <br><br>
@@ -725,7 +725,7 @@ A film adaptation of the novel was released in two parts: Harry Potter and the D
     $book15->Author = 3;
     $book15->Genres = [3, 4];
     $book15->Price = 7.99;
-    $book15->ImagePath = "the_hunger_games.jpg";
+    $book15->ImagePath = "img/books/the_hunger_games.jpg";
     $book15->StockCount = 30;
     $book15->Description = "The Hunger Games is a series of young adult dystopian novels written by American author Suzanne Collins. The first three novels are part of a trilogy following teenage protagonist Katniss Everdeen, and the fourth book is a prequel set 64 years before the original.
 <br><br>
@@ -750,7 +750,7 @@ A prequel novel, titled The Ballad of Songbirds and Snakes, about the early days
     $book16->Author = 3;
     $book16->Genres = [3, 4];
     $book16->Price = 7.99;
-    $book16->ImagePath = "the_hunger_games_catching_fire.jpg";
+    $book16->ImagePath = "img/books/the_hunger_games_catching_fire.jpg";
     $book16->StockCount = 30;
     $book16->Description = "Catching Fire is a 2009 dystopian fiction young adult novel by the American novelist Suzanne Collins, the second book in The Hunger Games series. As the sequel to the 2008 bestseller The Hunger Games, it continues the story of Katniss Everdeen and the post-apocalyptic nation of Panem. Following the events of the previous novel, a rebellion against the oppressive Capitol has begun, and Katniss and fellow tribute Peeta Mellark are forced to return to the arena in a special edition of the Hunger Games.
 <br><br>
@@ -766,7 +766,7 @@ A film adaptation, The Hunger Games: Catching Fire, was released on November 22,
     $book17->Author = 3;
     $book17->Genres = [3, 4];
     $book17->Price = 7.99;
-    $book17->ImagePath = "the_hunger_games_mockingjay.jpg";
+    $book17->ImagePath = "img/books/the_hunger_games_mockingjay.jpg";
     $book17->StockCount = 30;
     $book17->Description = "Mockingjay is a 2010 science fiction novel by American author Suzanne Collins. It is chronologically the last installment of The Hunger Games series, following 2008's The Hunger Games and 2009's Catching Fire. The book continues the story of Katniss Everdeen, who agrees to unify the districts of Panem in a rebellion against the tyrannical Capitol.
 <br><br>
@@ -779,7 +779,7 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     $book18->Author = 3;
     $book18->Genres = [3, 4];
     $book18->Price = 7.99;
-    $book18->ImagePath = "ballad_of_songbirds_and_snakes.jpg";
+    $book18->ImagePath = "img/books/ballad_of_songbirds_and_snakes.jpg";
     $book18->StockCount = 30;
     $book18->Description = "The Ballad of Songbirds and Snakes is a dystopian action-adventure novel by American author Suzanne Collins. It is a spin-off and a prequel to The Hunger Games trilogy. It was released on May 19, 2020, by Scholastic. An audiobook of the novel read by American actor Santino Fontana was released simultaneously with the printed edition. The book received a virtual launch due to the COVID-19 pandemic. A film adaptation from Lionsgate is set to be released on November 17, 2023.";
     insertBook($book18, $conn);
@@ -789,7 +789,7 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     $book19->Author = 4;
     $book19->Genres = [5];
     $book19->Price = 12.50;
-    $book19->ImagePath = "a_game_of_thrones.jpg";
+    $book19->ImagePath = "img/books/a_game_of_thrones.jpg";
     $book19->StockCount = 30;
     $book19->Description = "The first volume in the A Song of Ice and Fire series – unquestionably one of the greatest fantasy epics of all time. Here, we are introduced to the Seven Kingdoms of Westeros, and the major players with eyes on its Iron Throne. As noble families battle for power, greater threats face them all: for winter is coming to Westeros, and here, winter can last a lifetime.";
     insertBook($book19, $conn);
@@ -799,7 +799,7 @@ The hardcover and audiobook editions of Mockingjay were published by Scholastic 
     $book20->Author = 4;
     $book20->Genres = [5];
     $book20->Price = 12.50;
-    $book20->ImagePath = "a_clash_of_kings.jpg";
+    $book20->ImagePath = "img/books/a_clash_of_kings.jpg";
     $book20->StockCount = 30;
     $book20->Description = "From the ancient citadel of Dragonstone to the forbidding lands of Winterfell, chaos reigns as pretenders to the Iron Throne of the Seven Kingdoms stake their claims through tempest, turmoil and war.
 <br><br>
@@ -812,7 +812,7 @@ As a prophecy of doom cuts across the sky - a comet the colour of blood and flam
     $book21->Author = 4;
     $book21->Genres = [5];
     $book21->Price = 12.50;
-    $book21->ImagePath = "a_storm_of_swords_part_1.jpg";
+    $book21->ImagePath = "img/books/a_storm_of_swords_part_1.jpg";
     $book21->StockCount = 30;
     $book21->Description = "Winter approaches Westeros like an angry beast.
 <br><br>
@@ -828,7 +828,7 @@ Throughout Westeros, the war for the Iron Throne rages more fiercely than ever, 
     $book22->Author = 4;
     $book22->Genres = [5];
     $book22->Price = 12.50;
-    $book22->ImagePath = "a_storm_of_swords_part_2.jpg";
+    $book22->ImagePath = "img/books/a_storm_of_swords_part_2.jpg";
     $book22->StockCount = 30;
     $book22->Description = "The Starks are scattered.
 <br><br>
@@ -844,7 +844,7 @@ Meanwhile, across the ocean, Daenerys Stormborn, the last heir of the Dragon Kin
     $book23->Author = 4;
     $book23->Genres = [5];
     $book23->Price = 12.50;
-    $book23->ImagePath = "a_feast_for_crows.jpg";
+    $book23->ImagePath = "img/books/a_feast_for_crows.jpg";
     $book23->StockCount = 30;
     $book23->Description = "The Lannisters are in power on the Iron Throne.
 <br><br>
@@ -860,7 +860,7 @@ From the icy north, where Others threaten the Wall, apprentice Maester Samwell T
     $book24->Author = 4;
     $book24->Genres = [5];
     $book24->Price = 12.50;
-    $book24->ImagePath = "a_dance_with_dragons_part_1.jpg";
+    $book24->ImagePath = "img/books/a_dance_with_dragons_part_1.jpg";
     $book24->StockCount = 30;
     $book24->Description = "In the aftermath of a colossal battle, new threats are emerging from every direction.
 <br><br>
@@ -876,7 +876,7 @@ To the north lies the great Wall of ice and stone - a structure only as strong a
     $book25->Author = 4;
     $book25->Genres = [5];
     $book25->Price = 12.50;
-    $book25->ImagePath = "a_dance_with_dragons_part_2.jpg";
+    $book25->ImagePath = "img/books/a_dance_with_dragons_part_2.jpg";
     $book25->StockCount = 30;
     $book25->Description = "The future of the Seven Kingdoms hangs in the balance.
 <br><br>
@@ -892,7 +892,7 @@ On all sides bitter conflicts are reigniting, played out by a grand cast of outl
     $book26->Author = 5;
     $book26->Genres = [4, 6];
     $book26->Price = 7.99;
-    $book26->ImagePath = "1984.jpg";
+    $book26->ImagePath = "img/books/1984.jpg";
     $book26->StockCount = 30;
     $book26->Description = "Nineteen Eighty-Four (also published as 1984) is a dystopian social science fiction novel and cautionary tale by English writer George Orwell. It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final book completed in his lifetime. Thematically, it centres on the consequences of totalitarianism, mass surveillance and repressive regimentation of people and behaviours within society. Orwell, a democratic socialist, modelled the authoritarian state in the novel on Stalinist Russia and Nazi Germany. More broadly, the novel examines the role of truth and facts within societies and the ways in which they can be manipulated.
 <br><br>
@@ -911,7 +911,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book27->Author = 6;
     $book27->Genres = [6];
     $book27->Price = 7.99;
-    $book27->ImagePath = "jane_eyre.jpg";
+    $book27->ImagePath = "img/books/jane_eyre.jpg";
     $book27->StockCount = 30;
     $book27->Description = "Jane Eyre (originally published as Jane Eyre: An Autobiography) is a novel by the English writer Charlotte Brontë. It was published under her pen name \"Currer Bell\" on 19 October 1847 by Smith, Elder & Co. of London. The first American edition was published in January 1848 by Harper & Brothers of New York. Jane Eyre is a bildungsroman that follows the experiences of its eponymous heroine, including her growth to adulthood and her love for Mr Rochester, the brooding master of Thornfield Hall.
 
@@ -925,7 +925,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book28->Author = 7;
     $book28->Genres = [8, 9];
     $book28->Price = 7.99;
-    $book28->ImagePath = "wuthering_heights.jpg";
+    $book28->ImagePath = "img/books/wuthering_heights.jpg";
     $book28->StockCount = 30;
     $book28->Description = "Wuthering Heights is the only novel by the English author Emily Brontë, initially published in 1847 under her pen name Ellis Bell. It concerns two landowning families on the West Yorkshire moors, the Earnshaws and the Lintons, and their turbulent relationships with the Earnshaws' foster son, Heathcliff. Driven by themes of love, possession, revenge, and reconciliation, the novel is influenced by Romanticism and Gothic fiction. It is considered a classic of English literature.
 
@@ -939,7 +939,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book29->Author = 8;
     $book29->Genres = [9, 10];
     $book29->Price = 7.99;
-    $book29->ImagePath = "dracula.jpg";
+    $book29->ImagePath = "img/books/dracula.jpg";
     $book29->StockCount = 30;
     $book29->Description = "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. The narrative is related through letters, diary entries, and newspaper articles. It has no single protagonist and opens with English solicitor Jonathan Harker taking a business trip to stay at the castle of a Transylvanian nobleman, Count Dracula. Revealing his true nature as a vampire, Dracula moves to England and plagues the seaside town of Whitby. Harker joins a group led by Abraham Van Helsing who hunt and kill the Count.
 
@@ -955,7 +955,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book30->Author = 9;
     $book30->Genres = [8, 9];
     $book30->Price = 7.99;
-    $book30->ImagePath = "frankenstein.jpg";
+    $book30->ImagePath = "img/books/frankenstein.jpg";
     $book30->StockCount = 30;
     $book30->Description = "Frankenstein; or, The Modern Prometheus is an 1818 Gothic novel[a] written by English author Mary Shelley. It tells the story of Victor Frankenstein, a young scientist who creates a sapient creature from different body parts in an unorthodox scientific experiment. Shelley started writing the story when she was 18 and staying in Bath, and the first edition was published anonymously in London on 1 January 1818, when she was 20. Her name first appeared in a French translation published in Paris in 1821.
 
@@ -971,7 +971,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book31->Author = 10;
     $book31->Genres = [1];
     $book31->Price = 7.99;
-    $book31->ImagePath = "alices_adventures_in_wonderland.webp";
+    $book31->ImagePath = "img/books/alices_adventures_in_wonderland.webp";
     $book31->StockCount = 30;
     $book31->Description = "Alice's Adventures in Wonderland (also known as Alice in Wonderland) is an 1865 English children's novel by Lewis Carroll. It tells the story of a little girl named Alice who falls through a rabbit hole into a fantasy world of anthropomorphic creatures. It is seen as an example of the literary nonsense genre. The artist John Tenniel provided 42 wood-engraved illustrations for the original edition.
 
@@ -985,7 +985,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book32->Author = 11;
     $book32->Genres = [11];
     $book32->Price = 7.99;
-    $book32->ImagePath = "the_secret_garden.jpg";
+    $book32->ImagePath = "img/books/the_secret_garden.jpg";
     $book32->StockCount = 30;
     $book32->Description = "The Secret Garden is a children's novel by Frances Hodgson Burnett first published in book form in 1911, after serialisation in The American Magazine (November 1910 – August 1911). Set in England, it is seen as a classic of English children's literature. The American edition was published by the Frederick A. Stokes Company with illustrations by M. L. Kirk, and the British edition by Heinemann with illustrations by Charles Robinson. Several stage and film adaptations have been made of The Secret Garden.";
     insertBook($book32, $conn);
@@ -995,7 +995,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book33->Author = 12;
     $book33->Genres = [12, 13];
     $book33->Price = 7.99;
-    $book33->ImagePath = "treasure_island.jpg";
+    $book33->ImagePath = "img/books/treasure_island.jpg";
     $book33->StockCount = 30;
     $book33->Description = "Treasure Island is an adventure and historical novel by Scottish novelist Robert Louis Stevenson. It was published as a book in 1883, but is set in the 18th century, and tells a story of \"buccaneers and buried gold\". It is considered a coming-of-age story, and is noted for its atmosphere, characters, and action.
 
@@ -1009,7 +1009,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book34->Author = 13;
     $book34->Genres = [9, 10, 13];
     $book34->Price = 7.99;
-    $book34->ImagePath = "the_picture_of_dorian_gray.jpg";
+    $book34->ImagePath = "img/books/the_picture_of_dorian_gray.jpg";
     $book34->StockCount = 30;
     $book34->Description = "The Picture of Dorian Gray is an 1890 philosophical fiction and Gothic horror novel by Irish author Oscar Wilde. A shorter novella-length version was published in the July 1890 issue of the American periodical Lippincott's Monthly Magazine, while the novel-length version was published in April 1891. As the only novel written by Wilde, it is widely regarded as a classic of both Gothic and English literature, having been adapted many times for films, stage, plays, and other forms of art performances.
 
@@ -1023,7 +1023,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book35->Author = 14;
     $book35->Genres = [15];
     $book35->Price = 7.99;
-    $book35->ImagePath = "little_women.jpg";
+    $book35->ImagePath = "img/books/little_women.jpg";
     $book35->StockCount = 30;
     $book35->Description = "Little Women is a coming-of-age novel written by American novelist Louisa May Alcott, originally published in two volumes, in 1868 and 1869. The story follows the lives of the four March sisters—Meg, Jo, Beth, and Amy—and details their passage from childhood to womanhood. Loosely based on the lives of the author and her three sisters, it is classified as an autobiographical or semi-autobiographical novel.
 
@@ -1039,7 +1039,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book36->Author = 15;
     $book36->Genres = [16];
     $book36->Price = 7.99;
-    $book36->ImagePath = "great-expectations-9781416503002_hr.jpg";
+    $book36->ImagePath = "img/books/great-expectations-9781416503002_hr.jpg";
     $book36->StockCount = 30;
     $book36->Description = "Great Expectations is the thirteenth novel by the English author Charles Dickens and his penultimate completed novel. The novel is a bildungsroman and depicts the education of an orphan nicknamed Pip. It is Dickens' second novel, after David Copperfield, to be fully narrated in the first person. The novel was first published as a serial in Dickens's weekly periodical All the Year Round, from 1 December 1860 to August 1861. In October 1861, Chapman & Hall published the novel in three volumes.
 
@@ -1053,7 +1053,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book37->Author = 16;
     $book37->Genres = [4, 17, 18];
     $book37->Price = 7.99;
-    $book37->ImagePath = "the_time_machine.jpg";
+    $book37->ImagePath = "img/books/the_time_machine.jpg";
     $book37->StockCount = 30;
     $book37->Description = "The Time Machine is an 1895 dystopian science fiction novella by H. G. Wells about a Victorian scientist known as the Time Traveller who travels to the year 802,701. The work is generally credited with the popularization of the concept of time travel by using a vehicle or device to travel intentionally and selectively forward or backward through time. The term \"time machine\", coined by Wells, is now almost universally used to refer to such a vehicle or device.
 
@@ -1071,7 +1071,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book38->Author = 17;
     $book38->Genres = [13];
     $book38->Price = 7.99;
-    $book38->ImagePath = "the_count_of_monte_cristo.webp";
+    $book38->ImagePath = "img/books/the_count_of_monte_cristo.webp";
     $book38->StockCount = 30;
     $book38->Description = "The Count of Monte Cristo (French: Le Comte de Monte-Cristo) is an adventure novel by the French writer Alexandre Dumas. It was serialised from 1844 to 1846, then published in book form in 1846. It is one of his most popular works, along with The Three Musketeers (1844) and Man in the Iron Mask (1850). Like many of his novels, it was expanded from plot outlines suggested by his collaborating ghostwriter, Auguste Maquet. It is regarded as a classic of French and world literature.
 
@@ -1089,7 +1089,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book39->Author = 18;
     $book39->Genres = [19];
     $book39->Price = 7.99;
-    $book39->ImagePath = "the_adventures_of_sherlock_holmes.jpg";
+    $book39->ImagePath = "img/books/the_adventures_of_sherlock_holmes.jpg";
     $book39->StockCount = 30;
     $book39->Description = "The Adventures of Sherlock Holmes is a collection of short stories by British writer Arthur Conan Doyle, first published on 14 October, 1892. It contains the earliest short stories featuring the consulting detective Sherlock Holmes, which had been published in twelve monthly issues of The Strand Magazine, from July 1891 to June 1892. The stories are collected in the same sequence, which is not supported by any fictional chronology. The only characters common to all twelve are Holmes and Dr. Watson, and all are relayed in first-person narrative from Watson's point of view.
 
@@ -1101,7 +1101,7 @@ Nineteen Eighty-Four has become a classic literary example of political and dyst
     $book40->Author = 19;
     $book40->Genres = [11];
     $book40->Price = 7.99;
-    $book40->ImagePath = "the_wind_in_the_willows.jpg";
+    $book40->ImagePath = "img/books/the_wind_in_the_willows.jpg";
     $book40->StockCount = 30;
     $book40->Description = "The Wind in the Willows is a children's novel by the British novelist Kenneth Grahame, first published in 1908. It tells the story of Mole, Ratty and Badger as they try to help Mr. Toad after he becomes obsessed with motorcars and gets into trouble.
 

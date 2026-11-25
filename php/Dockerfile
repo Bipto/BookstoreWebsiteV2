@@ -50,9 +50,13 @@ RUN { \
 
 RUN { \
         echo "file_uploads=On"; \
+        echo "upload_tmp_dir=/tmp"; \
         echo "upload_max_filesize=10M"; \
         echo "post_max_size=12M"; \
         echo "max_file_uploads=20"; \
+        echo "max_execution_time=120"; \
+        echo "max_input_time=120"; \
+        echo "memory_limit=256M"; \
     } > /usr/local/etc/php/conf.d/99-uploads.ini
 
 # ==========================================================

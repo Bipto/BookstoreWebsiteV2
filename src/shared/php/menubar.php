@@ -26,7 +26,7 @@ class Menubar
             >';
 
 
-        $logoPath = getImagePath('logo.png');
+        $logoPath = sanitiseAssetUrl(getAssetUrl('img/logo.png'));
 
         // Company logo
         $html .= "
